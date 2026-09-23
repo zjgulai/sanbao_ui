@@ -240,6 +240,7 @@ const pluginDetailVariants = ['plugins-superpowers-detail', 'plugins-superpowers
 const isMarketListState = (id: string) => { const state = states.find(item => item.id === id); return state?.page === 'extensions' && !state.variant.endsWith('-detail') && !pluginDetailVariants.includes(state.variant); };
 const batch21CompatibleReferenceVariants = new Set(['models.add.openai-compatible', 'models.openai-compatible.api-type.open', 'models.add.anthropic-compatible']);
 const batch21DefaultModelReferenceVariants = new Set(['models.add.default']);
+const batch21DiscardReferenceVariants = new Set(['models.discard.open']);
 
 export function App() {
   const [id, setId] = useState(getStateId);
@@ -290,7 +291,7 @@ export function App() {
   currentSceneId.current = sceneId;
   const state = states.find(item => item.id === id);
   const scene = states.find(item => item.id === sceneId);
-  const referenceTheme = scene && (batch21CompatibleReferenceVariants.has(scene.variant) || batch21DefaultModelReferenceVariants.has(scene.variant)) ? 'dark' : undefined;
+  const referenceTheme = !scene ? undefined : batch21CompatibleReferenceVariants.has(scene.variant) || batch21DefaultModelReferenceVariants.has(scene.variant) ? 'dark' : batch21DiscardReferenceVariants.has(scene.variant) ? 'dark-discard' : undefined;
   const searchOpen = isSearchState(id);
   const observation = Number(scene?.observationIds.find(item => item.startsWith('QB1-'))?.split('-')[1] ?? 0);
   const initialContextMenu: ComposerContextState | undefined = scene?.observationIds.includes('QD0-03') ? 'context' : scene?.observationIds.includes('QD0-04') ? 'skills' : ({ 'goal-mode': 'goal', 'plan-mode': 'plan', 'site-templates': 'sites', 'files-menu': 'files', 'plugins-menu': 'plugins' } as Record<string, ComposerContextState>)[scene?.variant ?? ''];

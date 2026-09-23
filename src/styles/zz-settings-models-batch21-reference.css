@@ -1,9 +1,10 @@
 /*
  * Batch21 visual reference condition. It is intentionally scoped to the
- * compatible-provider states that were captured in Batch21; it is not a
- * product-wide dark-theme token set.
+ * directly captured model-form and discard states from Batch21; it is not a
+ * product-wide dark-theme token set. The discard-only condition intentionally
+ * styles the confirmation layer without inferring a DeepSeek form theme.
  */
-[data-reference-theme="dark"] .modal-backdrop {
+:is([data-reference-theme="dark"], [data-reference-theme="dark-discard"]) .modal-backdrop {
   background: rgb(8 11 9 / 84%);
   backdrop-filter: blur(6px);
 }
@@ -166,7 +167,7 @@
   opacity: 1;
 }
 
-[data-reference-theme="dark"] .modal.settings-models-discard {
+:is([data-reference-theme="dark"], [data-reference-theme="dark-discard"]) .modal.settings-models-discard {
   box-sizing: border-box;
   width: 505px;
   max-width: calc(100vw - 40px);
@@ -179,29 +180,29 @@
   box-shadow: 0 28px 96px rgb(0 0 0 / 46%);
 }
 
-[data-reference-theme="dark"] .settings-models-discard .modal-heading {
+:is([data-reference-theme="dark"], [data-reference-theme="dark-discard"]) .settings-models-discard .modal-heading {
   padding: 0 0 16px;
 }
 
-[data-reference-theme="dark"] .settings-models-discard .modal-heading h2 {
+:is([data-reference-theme="dark"], [data-reference-theme="dark-discard"]) .settings-models-discard .modal-heading h2 {
   color: #e8ece7;
   font-size: 22px;
   font-weight: 600;
   line-height: 30px;
 }
 
-[data-reference-theme="dark"] .settings-models-discard p {
+:is([data-reference-theme="dark"], [data-reference-theme="dark-discard"]) .settings-models-discard p {
   color: #aab2ab;
   font-size: 16px;
   line-height: 24px;
 }
 
-[data-reference-theme="dark"] .settings-models-discard footer {
+:is([data-reference-theme="dark"], [data-reference-theme="dark-discard"]) .settings-models-discard footer {
   gap: 12px;
   margin-top: 24px;
 }
 
-[data-reference-theme="dark"] .settings-models-discard footer button {
+:is([data-reference-theme="dark"], [data-reference-theme="dark-discard"]) .settings-models-discard footer button {
   min-height: 42px;
   padding: 9px 18px;
   border-color: transparent;
@@ -212,7 +213,7 @@
   line-height: 24px;
 }
 
-[data-reference-theme="dark"] .settings-models-discard footer .settings-models-danger {
+:is([data-reference-theme="dark"], [data-reference-theme="dark-discard"]) .settings-models-discard footer .settings-models-danger {
   border-color: #ff4548;
   background: #ff4548;
   color: #160808;
