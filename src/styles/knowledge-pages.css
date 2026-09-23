@@ -1,0 +1,143 @@
+.knowledge-page,.sites-page{height:100%;overflow:auto;background:#fff;color:#363636;scrollbar-width:thin}
+.collection-header{min-height:51px;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:0 23px;flex-wrap:wrap}
+.collection-tabs{display:flex;align-items:center;gap:21px;min-width:0}
+.collection-tabs button{position:relative;padding:13px 0 12px;font-size:12px;color:#969696;white-space:nowrap;border-radius:0}
+.collection-tabs button.selected{color:#414141;font-weight:500}
+.collection-tabs button.selected::after{content:"";position:absolute;height:2px;border-radius:2px;left:0;right:0;bottom:3px;background:#7a8a66}
+.collection-tabs button:not(:disabled):hover{background:none;color:#565656}
+.collection-header-actions{display:flex;align-items:center;gap:12px;min-width:0}
+.collection-feedback{display:inline-flex;align-items:center;gap:5px;color:#909090;font-size:10px;padding:5px 3px;border-radius:4px;white-space:nowrap}
+.collection-icon-button{height:27px;width:27px;display:inline-flex;align-items:center;justify-content:center;color:#939393;border-radius:5px;flex-shrink:0}
+.collection-search{display:flex;align-items:center;gap:6px;height:29px;width:151px;border:1px solid #e6e6e4;border-radius:6px;padding:0 9px;color:#a6a6a4;background:#fff}
+.collection-search input{border:0;background:none;width:100%;min-width:0;font-size:10px;padding:4px 0;color:#585858}
+.collection-search input::placeholder{color:#a9a9a7}
+.collection-content{width:min(745px,calc(100% - 64px));margin:0 auto;padding:0 0 40px}
+.collection-banner{position:relative;min-height:132px;display:flex;align-items:center;justify-content:space-between;gap:12px;overflow:hidden}
+.collection-banner h1{font-size:22px;font-weight:600;line-height:1.5;letter-spacing:.1px;position:relative;z-index:1;color:#454545}
+.collection-banner h1 span{font-weight:500}
+.collection-banner-art{width:220px;height:122px;flex-shrink:0;opacity:.8}
+.collection-toolbar{display:flex;align-items:center;justify-content:space-between;gap:15px;min-height:51px;padding-bottom:12px}
+.collection-workspace-filter{display:inline-flex;align-items:center;gap:8px;font-size:11px;color:#747474;padding:6px 0;border-radius:4px}
+.collection-workspace-root{position:relative}
+.collection-workspace-menu{position:absolute;left:0;top:calc(100% + 4px);z-index:12;width:185px;padding:4px;background:#fff;border:1px solid #e3e3df;border-radius:7px;box-shadow:0 6px 18px #22222212}
+.collection-workspace-menu button{display:flex;align-items:center;justify-content:space-between;gap:14px;width:100%;padding:7px 9px;border-radius:4px;text-align:left;font-size:11px;color:#666}
+.collection-workspace-menu button[aria-checked=true]{color:#607847;background:#f3f6ef}
+.collection-workspace-menu button:focus-visible{outline:2px solid #91a37d;outline-offset:-2px}
+.collection-view-buttons{display:flex;align-items:center;gap:4px;margin-left:auto}
+.collection-view-buttons button{height:25px;width:27px;display:flex;align-items:center;justify-content:center;border-radius:4px;color:#a5a5a1}
+.collection-view-buttons button.selected{color:#778365;background:#f0f3eb}
+.knowledge-empty{min-height:200px;border:1px dashed #dededb;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:22px 18px;background:#fdfdfb}
+.knowledge-empty-icon{color:#aab79b;margin-bottom:9px;line-height:0}
+.knowledge-empty h2,.sites-empty h2{font-size:13px;font-weight:500;color:#686868;line-height:1.6}
+.knowledge-empty p,.sites-empty p{font-size:10px;line-height:1.7;color:#a0a09d;margin-top:7px}
+.knowledge-empty .primary-button{margin-top:16px;font-size:11px;min-height:29px;padding:6px 12px;background:#718652}
+.knowledge-empty .primary-button:not(:disabled):hover{background:#627647}
+.collection-local-note{font-size:10px;color:#8d8d89;margin-top:12px;line-height:1.6}
+.modal.knowledge-create-modal{width:min(540px,100%);background:#f3f3f1;padding:5px;border-color:#e1e1dd;border-radius:13px;overflow:visible}
+.knowledge-create-modal .modal-heading{padding:11px 13px 10px;min-height:44px}
+.knowledge-create-modal .modal-heading h2{font-size:13px;font-weight:500;color:#535353}
+.knowledge-create-modal .modal-heading .icon-button{width:23px;height:23px;color:#949491}
+.knowledge-create-modal form{background:transparent;border:0}
+.knowledge-create-body{padding:16px 17px 12px;background:#fff;border:1px solid #e4e4e0;border-radius:9px}
+.knowledge-name-label{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px;font-size:11px;color:#626262}
+.knowledge-name-label>span{font-size:10px;color:#a9a9a5}
+.knowledge-name-input{width:100%;height:33px;border:1px solid #ddddda;border-radius:6px;padding:6px 10px;background:#fff;font-size:11px;color:#464646}
+.knowledge-name-input::placeholder{color:#b3b3af}
+.knowledge-scope-fieldset{min-width:0;border:0;margin:17px 0 0;padding:0;font-size:11px;color:#626262}
+.knowledge-scope-fieldset legend{padding:0;margin-bottom:9px}
+.knowledge-scope-options{display:flex;align-items:center;justify-content:flex-start;gap:22px}
+.knowledge-scope-options label{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:#626262;cursor:pointer}
+.knowledge-scope-options input{width:13px;height:13px;margin:0;accent-color:#718652;cursor:pointer}
+.knowledge-scope-description{font-size:10px;line-height:1.65;color:#a5a5a0;margin-top:9px}
+.knowledge-workspace-picker{position:relative;margin-top:16px}
+.knowledge-workspace-picker>label{display:block;font-size:11px;line-height:18px;color:#626262;margin-bottom:7px}
+.knowledge-workspace-select{width:100%;min-height:33px;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:4px 8px;border:1px solid #ddddda;border-radius:6px;background:#fff;color:#92928c;font-size:11px}
+.knowledge-workspace-placeholder{color:#b3b3af}
+.knowledge-workspace-chip{display:inline-flex;align-items:center;border:1px solid #dededb;border-radius:4px;background:#f5f5f2;color:#62645c;font-size:10px;padding:2px 6px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.knowledge-form-workspaces{position:absolute;z-index:14;top:calc(100% + 4px);left:0;right:0;padding:4px;border:1px solid #dededb;border-radius:7px;background:#fff;box-shadow:0 5px 18px #2222}
+.knowledge-form-workspaces>button{width:100%;display:flex;align-items:center;gap:8px;min-height:30px;padding:6px 8px;border-radius:4px;text-align:left;font-size:11px;color:#575951}
+.knowledge-form-workspaces>button:hover,.knowledge-form-workspaces>button:focus{background:#f1f3ed;outline:none}
+.knowledge-picker-check{width:12px;height:12px;display:grid;place-items:center;border:1px solid #c9ccc2;border-radius:3px;background:#fff;flex-shrink:0}
+.knowledge-picker-check.checked{background:#758966;border-color:#758966;color:white}
+.knowledge-form-workspaces>p{padding:6px 8px 3px;font-size:9px;line-height:16px;color:#9d9f95}
+.knowledge-form-notice{font-size:10px;line-height:1.65;color:#72815e;margin-top:10px;padding:7px 9px;border:1px solid #e4e9da;border-radius:5px;background:#f7f9f3}
+.knowledge-create-footer{display:flex;justify-content:flex-end;align-items:center;gap:7px;padding:11px 12px 7px;background:transparent}
+.knowledge-create-footer .primary-button,.knowledge-create-footer .secondary-button{font-size:11px;min-height:29px;padding:6px 12px}
+.knowledge-create-footer .primary-button{background:#718652}
+.knowledge-create-footer .primary-button:disabled{background:#cbd5bd;color:#f7f9f4}
+.knowledge-create-footer .primary-button:not(:disabled):hover{background:#627647}
+.repo-wiki-status-tabs{display:flex;align-items:center;gap:6px}
+.repo-wiki-status-tabs button{font-size:11px;padding:5px 10px;border-radius:5px;color:#90908b}
+.repo-wiki-status-tabs button.selected{color:#65754f;background:#f0f3eb}
+.repo-wiki-project{border:1px dashed #dcded7;border-radius:9px;color:#767771;background:#fdfefb}
+.repo-wiki-project.card{display:grid;grid-template-columns:1fr auto;gap:17px 12px;max-width:360px;padding:18px}
+.repo-wiki-project-title{display:flex;align-items:center;gap:9px;min-width:0;color:#8d9b7c}
+.repo-wiki-project-title a{font-size:12px;font-weight:500;color:#53584f;text-decoration:none;overflow-wrap:anywhere}
+.repo-wiki-project-title a:hover{text-decoration:underline}
+.repo-wiki-project.card .repo-wiki-project-title{grid-column:1/-1}
+.repo-wiki-project-stats{display:flex;align-items:center;gap:19px;color:#a0a198;font-size:10px}
+.repo-wiki-project-stats span{display:inline-flex;align-items:center;gap:5px}
+.repo-wiki-status{justify-self:end;display:inline-flex;align-items:center;white-space:nowrap;align-self:center;padding:3px 7px;border-radius:4px;background:#f0f0e9;font-size:9px;color:#96978b}
+.repo-wiki-project-generate{display:flex;align-items:center;justify-content:flex-end;gap:5px;color:#738554;font-size:10px;padding:4px 0;white-space:nowrap}
+.repo-wiki-project.card .repo-wiki-project-generate{grid-column:1/-1;justify-self:end}
+.repo-wiki-project.list{display:flex;align-items:center;gap:24px;padding:18px 20px}
+.repo-wiki-project.list .repo-wiki-project-title{flex:1}
+.repo-wiki-empty{min-height:200px}
+.repo-wiki-setup{display:flex;flex-direction:column;overflow:hidden}
+.repo-wiki-setup-header{min-height:51px;padding:0 22px;display:flex;align-items:center;justify-content:space-between;gap:20px;border-bottom:1px solid #ededeb}
+.repo-wiki-breadcrumb{display:flex;align-items:center;gap:10px;min-width:0;color:#b4b4ae;font-size:12px}
+.repo-wiki-breadcrumb button{font-size:12px;color:#86867e;padding:5px 0;white-space:nowrap}
+.repo-wiki-breadcrumb h1{font-size:12px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#62625d}
+.repo-wiki-setup-body{display:flex;flex:1;min-height:0}
+.repo-wiki-directory{width:345px;max-width:38%;flex-shrink:0;padding:15px 17px;border-right:1px solid #e9eae5;display:flex;flex-direction:column}
+.repo-wiki-reading-wide .repo-wiki-directory{width:100%;max-width:none;border-right:0}
+.repo-wiki-reading-wide .repo-wiki-directory-toolbar{display:flex;align-items:center;gap:12px}
+.repo-wiki-reading-wide .repo-wiki-disabled-search{flex:1;min-width:0}
+.repo-wiki-reading-wide .repo-wiki-directory-tabs{border-bottom:0;padding:0}
+.repo-wiki-disabled-search{display:flex;align-items:center;gap:7px;padding:7px 9px;border:1px solid #e7e8e2;border-radius:6px;color:#b5b7ad;background:#fafbf8}
+.repo-wiki-disabled-search input{min-width:0;width:100%;border:0;background:none;color:#b5b7ad;font-size:10px}
+.repo-wiki-disabled-search input::placeholder{color:#b5b7ad}
+.repo-wiki-directory-tabs{display:flex;align-items:center;gap:8px;padding:12px 0;border-bottom:1px solid #eeefea}
+.repo-wiki-directory-tabs button{display:flex;align-items:center;justify-content:center;width:30px;height:27px;color:#a4a99a;border-radius:5px}
+.repo-wiki-directory-tabs button.selected{color:#6e8452;background:#eef3e8}
+.repo-wiki-directory-empty{flex:1;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;color:#b3bba6;padding:18px 0 76px}
+.repo-wiki-directory-empty h2{font-size:11px;font-weight:500;line-height:1.6;margin-top:13px;color:#868c7b}
+.repo-wiki-directory-empty p{font-size:10px;line-height:1.6;margin-top:7px;color:#b0b4a7}
+.repo-wiki-configuration{flex:1;min-width:0;overflow:auto;padding:15px 20px 30px;scrollbar-width:thin}
+.repo-wiki-hint{font-size:10px;line-height:1.7;color:#698baa;background:#f0f7fb;border:1px solid #dfebf1;border-radius:6px;padding:9px 11px}
+.repo-wiki-configuration-content{width:min(385px,100%);margin:48px auto 0;display:flex;align-items:center;flex-direction:column}
+.repo-wiki-configuration-icon{display:flex;align-items:center;justify-content:center;width:59px;height:59px;border-radius:15px;color:#8a9c70;background:#f1f5eb}
+.repo-wiki-configuration-content h2{font-size:17px;font-weight:500;color:#51564b;margin-top:16px;margin-bottom:23px}
+.repo-wiki-config-rows{width:100%;border:1px solid #e2e5da;border-radius:9px;overflow:hidden}
+.repo-wiki-config-row{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:14px 15px;font-size:11px;color:#696e60;min-height:57px}
+.repo-wiki-config-row+.repo-wiki-config-row{border-top:1px solid #eceee6}
+.repo-wiki-config-row p{font-size:9px;line-height:1.7;color:#a1a795;margin-top:6px;max-width:260px}
+.repo-wiki-config-row .toggle{flex-shrink:0;width:28px;height:16px}
+.repo-wiki-config-row .toggle span{width:12px;height:12px}
+.repo-wiki-config-row .toggle.on span{transform:translateX(12px)}
+.repo-wiki-config-row .toggle:disabled{opacity:.45;cursor:not-allowed}
+.repo-wiki-languages{display:flex;align-items:center;gap:3px;background:#f1f3eb;padding:3px;border-radius:5px}
+.repo-wiki-languages button{font-size:10px;color:#999f8b;padding:4px 8px;border-radius:3px}
+.repo-wiki-languages button.selected{background:#fff;color:#708451;box-shadow:0 1px 3px #3f502015}
+.repo-wiki-generate{margin-top:23px;min-height:32px;font-size:11px;padding:7px 16px;background:#718652}
+.repo-wiki-generate:not(:disabled):hover{background:#627647}
+.sites-header{justify-content:flex-end}
+.collection-add-site{display:flex;align-items:center;gap:5px;border:1px solid #deded9;border-radius:6px;padding:6px 10px;color:#747470;font-size:11px;background:#fafaf8}
+.sites-page .collection-toolbar .collection-tabs{gap:24px}
+.sites-page .collection-toolbar .collection-tabs button{font-size:11px;padding:7px 0 8px}
+.sites-page .collection-toolbar .collection-tabs button.selected::after{bottom:1px}
+.sites-empty{display:flex;align-items:center;flex-direction:column;text-align:center;padding:26px 18px 50px}
+.sites-empty-art{width:154px;height:125px}
+.sites-art-label{font-size:8px;color:#b9c0b0;line-height:1.5;margin-top:-3px;margin-bottom:12px}
+.sites-empty p{margin-top:6px}
+.sites-empty p.sites-shared-empty{font-size:12px;color:#8d9085;margin-top:4px}
+.sites-skeleton-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:23px 20px}
+.sites-skeleton-card>div{height:140px;background:#f1f2ee;border-radius:8px}
+.sites-skeleton-card>span{display:block;width:72%;height:9px;margin-top:11px;background:#f1f2ee;border-radius:3px}
+.sites-skeleton-card>span:last-child{width:46%;height:7px;margin-top:8px}
+.sites-loading>.collection-local-note{margin-top:19px}
+@media(max-width:900px){.collection-header{padding:8px 17px;gap:8px}.collection-header-actions{gap:7px}.collection-feedback{font-size:9px}.collection-content{width:calc(100% - 40px)}.collection-banner h1{font-size:20px}.collection-banner-art{width:180px}.collection-search{width:136px}}
+@media(max-width:650px){.collection-header{align-items:flex-start}.collection-header-actions{flex-wrap:wrap}.knowledge-page .collection-header-actions{width:100%}.collection-search{margin-left:auto;max-width:170px;flex:1}.collection-content{width:calc(100% - 30px)}.collection-banner{min-height:122px}.collection-banner h1{font-size:17px;line-height:1.6}.collection-banner-art{position:absolute;right:-35px;width:165px;opacity:.4}.collection-toolbar{gap:9px;min-height:46px}.collection-tabs{gap:16px}.knowledge-empty{padding:24px 12px}.knowledge-empty p{max-width:270px}.knowledge-create-body{padding:14px 12px 10px}.knowledge-create-footer{padding:10px 12px 13px}.knowledge-scope-description{font-size:9px}.sites-empty{padding-top:20px}.sites-empty-art{width:138px;height:112px}}
+@media(max-width:1050px){.repo-wiki-directory{width:275px;max-width:34%;padding:14px 12px}.repo-wiki-configuration{padding:14px 15px 25px}.repo-wiki-configuration-content{margin-top:33px}.repo-wiki-project.list{gap:15px;padding:16px}.repo-wiki-project-stats{gap:12px}}
+@media(max-width:650px){.repo-wiki-setup-header{padding:8px 14px;flex-wrap:wrap;gap:4px}.repo-wiki-setup .collection-header-actions{width:auto}.repo-wiki-setup-body{overflow:auto;flex-direction:column}.repo-wiki-directory{width:100%;max-width:none;border-right:0;border-bottom:1px solid #e9eae5}.repo-wiki-directory-empty{padding:16px 0 9px}.repo-wiki-configuration{overflow:visible}.repo-wiki-project.list{gap:10px;flex-wrap:wrap}.repo-wiki-project.list .repo-wiki-project-title{min-width:60%}.repo-wiki-configuration-content{margin-top:25px}}
+@media(max-width:650px){.sites-skeleton-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 13px}.sites-skeleton-card>div{height:115px}}

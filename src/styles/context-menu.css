@@ -1,0 +1,19 @@
+.small-menu.context-menu{width:218px;max-height:min(390px,60vh);overflow:auto;bottom:calc(100% + 8px);animation:appear .12s ease-out}
+.small-menu.context-menu>button{display:flex;align-items:center;justify-content:space-between;gap:16px;font-size:12px;min-height:31px}
+.context-menu .context-back{color:var(--muted);font-size:11px;margin-bottom:4px}
+.context-search{display:flex;align-items:center;gap:7px;padding:8px;margin:2px 3px 5px;border:1px solid var(--line);border-radius:5px;color:var(--muted)}
+.context-search input{width:100%;min-width:0;border:0;font-size:12px;background:transparent}
+.context-list-label{font-size:10px;color:var(--muted);padding:6px 8px}
+.context-empty{padding:18px 8px;color:var(--muted);font-size:12px;text-align:center}
+.small-menu.context-menu.plugin-menu{width:min(340px,calc(100vw - 32px))}
+.context-menu.plugin-menu>.plugin-choice{align-items:flex-start;justify-content:flex-start;gap:8px;white-space:normal;padding:9px 8px}
+.plugin-menu .plugin-choice>svg{flex-shrink:0;margin-top:2px;color:var(--muted)}
+.plugin-menu .plugin-copy{min-width:0;display:flex;flex-direction:column;gap:4px}
+.plugin-menu .plugin-copy strong{font-size:11px;font-weight:500;overflow-wrap:anywhere}
+.plugin-menu .plugin-copy small{font-size:10px;line-height:1.55;color:var(--muted)}
+.context-menu.plugin-menu>.plugin-empty{justify-content:center;min-height:57px;font-size:11px;color:var(--muted)}
+.context-menu.plugin-menu>.plugin-management,.context-menu>.skill-management{border-top:1px solid var(--line);border-radius:0;margin-top:5px;padding-top:10px}
+.composer-selection{display:flex;align-items:center;gap:6px;width:max-content;max-width:100%;font-size:11px;background:#edf2e9;border:1px solid #dfe7d9;border-radius:5px;margin:10px 12px 0;padding:3px 5px 3px 7px}
+.composer-selection>span{display:flex;align-items:center;gap:5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.composer-selection>button{border-radius:3px;padding:1px 5px;font-size:15px}
+@media(prefers-reduced-motion:reduce){.small-menu.context-menu{animation:none}}

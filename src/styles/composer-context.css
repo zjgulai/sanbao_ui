@@ -1,0 +1,50 @@
+.composer.composer-with-context{position:relative}
+.composer-with-context .composer-context-item{display:flex;align-items:center;gap:8px;min-width:0}
+.composer-with-context .context-menu kbd{margin-left:auto;font-family:inherit;font-size:10px;color:#94988e}
+.composer-with-context .composer-mode-chip{display:inline-flex;align-items:center;gap:5px;border-radius:5px;padding:3px 4px 3px 7px;font-size:11px;line-height:16px;white-space:nowrap}
+.composer-with-context .composer-mode-chip.goal{color:#a14b77;background:#f8e9f1;border:1px solid #ecd6e3}
+.composer-with-context .composer-mode-chip.plan{color:#547e5d;background:#eaf3e9;border:1px solid #d9e9d7}
+.composer-with-context .composer-mode-chip button{font-size:15px;color:inherit;line-height:16px;width:17px;height:17px;border-radius:3px;padding:0}
+.composer-with-context .composer-context-chips{display:flex;align-items:center;flex-wrap:wrap;gap:5px;margin:1px 0 7px}
+.composer-with-context .composer-context-chip{display:inline-flex;align-items:center;border:1px solid #d6e6f4;background:#edf5fc;border-radius:5px;font-size:11px;color:#4f80ad;max-width:100%;padding:2px 3px 2px 5px;gap:3px}
+.composer-with-context .composer-context-chip>span,.composer-with-context .composer-context-chip>button:first-child{display:inline-flex;align-items:center;gap:5px;min-width:0}
+.composer-with-context .composer-context-chip button{padding:2px 3px;color:inherit;border-radius:3px;font-size:11px}
+.composer-with-context .composer-context-chip>button:last-child{font-size:15px;line-height:15px}
+.composer-with-context .composer-context-chip.file{background:#f2f4ef;border-color:#e0e5dc;color:#717d65}
+.composer-with-context .composer-local-note{font-size:10px;line-height:1.6;color:#959d8c;border-top:1px solid #edf0e6;padding:7px 0;margin:0}
+.composer-with-context .composer-site-templates{position:absolute;bottom:calc(100% + 12px);left:0;width:100%;z-index:20;background:#fff;border:1px solid #e5e7e0;border-radius:11px;padding:13px 12px 10px;box-shadow:0 7px 25px #29351d0c;color:#494e45;max-height:min(380px,calc(100vh - 250px));overflow:auto}
+.composer-site-templates header{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:11px}
+.composer-site-templates header strong{font-size:12px;font-weight:500}
+.composer-site-templates header button{font-size:10px;color:#8a9082;display:flex;gap:5px;align-items:center;border-radius:4px;padding:3px 5px}
+.composer-site-templates .composer-site-category-row{display:flex;align-items:center;gap:9px;margin-bottom:11px}
+.composer-site-templates .composer-site-tabs{display:flex;align-items:center;gap:3px;flex:1;min-width:0;overflow:auto;scrollbar-width:none}
+.composer-site-templates .composer-site-tabs button{font-size:10px;color:#888e80;white-space:nowrap;padding:5px 7px;border-radius:5px}
+.composer-site-templates .composer-site-tabs button[aria-selected=true]{color:#4c5e43;background:#edf2e8}
+.composer-site-templates .composer-site-paging{display:flex;gap:4px;flex-shrink:0}
+.composer-site-templates .composer-site-paging button{width:22px;height:22px;border:1px solid #e5e8df;border-radius:5px;font-size:18px;color:#707a65;line-height:17px;padding:0}
+.composer-site-templates .composer-site-paging button:disabled{color:#c6cbbb;opacity:.55}
+.composer-site-templates .composer-site-track{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 24px)/3.5);gap:8px;overflow-x:auto;overscroll-behavior-inline:contain;scrollbar-width:thin;padding-bottom:4px}
+.composer-site-templates .composer-site-card{min-width:0;border:1px solid #e6e9e0;border-radius:7px;overflow:hidden;background:#fff}
+.composer-site-templates .composer-site-thumb{height:103px;position:relative;overflow:hidden;background:#f2f0e8;color:#5f6156;padding:8px}
+.composer-site-templates .composer-site-thumb.tone-1{background:#e9edf4;color:#657391}
+.composer-site-templates .composer-site-thumb.tone-2{background:#e7ede4;color:#668369}
+.composer-site-templates .composer-site-thumb.tone-3{background:#efebf5;color:#82769c}
+.composer-site-templates .composer-site-thumb.tone-4{background:#f3ebe4;color:#9e7c61}
+.composer-site-templates .composer-site-thumb-nav{display:flex;gap:4px;align-items:center}
+.composer-site-templates .composer-site-thumb-nav i{height:2px;width:11px;background:currentColor;opacity:.3}
+.composer-site-templates .composer-site-thumb-nav i:first-child{width:17px;margin-right:auto}
+.composer-site-templates .composer-site-thumb-title{position:relative;display:block;width:75%;font-size:12px;font-weight:600;line-height:1.2;margin-top:17px;z-index:1}
+.composer-site-templates .composer-site-thumb-lines{display:flex;flex-direction:column;gap:3px;margin-top:8px;opacity:.25;width:55%}
+.composer-site-templates .composer-site-thumb-lines i{height:2px;background:currentColor}
+.composer-site-templates .composer-site-thumb-lines i:last-child{width:67%}
+.composer-site-templates .composer-site-thumb-shape{position:absolute;border:1px solid currentColor;opacity:.15;width:58px;height:58px;right:-10px;top:32px;transform:rotate(-24deg);border-radius:15px}
+.composer-site-templates .composer-site-thumb small{position:absolute;bottom:5px;right:6px;font-size:8px;opacity:.55}
+.composer-site-templates .composer-site-card h3{font-size:10px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:8px 7px 6px;color:#646e5b}
+.composer-site-templates .composer-site-card h3 span{font-size:9px;font-weight:400;color:#989f8f}
+.composer-site-templates .composer-site-card-actions{display:flex;align-items:center;justify-content:space-between;gap:4px;padding:0 6px 7px}
+.composer-site-templates .composer-site-card-actions button{font-size:9px;padding:4px 5px;border-radius:4px;color:#8b9580;white-space:nowrap}
+.composer-site-templates .composer-site-card-actions button:first-child{background:#f2f5ed;color:#758965}
+.composer-site-templates .composer-site-unobserved{min-height:148px;display:grid;place-items:center;font-size:11px;color:#979e8f;text-align:center;line-height:1.7}
+.composer-site-templates .composer-site-evidence,.composer-site-templates .composer-site-notice{font-size:9px;line-height:1.6;color:#a1a793;margin:7px 0 0}
+.composer-site-templates .composer-site-notice{color:#7b886c;padding-top:6px;border-top:1px solid #edf0e7}
+@media(max-width:720px){.composer-site-templates .composer-site-track{grid-auto-columns:calc((100% - 12px)/2.2)}.composer-site-templates .composer-site-tabs button{padding:5px}.composer-with-context .composer-tools{flex-wrap:wrap}}

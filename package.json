@@ -1,0 +1,26 @@
+{
+  "name": "sanbao-prototype",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "luteOrigin": "self",
+  "luteOwner": "lute",
+  "lutePublish": false,
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "check:catalog": "node scripts/check-catalog.mjs",
+    "check:contract": "node scripts/check-interaction-contract.mjs",
+    "build": "pnpm typecheck && pnpm check:catalog && pnpm check:contract && tsdown && node scripts/prepare-static.mjs",
+    "preview": "python3 -m http.server 4173 --bind 127.0.0.1 --directory dist"
+  },
+  "dependencies": {
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "18.3.1",
+    "@types/react-dom": "18.3.5",
+    "tsdown": "0.22.2",
+    "typescript": "5.7.2"
+  }
+}

@@ -1,0 +1,126 @@
+.installed-extensions,.extension-market{height:100%;min-width:0;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#d7d7d7 transparent;background:#fff;color:#222}
+.installed-extensions{position:relative}
+.installed-extensions-content{width:calc(100% - 64px);max-width:725px;margin:0 auto;padding:42px 0 60px}
+.installed-extensions-heading{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:0 14px}
+.installed-extensions-heading h1{font-size:23px;line-height:31px;font-weight:500;scroll-margin-top:34px;color:#222}
+.installed-extensions-heading h1:focus{outline:none}
+.installed-extensions-heading p{font-size:12px;line-height:18px;color:#909090;margin-top:6px}
+.extensions-refresh{position:absolute;top:12px;right:13px;width:25px;height:25px;display:grid;place-items:center;border-radius:5px;color:#909090}
+.extensions-secondary,.extensions-primary{display:inline-flex;align-items:center;justify-content:center;gap:5px;font-size:12px;line-height:17px;border-radius:5px;padding:6px 9px;white-space:nowrap;flex-shrink:0}
+.extensions-secondary{border:1px solid #e5e5e5;color:#555;background:#fff}
+.extensions-primary{border:1px solid #4d6c5a;background:#4d6c5a;color:#fff}
+.extensions-primary:not(:disabled):hover{background:#405d4d}
+.installed-extensions-toolbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:26px;padding:0 14px}
+.extensions-type-tabs{display:flex;align-items:center;gap:5px;min-width:0}
+.extensions-type-tabs>button{display:flex;align-items:center;gap:6px;padding:7px 9px;border-radius:5px;font-size:12px;line-height:18px;white-space:nowrap;color:#909090}
+.extensions-type-tabs>button.selected{background:#eee;color:#222}
+.extensions-type-tabs>button>span{font-size:10px;color:#909090;background:#f4f4f4;border-radius:4px;padding:0 4px;line-height:15px}
+.installed-extensions-tools{display:flex;align-items:center;gap:9px;min-width:0}
+.extensions-search{display:flex;align-items:center;gap:7px;min-width:0;border:1px solid #e5e5e5;border-radius:5px;padding:6px 8px;background:#fff;color:#999}
+.extensions-search input{width:170px;min-width:0;font-size:12px;line-height:17px;border:0;background:none;padding:0;color:#333}
+.extensions-search input::placeholder{color:#999}
+.extensions-add-root{position:relative;flex-shrink:0}
+.extensions-add-menu{position:absolute;top:calc(100% + 6px);right:0;z-index:30;width:300px;max-width:calc(100vw - 36px);padding:5px;border:1px solid #e5e5e5;border-radius:8px;background:#fff;box-shadow:0 7px 24px #0000001a}
+.extensions-add-menu>button{display:flex;align-items:flex-start;gap:11px;width:100%;text-align:left;padding:12px 11px;border-radius:5px;color:#333}
+.extensions-add-menu>button>svg{margin-top:2px;color:#888}
+.extensions-add-menu>button>span{min-width:0;flex:1}
+.extensions-add-menu strong{display:block;font-size:12px;font-weight:500;line-height:18px}
+.extensions-add-menu small{display:block;font-size:11px;color:#909090;line-height:17px;margin-top:5px}
+.extensions-add-menu>button:focus{outline:none;background:#f1f1f1}
+.installed-extensions-section{margin-top:22px}
+.installed-extensions-section>h2{font-size:12px;font-weight:500;line-height:20px;color:#555;padding:0 14px;margin-bottom:10px}
+.installed-extensions-empty{height:248px;border:1px dashed #e5e5e5;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:26px;text-align:center}
+.installed-extensions-empty-icon{display:grid;place-items:center;width:48px;height:48px;border-radius:12px;background:#f5f5f5;border:1px solid #ededed;color:#999;margin-bottom:17px}
+.installed-extensions-empty h3{font-size:14px;line-height:22px;font-weight:500;color:#333}
+.installed-extensions-empty p{font-size:12px;line-height:19px;color:#909090;margin-top:7px}
+.extensions-local-note{font-size:10px;line-height:18px;color:#999;margin-top:15px}
+.extension-market-toolbar{display:flex;align-items:center;justify-content:space-between;gap:15px;min-height:51px;padding:9px 17px}
+.extension-market-tools{display:flex;align-items:center;gap:8px;min-width:0}
+.extension-market-refresh{width:26px;height:26px;display:grid;place-items:center;border-radius:5px;color:#909090;flex-shrink:0}
+.extension-market-toolbar .extensions-type-tabs>button.selected{background:transparent;color:#222;font-weight:500}
+.extension-market-tools .extensions-search input{width:154px}
+.extension-market-content{width:calc(100% - 80px);max-width:746px;margin:0 auto;padding:40px 0 28px}
+.extension-market-hero{display:flex;align-items:flex-start;justify-content:space-between;gap:26px;min-height:90px}
+.extension-market-hero h1{font-size:20px;line-height:29px;font-weight:600;color:#222}
+.extension-market-hero h1>span{color:#4d6c5a}
+.extension-market-hero p{font-size:18px;line-height:26px;font-weight:500;color:#333;margin-top:10px}
+.extension-market-recommendation{position:relative;width:196px;flex-shrink:0;margin-top:-22px;padding:0;border-radius:8px}
+.extension-market-recommendation svg{display:block;width:196px;height:100px}
+.extension-market-recommendation small{display:block;font-size:9px;color:#aaa;text-align:right;margin-top:-6px;padding-right:10px}
+.extension-market-categories{display:flex;align-items:center;gap:7px;margin-top:12px;min-width:0}
+.extension-market-category-scroll{display:flex;align-items:center;gap:5px;overflow:auto;min-width:0;flex:1;scrollbar-width:none}
+.extension-market-category-scroll::-webkit-scrollbar{display:none}
+.extension-market-category-scroll>button{padding:7px 9px;font-size:12px;line-height:17px;color:#909090;white-space:nowrap;border-radius:5px;flex-shrink:0}
+.extension-market-category-scroll>button.selected{background:#eee;color:#333}
+.extension-market-more{width:25px;height:27px;border-radius:5px;color:#909090;display:grid;place-items:center;flex-shrink:0}
+.extension-market-sort{display:flex;align-items:center;padding:2px;gap:2px;white-space:nowrap;background:#f1f1f1;border-radius:6px;flex-shrink:0}
+.extension-market-sort>button{font-size:12px;line-height:17px;color:#909090;padding:4px 8px;border:1px solid transparent;border-radius:4px}
+.extension-market-sort>button.selected{background:#fff;border-color:#e5e5e5;color:#444;box-shadow:0 1px 2px #00000005}
+.extension-market-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:24px;margin-top:20px}
+.extension-market-item{position:relative;display:flex;align-items:center;min-width:0;min-height:80px;border-radius:8px}
+.extension-market-details{display:flex;align-items:center;gap:12px;min-width:0;flex:1;text-align:left;padding:12px 8px;border-radius:8px}
+.extension-market-item-icon{display:grid;place-items:center;width:42px;height:42px;flex:0 0 42px;border-radius:10px;color:#85a065;background:#edf3e4;border:1px solid #e2ead9}
+.extension-market-item-icon.palette-1{color:#a39e75;background:#f5f3e8;border-color:#eeeadb}
+.extension-market-item-icon.palette-2{color:#7c9a9e;background:#ecf3f2;border-color:#e2eceb}
+.extension-market-item-icon.palette-3{color:#9e8caa;background:#f1edf5;border-color:#e9e2ee}
+.extension-market-item-icon.palette-4{color:#a58d78;background:#f6f0e9;border-color:#ece4db}
+.extension-market-item-icon.palette-5{color:#8d9ba6;background:#edf2f5;border-color:#e1e8ec}
+.extension-market-item-copy{display:block;min-width:0;flex:1}
+.extension-market-item-copy strong{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:14px;line-height:21px;font-weight:500;color:#222}
+.extension-market-item-copy>span{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;line-height:18px;margin-top:4px;color:#909090}
+.extension-market-install{position:absolute;right:7px;top:50%;transform:translateY(-50%);font-size:11px;line-height:17px;border:1px solid #e5e5e5;border-radius:5px;background:#fff;color:#4d6c5a;padding:4px 8px;opacity:0;pointer-events:none}
+.extension-market-item:hover .extension-market-install,.extension-market-item:focus-within .extension-market-install{opacity:1;pointer-events:auto}
+.extension-market-item:hover .extension-market-details,.extension-market-item:focus-within .extension-market-details{padding-right:61px}
+.extension-market-source-note{border-top:1px solid #e5e5e5;padding-top:15px;font-size:10px;margin-top:18px}
+@media(max-width:1100px){.installed-extensions-content{width:calc(100% - 38px)}.installed-extensions-heading,.installed-extensions-toolbar{padding-right:6px;padding-left:6px}.installed-extensions-toolbar{gap:9px}.extensions-type-tabs{gap:2px}.extensions-type-tabs>button{padding-right:7px;padding-left:7px}.installed-extensions-tools .extensions-search input{width:140px}.extension-market-toolbar{padding-right:12px;padding-left:12px;gap:7px}.extension-market-tools{gap:6px}.extension-market-tools .extensions-search input{width:120px}.extension-market-content{width:calc(100% - 48px)}.extension-market-list{column-gap:16px}}
+@media(max-width:760px){.installed-extensions-toolbar,.extension-market-toolbar{flex-wrap:wrap}.installed-extensions-tools,.extension-market-tools{width:100%}.extensions-search{flex:1}.extensions-search input,.extension-market-tools .extensions-search input,.installed-extensions-tools .extensions-search input{width:100%}.installed-extensions-content{width:calc(100% - 28px);padding-top:35px}.installed-extensions-heading{align-items:flex-start;gap:12px}.installed-extensions-heading h1{font-size:21px}.installed-extensions-heading p{font-size:11px}.installed-extensions-empty{padding:18px}.extension-market-content{width:calc(100% - 30px);padding-top:27px}.extension-market-hero{gap:12px}.extension-market-hero h1{font-size:20px}.extension-market-hero p{font-size:16px}.extension-market-recommendation{width:120px;margin-top:0}.extension-market-recommendation svg{width:120px;height:auto}.extension-market-list{grid-template-columns:minmax(0,1fr)}.extension-market-category-scroll{max-width:100%}}
+.extension-detail{height:100%;min-width:0;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#d7d7d7 transparent;background:#fff;color:#222}
+.extension-detail:focus{outline:none}
+.extension-detail:focus-visible{outline:2px solid #77917e;outline-offset:-3px}
+.extension-detail-breadcrumb{display:flex;align-items:center;gap:8px;min-height:46px;padding:10px 19px;color:#929292;font-size:12px;line-height:18px}
+.extension-detail-breadcrumb>button{padding:3px 4px;border-radius:4px;color:#656565;font-size:12px}
+.extension-detail-breadcrumb>span{color:#363636}
+.extension-detail-content{width:calc(100% - 80px);max-width:746px;margin:0 auto;padding:32px 0 64px}
+.extension-detail-header{display:flex;align-items:center;gap:13px;min-width:0}
+.extension-detail-icon{height:38px;width:38px;flex:0 0 38px;display:grid;place-items:center;border-radius:9px;background:#f2eee8;border:1px solid #e7e0d6;color:#a18b70}
+.extension-detail-identity{flex:1;min-width:0}
+.extension-detail-title{display:flex;align-items:center;gap:9px}
+.extension-detail-title h1{font-size:20px;line-height:28px;font-weight:600;color:#222}
+.extension-detail-title>span{font-size:11px;line-height:17px;border:1px solid #e7e7e7;border-radius:4px;background:#fafafa;color:#888;padding:0 5px}
+.extension-detail-meta{display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-size:12px;line-height:18px;color:#929292;margin-top:4px}
+.extension-detail-meta>span+span{position:relative}
+.extension-detail-meta>span+span:before{position:absolute;left:-8px;top:8px;width:2px;height:2px;border-radius:50%;background:#c2c2c2;content:""}
+.extension-detail-install{padding:6px 16px}
+.extension-detail-intro{font-size:12px;line-height:22px;color:#777;margin-top:16px}
+.extension-detail-section{margin-top:34px}
+.extension-detail-section>h2{font-size:16px;line-height:24px;font-weight:500;padding-bottom:12px;border-bottom:1px dashed #e5e5e5;color:#292929}
+.extension-detail-section>h2>span{margin-left:5px;font-size:12px;font-weight:400;color:#999}
+.extension-detail-skill-row{display:flex;align-items:center;gap:12px;padding:18px 0;min-width:0;min-height:74px}
+.extension-detail-small-icon{display:grid;place-items:center;flex:0 0 35px;width:35px;height:35px;border:1px solid #e8e8e8;border-radius:7px;background:#f8f8f8;color:#888}
+.extension-detail-skill-row>div{min-width:0}
+.extension-detail-skill-row h3{font-size:13px;line-height:21px;font-weight:500;color:#333}
+.extension-detail-skill-row p{font-size:12px;line-height:19px;color:#909090;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:3px}
+.extension-detail-connector-row{padding:18px 0;min-height:68px}
+.extension-detail-connector{display:inline-flex;align-items:center;gap:7px;padding:6px 10px;border:1px solid #e5e5e5;border-radius:6px;background:#fff;font-size:12px;line-height:18px;color:#666}
+.extension-detail-document{font-size:12px;line-height:1.85;color:#555;padding-top:22px}
+.extension-detail-document h3{font-size:20px;line-height:28px;font-weight:600;color:#222;margin-bottom:12px}
+.extension-detail-document p{margin-bottom:15px}
+.extension-detail-document .extension-detail-tagline{font-size:14px;font-weight:500;color:#444;margin-bottom:12px}
+.extension-detail-document .extension-detail-source-note{font-size:10px;line-height:18px;color:#939393;border-left:2px solid #dedede;padding-left:10px;margin:18px 0 24px}
+.extension-detail-document h4{font-size:16px;line-height:24px;font-weight:500;color:#292929;margin:25px 0 12px}
+.extension-detail-document ul,.extension-detail-document ol{padding-left:22px;margin:0 0 20px}
+.extension-detail-document li{padding-left:2px;margin:6px 0}
+.extension-detail-document strong{font-weight:500;color:#444}
+.extension-detail-document .extension-detail-example-note{font-size:10px;color:#939393;margin-bottom:9px}
+.extension-detail-document blockquote{font-size:12px;line-height:21px;background:#f7f7f7;border:1px solid #ededed;border-radius:6px;padding:12px 14px;margin:9px 0;color:#656565}
+.extension-detail-document .extension-detail-tail{color:#888;margin-top:20px}
+@media(max-width:1100px){.extension-detail-content{width:calc(100% - 48px)}}
+@media(max-width:760px){.extension-detail-content{width:calc(100% - 30px);padding-top:25px}.extension-detail-header{gap:10px;flex-wrap:wrap}.extension-detail-identity{flex-basis:calc(100% - 50px)}.extension-detail-install{margin-left:48px}.extension-detail-meta{gap:8px 13px}.extension-detail-section{margin-top:27px}}
+
+.extension-market-connectors .extension-market-hero h1>span{color:#73b8b0}
+.extension-market-clear{display:grid;place-items:center;width:14px;height:17px;color:#999;flex-shrink:0;border-radius:3px}
+.extension-market-empty{position:relative;isolation:isolate;min-height:460px;margin-top:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#929292}
+.extension-market-empty:before{content:"";position:absolute;inset:0;z-index:-1;background:repeating-linear-gradient(0deg,#f8f8f8 0 54px,transparent 54px 69px);border-radius:7px;opacity:.8}
+.extension-market-empty>span{display:grid;place-items:center;width:46px;height:46px;border:1px solid #e5e5e5;border-radius:8px;background:#fff;box-shadow:0 2px 4px #00000006;margin-bottom:20px;color:#aaa}
+.extension-market-empty h2{font-size:14px;line-height:22px;font-weight:500;color:#777}
+.extension-market-empty p{font-size:12px;line-height:20px;margin-top:7px;color:#999}

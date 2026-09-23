@@ -1,0 +1,22 @@
+.user-appearance-menu-anchor{position:relative;display:block;height:0;pointer-events:none}
+.user-appearance-menu-layer{position:fixed;inset:0;z-index:55;pointer-events:none;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB",sans-serif;color:#252525}
+.user-appearance-menu{position:fixed;pointer-events:auto;padding:5px;background:#fff;border:1px solid #ddddda;border-radius:7px;box-shadow:0 6px 24px #00000020,0 1px 4px #00000009;max-width:calc(100vw - 20px);max-height:calc(100vh - 20px);overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;animation:user-appearance-menu-enter .09s ease-out}
+.user-appearance-root{width:213px}
+.user-appearance-parent{width:206px}
+.user-appearance-options{width:180px}
+.user-appearance-menu>button{display:flex;width:100%;min-height:31px;align-items:center;gap:9px;padding:5px 9px;border:0;border-radius:4px;background:transparent;color:#252525;text-align:left;font-size:12px;line-height:20px;white-space:nowrap;transition:background-color .08s}
+.user-appearance-menu>button:hover,.user-appearance-menu>button:focus,.user-appearance-menu>button.branch-open{background:#ededeb;outline:none;color:#202020}
+.user-appearance-menu>button:focus-visible{box-shadow:inset 0 0 0 1px #c8c8c4}
+.user-appearance-menu>button>svg{color:#777773;flex-shrink:0}
+.user-appearance-menu>button>svg:last-child{margin-left:auto;color:#8d8d87}
+.user-appearance-item-label{min-width:0;flex:1;overflow:hidden;text-overflow:ellipsis}
+.user-appearance-menu kbd{font-family:inherit;font-size:11px;font-weight:400;color:#8d8d87;margin-left:auto;letter-spacing:1px}
+.user-appearance-separator{height:1px;background:#e9e9e6;margin:2px 4px}
+.user-appearance-parent>button{padding-right:8px}
+.user-appearance-check{width:14px;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#383835}
+.user-appearance-options>button{gap:7px}
+.user-appearance-local-notice{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);max-width:calc(100vw - 40px);padding:10px 14px;border:1px solid #deded9;border-radius:7px;background:#fff;color:#64645d;font-size:11px;line-height:1.6;box-shadow:0 5px 20px #00000012;pointer-events:none}
+@keyframes user-appearance-menu-enter{from{opacity:0;transform:translateY(2px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){.user-appearance-menu{animation:none}.user-appearance-menu>button{transition:none}}
+
+.user-appearance-menu>button[data-menu-key="logout"],.user-appearance-menu>button[data-menu-key="logout"]>svg{color:#f05c59}

@@ -1,0 +1,14 @@
+# Local dependencies and generated static preview
+node_modules/
+dist/
+output/
+.playwright-cli/
+
+# Tooling and operating-system residue
+*.tsbuildinfo
+.DS_Store
+
+# Local credentials and environment overrides
+.env
+.env.*
+!.env.example

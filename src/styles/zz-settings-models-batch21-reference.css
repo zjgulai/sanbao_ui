@@ -1,0 +1,219 @@
+/*
+ * Batch21 visual reference condition. It is intentionally scoped to the
+ * compatible-provider states that were captured in Batch21; it is not a
+ * product-wide dark-theme token set.
+ */
+[data-reference-theme="dark"] .modal-backdrop {
+  background: rgb(8 11 9 / 84%);
+  backdrop-filter: blur(6px);
+}
+
+[data-reference-theme="dark"] .modal.settings-models-dialog {
+  width: 736px;
+  max-width: calc(100vw - 40px);
+  padding: 20px;
+  overflow: visible;
+  border-color: #303832;
+  border-radius: 14px;
+  background: #222722;
+  color: #e4e8e3;
+  box-shadow: 0 28px 96px rgb(0 0 0 / 46%);
+}
+
+[data-reference-theme="dark"] .settings-models-dialog .modal-heading {
+  padding: 4px 8px 18px;
+}
+
+[data-reference-theme="dark"] .settings-models-dialog .modal-heading h2 {
+  color: #e8ece7;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 30px;
+}
+
+[data-reference-theme="dark"] .settings-models-dialog .modal-heading .icon-button,
+[data-reference-theme="dark"] .settings-models-feedback {
+  color: #c9d0ca;
+}
+
+[data-reference-theme="dark"] .settings-models-feedback {
+  top: 27px;
+  right: 58px;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+[data-reference-theme="dark"] .settings-models-dialog form {
+  padding: 18px;
+  border-radius: 12px;
+  background: #1d211e;
+}
+
+[data-reference-theme="dark"] .settings-models-fields {
+  gap: 18px;
+}
+
+[data-reference-theme="dark"] .settings-models-field > label,
+[data-reference-theme="dark"] .settings-models-label {
+  margin-bottom: 10px;
+  color: #e0e5df;
+  font-size: 16px;
+  line-height: 22px;
+}
+
+[data-reference-theme="dark"] .settings-models-label > button {
+  color: #61bd76;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+[data-reference-theme="dark"] .settings-models-select > button,
+[data-reference-theme="dark"] .settings-models-key,
+[data-reference-theme="dark"] .settings-models-text {
+  min-height: 36px;
+  border-color: #3a443e;
+  border-radius: 10px;
+  background: #1b201d;
+  color: #e4e8e3;
+  font-size: 16px;
+  line-height: 22px;
+}
+
+[data-reference-theme="dark"] .settings-models-select > button,
+[data-reference-theme="dark"] .settings-models-text {
+  padding: 6px 14px;
+}
+
+[data-reference-theme="dark"] .settings-models-key input {
+  padding: 5px 14px;
+  color: #e4e8e3;
+  font-size: 16px;
+  line-height: 22px;
+}
+
+[data-reference-theme="dark"] .settings-models-key input::placeholder,
+[data-reference-theme="dark"] .settings-models-text::placeholder {
+  color: #929b94;
+}
+
+[data-reference-theme="dark"] .settings-models-select > button > svg,
+[data-reference-theme="dark"] .settings-models-key > button,
+[data-reference-theme="dark"] .settings-models-id-row > button {
+  color: #b6beb8;
+}
+
+[data-reference-theme="dark"] .settings-models-id-row > button {
+  width: 36px;
+  height: 36px;
+  border-color: #3a443e;
+  border-radius: 10px;
+  background: #1b201d;
+}
+
+[data-reference-theme="dark"] .settings-models-options {
+  z-index: 45;
+  top: calc(100% + 6px);
+  padding: 10px;
+  border-color: #3b443e;
+  border-radius: 10px;
+  background: #202621;
+  box-shadow: 0 12px 28px rgb(0 0 0 / 50%);
+}
+
+[data-reference-theme="dark"] .settings-models-options [role="group"] + [role="group"] {
+  border-color: #364039;
+}
+
+[data-reference-theme="dark"] .settings-models-options h3 {
+  color: #99a39b;
+}
+
+[data-reference-theme="dark"] .settings-models-options button {
+  color: #e1e5e0;
+  font-size: 16px;
+  line-height: 22px;
+}
+
+[data-reference-theme="dark"] .settings-models-options button:hover,
+[data-reference-theme="dark"] .settings-models-options button[aria-selected="true"] {
+  background: #2d3b31;
+  color: #eff4ee;
+}
+
+[data-reference-theme="dark"] .settings-models-options button svg {
+  color: #66c57b;
+}
+
+[data-reference-theme="dark"] .settings-models-footer {
+  padding-top: 24px;
+}
+
+[data-reference-theme="dark"] .settings-models-footer button {
+  min-height: 36px;
+  padding: 7px 15px;
+  border-color: transparent;
+  border-radius: 9px;
+  background: transparent;
+  color: #e0e5df;
+  font-size: 16px;
+  line-height: 22px;
+}
+
+[data-reference-theme="dark"] .settings-models-footer button:disabled {
+  border-color: #3f7e51;
+  background: #3f7e51;
+  color: #10150f;
+  opacity: 1;
+}
+
+[data-reference-theme="dark"] .modal.settings-models-discard {
+  box-sizing: border-box;
+  width: 505px;
+  max-width: calc(100vw - 40px);
+  height: 240px;
+  padding: 28px 32px;
+  border-color: #303832;
+  border-radius: 14px;
+  background: #202520;
+  color: #e4e8e3;
+  box-shadow: 0 28px 96px rgb(0 0 0 / 46%);
+}
+
+[data-reference-theme="dark"] .settings-models-discard .modal-heading {
+  padding: 0 0 16px;
+}
+
+[data-reference-theme="dark"] .settings-models-discard .modal-heading h2 {
+  color: #e8ece7;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 30px;
+}
+
+[data-reference-theme="dark"] .settings-models-discard p {
+  color: #aab2ab;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+[data-reference-theme="dark"] .settings-models-discard footer {
+  gap: 12px;
+  margin-top: 24px;
+}
+
+[data-reference-theme="dark"] .settings-models-discard footer button {
+  min-height: 42px;
+  padding: 9px 18px;
+  border-color: transparent;
+  border-radius: 12px;
+  background: #2d332e;
+  color: #e6eae5;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+[data-reference-theme="dark"] .settings-models-discard footer .settings-models-danger {
+  border-color: #ff4548;
+  background: #ff4548;
+  color: #160808;
+}
