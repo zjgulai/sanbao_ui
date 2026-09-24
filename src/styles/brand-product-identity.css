@@ -1,0 +1,19 @@
+/* Product-only SanBao identity. Research evidence remains in the separate review mode. */
+.prototype.product-mode .review-bar,
+.prototype.product-mode .state-directory{display:none}
+.sidebar-top.sidebar-top-with-brand{gap:8px}
+.product-sidebar-brand{min-width:0}
+.product-sidebar-brand .sanbao-brand-mark-text{color:var(--sb-brand-ink);font-size:10px;font-weight:600;letter-spacing:.03em;white-space:nowrap}
+.product-sidebar.collapsed .product-sidebar-brand{margin-right:auto}
+.home-brand-lockup{flex:0 0 auto;max-width:42%}
+.home-brand-lockup img{max-width:100%}
+.assistant-brand-mark img{border-radius:6px}
+.session-page .assistant-heading>strong{color:var(--sb-brand-ink)}
+.settings-appearance .settings-appearance-app-options{grid-template-columns:minmax(0,360px)}
+.settings-appearance .settings-appearance-app-option.selected .settings-appearance-app-previews{border-color:var(--sb-action);box-shadow:0 0 0 2px var(--sb-selected-bg)}
+.settings-appearance .settings-appearance-app-previews>span{background:var(--sb-page);color:var(--sb-brand-ink)}
+.settings-appearance .settings-appearance-app-previews .icon-dark{background:var(--sb-ink);color:var(--sb-brand-on-dark)}
+.settings-appearance .settings-appearance-app-previews small{color:var(--sb-muted)}
+.settings-appearance .settings-appearance-app-previews .icon-dark small{color:var(--sb-brand-on-dark)}
+.settings-appearance .settings-appearance-brand-icon{display:block}
+@media(max-width:700px){.home-brand-lockup{max-width:34%}.product-sidebar-brand .sanbao-brand-mark-text{display:none}}

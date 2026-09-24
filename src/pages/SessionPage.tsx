@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { BrandMark } from '../components/BrandMark';
 import { Composer, Icon, IconButton } from '../components/Controls';
+import { getPresentationContentProfile, type PresentationContentProfile } from '../content/presentation-profile';
 
 type Props = { onSend: (text: string, continued: boolean) => void; workspaceName: string; answerText: string; onAnswer: (text: string) => void; observation: number; go: (observation: number) => void; pending: (group: string) => void; prompt: string; notify: (text: string) => void; initialQuestionCollapsed?: boolean; onQuestionCollapsedChange?: (collapsed: boolean) => void; initialReviewExpanded?: boolean; onReviewExpandedChange?: (expanded: boolean) => void; initialToolCollapsed?: boolean; onToolCollapsedChange?: (collapsed: boolean) => void };
 const PLAN = ['确定页面骨架：标题、待办清单和一个添加按钮，让主要操作一眼可见。', '完成单文件原型：将样式与交互放在 demo.html 中，使用虚构的三项待办。', '核对交互：点击完成、添加新事项，并检查小窗口中的排版。'];
@@ -8,7 +10,14 @@ const DEFAULT_PROMPT = '请帮我规划一个简单的纸飞机待办清单：�
 const INTERRUPTED_PROMPT = '这次只输出文字，不调用任何工具、不读写文件、不联网。请为虚构产品“今日纸飞机”连续写 20 段详细使用说明，每段约 100 字，涵盖整理桌面、浇花、阅读、勾选与添加等日常场景。直接开始正文，不提问，不等待确认，不增加实现任务。';
 const CONTINUED_PROMPT = '从刚才被我中断的位置继续，只补充接下来的 3 段使用说明，总计不超过 300 字，不重复前文。只输出文字，不调用工具、不读写文件、不联网。写完这 3 段后结束。';
 
-export function SessionPage({ observation, go, pending, prompt, notify, workspaceName, answerText, onAnswer, onSend, initialQuestionCollapsed = false, onQuestionCollapsedChange, initialReviewExpanded = false, onReviewExpandedChange, initialToolCollapsed = false, onToolCollapsedChange }: Props) {
+export function SessionPage(props: Props) {
+  const contentProfile = getPresentationContentProfile();
+  return contentProfile.kind === 'product'
+    ? <SanbaoProductSessionPage {...props} contentProfile={contentProfile} />
+    : <QoderResearchSessionPage {...props} />;
+}
+
+function QoderResearchSessionPage({ observation, go, pending, prompt, notify, workspaceName, answerText, onAnswer, onSend, initialQuestionCollapsed = false, onQuestionCollapsedChange, initialReviewExpanded = false, onReviewExpandedChange, initialToolCollapsed = false, onToolCollapsedChange }: Props) {
   const running = [7, 8, 11, 17].includes(observation);
   const clarification = [9, 10].includes(observation);
   const artifact = observation >= 17 && observation <= 23;
@@ -74,6 +83,37 @@ export function SessionPage({ observation, go, pending, prompt, notify, workspac
     {completed && <><div className="reply-actions"><IconButton name="copy" label="复制回复" onClick={() => notify('回复复制入口已演示；此版本不写入系统剪贴板。')} /><button aria-label="评价回复" title="评价回复" onClick={() => notify('已记录本地回复评价')}>♧</button><button aria-label="从回复分支" onClick={() => pending('M01')}>⑂</button><div className="relative"><IconButton name="more" label="更多回复操作" onClick={() => setReplyMenu(!replyMenu)} />{replyMenu && <div className="small-menu"><button onClick={() => pending('M01')}>回复操作 · 待采集</button><button onClick={() => notify('已记录本地反馈')}>反馈此回复</button></div>}</div></div>{!artifact && observation < 25 && <div className="suggestion-chips"><button onClick={() => go(17)}>按计划创建页面 <Icon name="arrow" size={12} /></button><button onClick={() => go(9)}>进一步明确设计 <Icon name="arrow" size={12} /></button><button onClick={() => go(18)}>查看示例产物 <Icon name="arrow" size={12} /></button></div>}</>}
     </div></div><div className="conversation-bottom">{clarification ? <div className="clarification-card"><div className="clarification-heading"><Icon name="chat" size={17} /><strong>需要你的选择</strong><button className="text-button" aria-expanded={!questionCollapsed} aria-controls="clarification-response-controls" onClick={() => changeQuestionCollapsed(!questionCollapsed)}>{questionCollapsed ? '展开问题' : '收起问题'}</button></div><p>这次原型，优先验证哪一部分？</p>{!questionCollapsed && <div id="clarification-response-controls">{observation === 10 ? <textarea aria-label="自定义答案" placeholder="告诉我你的想法…" value={custom} onChange={event => setCustom(event.target.value)} /> : <div className="clarification-options">{['先完成一个小型可操作示例', '先讨论完整产品的信息架构', '先确定视觉风格与组件'].map((option, index) => <button key={option} className={selected === option ? 'selected' : ''} onClick={() => setSelected(option)}><span className="option-letter">{String.fromCharCode(65 + index)}</span>{option}{index === 0 && <em>推荐</em>}{selected === option && <Icon name="check" size={14} />}</button>)}</div>}<div className="clarification-footer"><button className="text-button" onClick={() => go(observation === 10 ? 9 : 10)}>{observation === 10 ? '返回选项' : '自定义答案'}</button><button className="primary-button" onClick={selected || custom.trim() ? answer : () => onAnswer('无偏好')}>{selected || custom.trim() ? '发送答案' : '无偏好'}</button></div></div>}</div> : <><div className="session-input-top"><div className="relative"><button className="context-indicator" onClick={() => setContextOpen(!contextOpen)}><span /> 上下文 16%</button>{contextOpen && <div className="context-popover"><strong>当前任务上下文</strong><p>占用 16% · 模拟展示</p><small>上下文明细与压缩尚未实测。</small><button onClick={() => pending('S10')}>查看研究详情</button></div>}</div></div><Composer workspaceName={workspaceName} compact running={running} onSend={text => onSend(text, observation === 24)} onStop={() => go(24)} onRoute={pending} onInputFocus={anchorOpen && observation === 26 ? () => go(25) : undefined} /></>}</div></div>
     {!panelClosed && <aside className="task-panel"><div className="panel-tabs"><button className={panel === 'summary' ? 'active' : ''} onClick={() => changePanel('summary')}>任务</button>{(artifact || panel !== 'summary') && <><button className={panel === 'preview' ? 'active' : ''} onClick={() => changePanel('preview')}>浏览器</button><button className={panel === 'diff' ? 'active' : ''} onClick={() => changePanel('diff')}>审阅</button></>}<IconButton name="close" label="关闭工作面" onClick={() => setPanelClosed(true)} /></div>{panel === 'summary' ? <div className="task-summary"><div className="summary-heading"><strong>任务回顾</strong><IconButton name="more" label="回顾更多操作" onClick={() => pending('P16')} /></div><button className="recap-card" aria-expanded={reviewExpanded} aria-controls="task-review-expanded-content" onClick={() => changeReviewExpanded(!reviewExpanded)}><span><Icon name="chat" size={16} /> UI 原型规划</span><p>从想法出发，制作一个轻量的纸飞机待办清单。</p><small>刚刚更新 <Icon name={reviewExpanded ? 'down' : 'chevron'} size={12} /></small>{reviewExpanded && <p id="task-review-expanded-content">本地示例已整理需求、列出计划，并保留文件产物和审阅入口。展开内容为原型补充，不属于原产品实测全文。</p>}</button><h4>产出 <span>{artifact ? 1 : 0}</span></h4>{artifact ? <button className="output-row" onClick={() => go(20)}><Icon name="file" /> demo.html <Icon name="chevron" size={12} /></button> : <p className="muted panel-empty">暂无产出</p>}<h4>来源 <span>0</span></h4><p className="muted panel-empty">暂无来源</p></div> : panel === 'preview' ? <PreviewPane /> : <DiffPane modified={observation >= 22} />}</aside>}</div><div className="message-anchor-wrap"><button className="message-anchor" aria-label="预览最后一轮消息" aria-expanded={anchorOpen} aria-controls="message-anchor-preview" onMouseEnter={() => { if (observation !== 26) go(26); }} onClick={() => { if (observation !== 26) go(26); }}>━</button>{anchorOpen && <div id="message-anchor-preview" className="anchor-popover" role="dialog" aria-label="会话锚点内容预览"><strong>继续刚才的内容</strong><p>接着把日常的小事整理成容易完成的步骤。</p><button onClick={() => go(25)}>定位到此轮消息</button><button onClick={() => observation === 26 ? go(25) : setAnchorOpen(false)}>关闭预览</button></div>}</div></div>;
+}
+
+
+function SanbaoProductSessionPage({ pending, prompt, notify, onSend, contentProfile }: Pick<Props, 'pending' | 'prompt' | 'notify' | 'onSend'> & { contentProfile: PresentationContentProfile }) {
+  const copy = contentProfile.session;
+  const [panelClosed, setPanelClosed] = useState(false);
+  const sessionPrompt = prompt || copy.defaultPrompt;
+  return <div className="session-page">
+    <header className="session-header">
+      <div><span className="tiny-dot" /><strong>{copy.title}</strong><span className="session-mode">{copy.modeLabel}</span></div>
+      <div><button className="text-button" onClick={() => setPanelClosed(value => !value)}><Icon name="panel" size={15} /> {panelClosed ? '打开说明' : '协作说明'}</button><IconButton name="more" label="查看本地演示边界" onClick={() => notify(copy.boundary)} /></div>
+    </header>
+    <div className="session-layout">
+      <div className="conversation">
+        <div className="message-scroll">
+          <div className="user-message"><span>{sessionPrompt}</span></div>
+          <div className="assistant-message">
+            <div className="assistant-heading"><BrandMark variant="symbol" size={21} className="assistant-brand-mark" alt="SanBao" /><strong>{copy.assistantName}</strong></div>
+            <div className="reply-body">
+              <h2>先把下一步说清楚</h2>
+              <p>{copy.lead}</p>
+              <ol>{copy.plan.map(item => <li key={item}>{item}</li>)}</ol>
+              <small className="muted" role="note">{copy.boundary}</small>
+            </div>
+          </div>
+        </div>
+        <div className="conversation-bottom"><div className="session-input-top"><span className="muted">本地协作输入</span></div><Composer contentProfile={contentProfile} compact onSend={text => onSend(text, false)} onRoute={pending} /></div>
+      </div>
+      {!panelClosed && <aside className="task-panel"><div className="panel-tabs"><button className="active">{copy.panelTitle}</button><IconButton name="close" label="关闭协作说明" onClick={() => setPanelClosed(true)} /></div><div className="task-summary"><div className="summary-heading"><strong>{copy.panelTitle}</strong></div><div className="recap-card"><span><Icon name="chat" size={16} /> 本地协作结构</span><p>{copy.panelSummary}</p><small>演示状态 · 不触发外部动作</small></div><h4>外部回执 <span>0</span></h4><p className="muted panel-empty">尚未接入外部系统。</p></div></aside>}
+    </div>
+  </div>;
 }
 
 function PreviewPane() {

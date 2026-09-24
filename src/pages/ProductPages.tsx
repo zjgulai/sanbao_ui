@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { BrandMark } from '../components/BrandMark';
 import { Composer, Icon, IconButton, Modal, Toggle, type ComposerContextState } from '../components/Controls';
+import { getPresentationContentProfile, type PresentationContentProfile } from '../content/presentation-profile';
 
 import { UserAppearanceMenu, type UserAppearancePanel } from '../components/UserAppearanceMenu';
 
@@ -8,6 +10,8 @@ export type WorkspaceConfig = { name: string; color: string };
 export type AutomationConfig = { name: string; prompt: string; mode: string; frequency: string; time: string; timezone: string; workspace: string; model: string; expires: string; merge: boolean; authorize: boolean };
 export type AutomationView = 'mine' | 'templates' | 'runs';
 export type AutomationTemplate = { id: string; title: string; detail: string; prompt: string; cadence: string; frequency: string; time: string; icon: string };
+type ProductSidebarProps = Routes & { workspace: WorkspaceConfig; initialUserMenu?: UserAppearancePanel; menuRevision: string; notify: (message: string) => void; page: string; onSearch: () => void; onWorkspace: () => void; collapsed: boolean; toggleCollapsed: () => void };
+type HomePageProps = Routes & { workspaceName: string; onSend: (text: string) => void; initialContextMenu?: ComposerContextState; draft: string; onDraftChange: (value: string) => void; skill: string; onSkillChange: (value: string) => void };
 
 // These are Sanbao-only review fixtures. They are deliberately separate from Qoder observations.
 export const AUTOMATION_TEMPLATES: AutomationTemplate[] = [
@@ -16,7 +20,14 @@ export const AUTOMATION_TEMPLATES: AutomationTemplate[] = [
   { id: 'archive-reminder', title: '资料归档提醒', detail: '提醒补充项目材料；不会读取本机文件或发送通知。', prompt: '提醒补充项目材料，并在当前原型会话中保留一份待办草稿。', cadence: '每周 · 周五 17:00', frequency: '每周', time: '17:00', icon: 'folder' },
 ];
 
-export function ProductSidebar({ page, go, pending, onSearch, onWorkspace, collapsed, toggleCollapsed, workspace, initialUserMenu, menuRevision, notify }: Routes & { workspace: WorkspaceConfig; initialUserMenu?: UserAppearancePanel; menuRevision: string; notify: (message: string) => void; page: string; onSearch: () => void; onWorkspace: () => void; collapsed: boolean; toggleCollapsed: () => void }) {
+export function ProductSidebar(props: ProductSidebarProps) {
+  const contentProfile = getPresentationContentProfile();
+  return contentProfile.kind === 'product'
+    ? <SanbaoProductSidebar {...props} contentProfile={contentProfile} />
+    : <QoderResearchSidebar {...props} />;
+}
+
+function QoderResearchSidebar({ page, go, pending, onSearch, onWorkspace, collapsed, toggleCollapsed, workspace, initialUserMenu, menuRevision, notify }: Routes & { workspace: WorkspaceConfig; initialUserMenu?: UserAppearancePanel; menuRevision: string; notify: (message: string) => void; page: string; onSearch: () => void; onWorkspace: () => void; collapsed: boolean; toggleCollapsed: () => void }) {
   const [mode, setMode] = useState('编程');
   const accountRef = useRef<HTMLButtonElement>(null);
   const [userMenuOpen, setUserMenuOpen] = useState(!!initialUserMenu);
@@ -28,9 +39,74 @@ function TreeStamp() {
   return <div className="tree-stamp" aria-label="原创树木装饰占位"><svg viewBox="0 0 140 150" aria-hidden="true"><rect x="8" y="8" width="124" height="132" fill="#eff1e9" stroke="#c6cdbb" strokeDasharray="2 5" strokeWidth="7" /><path d="M71 105V48m0 34-22-17m22 8 22-20" stroke="#9f916e" strokeWidth="5" /><path d="M25 60C20 37 42 25 57 31 73 11 96 29 98 40c24-2 26 29 9 34 1 19-31 24-40 13-19 10-42 3-42-13Z" fill="#809d75" /><g fill="#b56444"><circle cx="44" cy="54" r="4" /><circle cx="88" cy="45" r="4" /><circle cx="76" cy="70" r="4" /><circle cx="99" cy="68" r="4" /></g><path d="M33 110c27-8 54-8 78 0" stroke="#a6ad8e" fill="none" /><text x="70" y="127" textAnchor="middle" fill="#89917c" fontSize="8" letterSpacing="2">A LITTLE GROWTH</text></svg></div>;
 }
 
-export function HomePage({ go, pending, onSend, workspaceName, initialContextMenu, draft, onDraftChange, skill, onSkillChange }: Routes & { workspaceName: string; onSend: (text: string) => void; initialContextMenu?: ComposerContextState; draft: string; onDraftChange: (value: string) => void; skill: string; onSkillChange: (value: string) => void }) {
+function SanbaoProductSidebar({ page, go, collapsed, toggleCollapsed, notify, contentProfile }: ProductSidebarProps & { contentProfile: PresentationContentProfile }) {
+  const copy = contentProfile.sidebar;
+  return <aside className={`product-sidebar ${collapsed ? 'collapsed' : ''}`}>
+    <div className="sidebar-top sidebar-top-with-brand">
+      <span className="window-dots"><i /><i /><i /></span>
+      <BrandMark variant="symbol" text={collapsed ? undefined : 'SanBao'} size={20} className="product-sidebar-brand" alt="SanBao" />
+      <IconButton name="panel" label={collapsed ? '展开侧栏' : '收起侧栏'} onClick={toggleCollapsed} />
+    </div>
+    <div className="sidebar-content">
+      <button className="sidebar-row new-task" onClick={() => go(6)}><Icon name="plus" /> {copy.primaryAction}</button>
+      <div className="sidebar-bottom">
+        <button className={`sidebar-row ${page === 'automation' ? 'active' : ''}`} onClick={() => go(1)}><Icon name="clock" /> {copy.automationLabel}</button>
+        <div className="sidebar-divider" />
+        <button className="account-row" aria-label="查看本地演示说明" onClick={() => notify('当前为 SanBao 本地产品原型；不连接业务系统、不读取用户数据。')}>
+          <span className="avatar">三</span>
+          <span><strong>{copy.accountName}</strong><small>{copy.accountDetail}</small></span>
+          <Icon name="settings" size={15} />
+        </button>
+      </div>
+    </div>
+  </aside>;
+}
+
+export function HomePage(props: HomePageProps) {
+  const contentProfile = getPresentationContentProfile();
+  return contentProfile.kind === 'product'
+    ? <SanbaoProductHome {...props} contentProfile={contentProfile} />
+    : <QoderResearchHomePage {...props} />;
+}
+
+function QoderResearchHomePage({ go, pending, onSend, workspaceName, initialContextMenu, draft, onDraftChange, skill, onSkillChange }: Routes & { workspaceName: string; onSend: (text: string) => void; initialContextMenu?: ComposerContextState; draft: string; onDraftChange: (value: string) => void; skill: string; onSkillChange: (value: string) => void }) {
   const [tab, setTab] = useState('会话');
   return <div className="home-page"><div className="home-top"><span /><button className="text-button" onClick={() => pending('QDR.P06.settings.mobile.entry')}><Icon name="monitor" size={15} /> 下载移动端 <Icon name="chevron" size={12} /></button></div><div className="welcome-content"><div className="welcome-heading"><div><h1>不止于编程</h1><p>你好，欢迎来到 {workspaceName}。</p></div><TreeStamp /></div><div className="workspace-summary" aria-label="已绑定的本地示例工作区"><span className="workspace-mark">{workspaceName.slice(0, 1).toUpperCase()}</span><div><strong>{workspaceName}</strong><span>已绑定 · 本地模式</span></div><small>示例仓库 · main</small></div><div className="activity-card"><div className="activity-heading"><div className="activity-tabs"><button className={tab === '会话' ? 'active' : ''} onClick={() => setTab('会话')}>会话</button><button className={tab === 'Credits' ? 'active' : ''} onClick={() => setTab('Credits')}>Credits</button></div><span>过去一年 <Icon name="down" size={11} /></span></div><div className="heatmap" aria-label={`${tab}活动热力图，虚构示例数据`}>{Array.from({ length: 365 }, (_, index) => <span key={index}  />)}</div><div className="activity-caption"><span>{tab === '会话' ? '从一个想法，开始新的探索' : '记录每一次思考与创造'}</span><span>少 <i /><i /><i /><i /> 多</span></div></div><div className="welcome-prompts"><button onClick={() => go(9)}><Icon name="chat" size={14} /> 帮我梳理一个想法</button><button onClick={() => go(18)}><Icon name="code" size={14} /> 制作一个小工具</button><button onClick={() => go(1)}><Icon name="clock" size={14} /> 安排一项自动化</button></div></div><div className="home-composer"><Composer onSend={onSend} onRoute={pending} workspaceName={workspaceName} initialContextMenu={initialContextMenu} initialValue={draft} onDraftChange={onDraftChange} initialSkill={skill} onSkillChange={onSkillChange} /><p>思考、创作、执行，都从这里开始</p></div></div>;
+}
+
+function SanbaoProductHome({ onSend, pending, draft, onDraftChange, contentProfile }: HomePageProps & { contentProfile: PresentationContentProfile }) {
+  const copy = contentProfile.home;
+  const [tab, setTab] = useState<'primary' | 'secondary'>('primary');
+  const primary = tab === 'primary';
+  return <div className="home-page">
+    <div className="home-top"><span /></div>
+    <div className="welcome-content">
+      <div className="welcome-heading">
+        <div><h1>{copy.headline}</h1><p>{copy.description}</p></div>
+        <BrandMark variant="full" size={36} className="home-brand-lockup" alt="SanBao" />
+      </div>
+      <div className="workspace-summary" aria-label={copy.summaryAriaLabel}>
+        <span className="workspace-mark">S</span>
+        <div><strong>{copy.summaryTitle}</strong><span>{copy.summaryDetail}</span></div>
+        <small>{copy.summaryMeta}</small>
+      </div>
+      <div className="activity-card">
+        <div className="activity-heading">
+          <div className="activity-tabs">
+            <button className={primary ? 'active' : ''} onClick={() => setTab('primary')}>{copy.activityPrimary}</button>
+            <button className={!primary ? 'active' : ''} onClick={() => setTab('secondary')}>{copy.activitySecondary}</button>
+          </div>
+          <span>本地示例 <Icon name="down" size={11} /></span>
+        </div>
+        <div className="heatmap" aria-label={copy.activityAriaLabel}>{Array.from({ length: 365 }, (_, index) => <span key={index} />)}</div>
+        <div className="activity-caption"><span>{primary ? copy.activityPrimaryCaption : copy.activitySecondaryCaption}</span><span>少 <i /><i /><i /><i /> 多</span></div>
+      </div>
+    </div>
+    <div className="home-composer">
+      <Composer contentProfile={contentProfile} onSend={onSend} onRoute={pending} initialValue={draft} onDraftChange={onDraftChange} />
+      <p>{copy.composerHint}</p>
+    </div>
+  </div>;
 }
 
 export function SearchDialog({ close, go }: { close: () => void; go: (observation: number) => void }) {
@@ -47,7 +123,7 @@ export function WorkspaceDialog({ ready, close, markReady, created }: { ready: b
   return <Modal title="新建工作区" className="workspace-dialog" onClose={close}><div className="dialog-body"><label className="field-label">源文件夹</label><button className="folder-picker" onClick={() => { if (ready) return; setFolder(true); setName('paper-plane'); markReady(); }}><Icon name="folder" size={21} /><span>{folder ? <><strong>/示例工作区/paper-plane</strong><small>主要 · 仅为原型展示路径</small></> : '选择示例文件夹'}</span><Icon name="plus" /></button><label className="field-label" htmlFor="workspace-name">名称</label><input id="workspace-name" value={name} onChange={event => setName(event.target.value)} placeholder="输入工作区名称" maxLength={60} /><label className="field-label">图标和颜色</label><div className="workspace-colors"><span className="workspace-preview" style={{ background: color }}>{name.slice(0, 1).toUpperCase() || 'P'}</span>{['#789783', '#778daa', '#b69772', '#a785a6', '#b98380', '#8b8f94'].map(value => <button key={value} aria-label={`颜色 ${value}`} aria-pressed={color === value} style={{ background: value }} onClick={() => setColor(value)}>{color === value && <Icon name="check" size={14} />}</button>)}</div><p className="field-hint">选择器使用虚构路径，不访问本机文件夹。</p></div><footer className="modal-footer"><button className="secondary-button" onClick={close}>取消</button><button className="primary-button" disabled={!folder || !name.trim()} onClick={() => created({ name: name.trim(), color })}>创建工作区</button></footer></Modal>;
 }
 
-export function AutomationPage({ items, view, fixture, onViewChange, onStartCreate, onUseTemplate, onNotice }: Routes & {
+type AutomationPageProps = Routes & {
   items: AutomationConfig[];
   view: AutomationView;
   fixture: string | null;
@@ -55,7 +131,16 @@ export function AutomationPage({ items, view, fixture, onViewChange, onStartCrea
   onStartCreate: () => void;
   onUseTemplate: (template: AutomationTemplate) => void;
   onNotice: (message: string) => void;
-}) {
+};
+
+export function AutomationPage(props: AutomationPageProps) {
+  const contentProfile = getPresentationContentProfile();
+  return contentProfile.kind === 'product'
+    ? <SanbaoProductAutomationPage {...props} contentProfile={contentProfile} />
+    : <QoderResearchAutomationPage {...props} />;
+}
+
+function QoderResearchAutomationPage({ items, view, fixture, onViewChange, onStartCreate, onUseTemplate, onNotice }: AutomationPageProps) {
   const [awake, setAwake] = useState(false);
   const [mode, setMode] = useState('全部模式');
   const [sort, setSort] = useState('最近创建');
@@ -64,6 +149,20 @@ export function AutomationPage({ items, view, fixture, onViewChange, onStartCrea
   const emptyTitle = items.length ? '当前模式下没有任务' : sessionReset ? '本地会话已重置' : '还没有自动化任务';
   const emptyDetail = items.length ? '调整筛选条件，或创建另一项本地演示自动化。' : sessionReset ? '自动化只保存在本次原型会话中；刷新或重置后不会恢复记录。' : '创建一个定时任务，让日常工作自动完成。';
   return <section className="automation-page"><header><div><h1>自动化</h1><p>让任务按计划自动执行</p></div><button className="primary-button" onClick={onStartCreate}><Icon name="plus" size={15} /> 新建自动化</button></header><div className="automation-toolbar"><div><button className={`tab ${view === 'mine' ? 'active' : ''}`} onClick={() => onViewChange('mine')}>我的自动化</button><button className={`tab ${view === 'templates' ? 'active' : ''}`} onClick={() => onViewChange('templates')}>模板</button><button className={`tab ${view === 'runs' ? 'active' : ''}`} onClick={() => onViewChange('runs')}>执行记录</button></div>{view === 'mine' && <div><select aria-label="自动化模式筛选" value={mode} onChange={event => setMode(event.target.value)}><option>全部模式</option><option>编程</option><option>通用</option></select><select aria-label="排序" value={sort} onChange={event => setSort(event.target.value)}><option>最近创建</option><option>名称</option></select></div>}</div>{view === 'mine' ? visible.length ? <div className="automation-list">{visible.map((item, index) => <article key={`${item.name}-${index}`}><span className="automation-icon"><Icon name="clock" size={21} /></span><div><h3>{item.name}</h3><p>{item.frequency} {item.time} · {item.timezone} · {item.mode}</p></div><span className="status-pill">模拟已创建</span><button className="text-button" onClick={() => onViewChange('runs')}>查看记录</button></article>)}</div> : <div className="automation-empty"><div className="automation-empty-icon"><Icon name="clock" size={34} /></div><h2>{emptyTitle}</h2><p>{emptyDetail}</p><button className="primary-button" onClick={onStartCreate}><Icon name="plus" size={15} /> 新建自动化</button></div> : view === 'templates' ? <div className="automation-templates"><div className="automation-section-heading"><div><h2>从模板开始</h2><p>以下内容只用于 Sanbao 本地评审；不会创建真实自动化或提交任务。</p></div><button className="text-button" onClick={() => onNotice('模板内容和预填规则是 Sanbao 本地评审 fixture，未作为 Qoder 原产品交互或真实调度能力验收。')}>模板边界说明 <Icon name="chevron" size={12} /></button></div><div className="template-grid">{AUTOMATION_TEMPLATES.map(template => <article key={template.id}><span className="automation-icon"><Icon name={template.icon} size={21} /></span><p className="template-cadence">{template.cadence}</p><h3>{template.title}</h3><p>{template.detail}</p><button className="secondary-button" onClick={() => onUseTemplate(template)}>使用此模板 <Icon name="chevron" size={12} /></button></article>)}</div></div> : <div className="automation-runs"><div className="automation-section-heading"><div><h2>执行记录</h2><p>此页只展示当前原型会话中创建的自动化，未连接真实调度或模型。</p></div><span className="local-run-badge">本地模拟</span></div>{items.length ? <div className="run-list">{items.map((item, index) => <article key={`${item.name}-${index}`}><span className="automation-icon"><Icon name="clock" size={20} /></span><div><h3>{item.name}</h3><p>下一次计划：{item.frequency} {item.time} · {item.timezone}</p></div><span className="run-state">等待计划</span></article>)}</div> : <div className="automation-empty automation-empty-compact"><div className="automation-empty-icon"><Icon name="file" size={31} /></div><h2>{sessionReset ? '本地会话已重置' : '暂无执行记录'}</h2><p>{sessionReset ? '当前地址只保留了本地评审入口，运行记录不会跨刷新保存。' : '创建本地演示自动化后，计划信息会显示在这里。'}</p><button className="secondary-button" onClick={() => onViewChange('templates')}>查看模板</button></div>}</div>}<footer className="automation-footer"><Icon name="monitor" size={15} /><span>保持唤醒</span><Toggle label="保持唤醒（本地模拟）" checked={awake} onChange={setAwake} /><small>此开关仅改变原型显示</small></footer></section>;
+}
+
+function SanbaoProductAutomationPage({ onNotice, contentProfile }: Pick<AutomationPageProps, 'onNotice'> & { contentProfile: PresentationContentProfile }) {
+  const copy = contentProfile.automation;
+  return <section className="automation-page">
+    <header><div><h1>{copy.title}</h1><p>{copy.lead}</p></div><button className="primary-button" onClick={() => onNotice(copy.boundary)}><Icon name="monitor" size={15} /> {copy.action}</button></header>
+    <div className="automation-empty">
+      <div className="automation-empty-icon"><Icon name="clock" size={34} /></div>
+      <h2>{copy.emptyTitle}</h2>
+      <p>{copy.emptyDetail}</p>
+      <button className="secondary-button" onClick={() => onNotice(copy.boundary)}>本地演示说明</button>
+    </div>
+    <footer className="automation-footer"><Icon name="monitor" size={15} /><span>{copy.boundary}</span></footer>
+  </section>;
 }
 
 export function AutomationDialog({ close, create, template }: { close: () => void; create: (config: AutomationConfig) => void; template?: AutomationTemplate }) {

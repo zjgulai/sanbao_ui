@@ -1,0 +1,16 @@
+:root {
+  --sb-brand-ink: #334d63;
+  --sb-brand-on-dark: #c4d0dc;
+  --sb-action: #3f637c;
+  --sb-action-hover: #2b536c;
+  --sb-focus: #176b9c;
+  --sb-selected-bg: #e4eff5;
+  --sb-page: #f7f9fa;
+  --sb-surface: #ffffff;
+  --sb-ink: #1b2b38;
+  --sb-muted: #60707d;
+  --sb-line: #d8e0e5;
+  --sb-success: #147a5a;
+  --sb-warning: #a75c00;
+  --sb-danger: #b42318;
+}

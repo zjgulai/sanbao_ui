@@ -1,4 +1,4 @@
-# Sanbao UI Prototype
+# SanBao UI Prototype
 
 一个可独立运行的桌面端 UI/UX 原型。它以 Qoder 已观察到的页面结构为参考，并为 Sanbao 的 DeepSeek Harness（DSH）接入保留页面、状态和动作边界。
 
@@ -15,6 +15,19 @@ pnpm preview
 ```
 
 打开 <http://127.0.0.1:4173>。静态预览仅监听本机；源码改动后重新执行 `pnpm build`。
+
+### 产品模式与研究模式
+
+默认 URL 是 SanBao 产品模式：使用 `A_StarSail_Product` 品牌锁定与钢蓝色语义令牌，且不显示 Qoder 名称、`QDR`／`QB` 状态编号、来源标签或证据目录。品牌 SVG 位于 `src/assets/brand/`，构建时会复制到 `dist/assets/brand/`；不要修改 `SanBao_Logo_Kit/` 中的原始交付资产。
+
+在同一条状态 URL 加上 `mode=research` 可进入研究审计模式，例如：
+
+```text
+/?state=QDR.M01.reply.completed&mode=research
+```
+
+该模式保留 Qoder 研究标识、状态目录、来源与五维验收信息，供取证和原型审计使用。`QDR`／`QB` 仍是稳定的研究编号，不是产品可见文案。带有 `data-reference-theme` 的局部深色参考页也保持独立校准，不外推为 SanBao 的全局主题规格。
+
 
 ## 页面目录与直达路由
 

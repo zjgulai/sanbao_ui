@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState, type ReactNode } from 'react';
 import { SiteTemplates } from './ComposerContextExtras';
+import { getPresentationContentProfile, type PresentationContentProfile } from '../content/presentation-profile';
 
 const paths: Record<string, ReactNode> = {
   search: <><circle cx="10.8" cy="10.8" r="6.8" /><path d="m16 16 4.6 4.6" /></>,
@@ -104,7 +105,16 @@ const PLUGINS = [
   { name: 'qoder-qmind', help: 'QMind Service tools for the Qoder Agent' },
 ];
 
-export function Composer({ running = false, onSend, onStop, onRoute, initialValue = '', onDraftChange, initialSkill = '', onSkillChange, compact = false, workspaceName = 'paper-plane', initialContextMenu, onInputFocus }: { running?: boolean; onSend: (text: string) => void; onStop?: () => void; onRoute: (group: string) => void; initialValue?: string; onDraftChange?: (value: string) => void; initialSkill?: string; onSkillChange?: (value: string) => void; compact?: boolean; workspaceName?: string; initialContextMenu?: ComposerContextState; onInputFocus?: () => void }) {
+type ComposerProps = { running?: boolean; onSend: (text: string) => void; onStop?: () => void; onRoute: (group: string) => void; initialValue?: string; onDraftChange?: (value: string) => void; initialSkill?: string; onSkillChange?: (value: string) => void; compact?: boolean; workspaceName?: string; initialContextMenu?: ComposerContextState; onInputFocus?: () => void; contentProfile?: PresentationContentProfile };
+
+export function Composer(props: ComposerProps) {
+  const contentProfile = props.contentProfile ?? getPresentationContentProfile();
+  return contentProfile.kind === 'product'
+    ? <SanbaoProductComposer {...props} contentProfile={contentProfile} />
+    : <QoderResearchComposer {...props} />;
+}
+
+function QoderResearchComposer({ running = false, onSend, onStop, onRoute, initialValue = '', onDraftChange, initialSkill = '', onSkillChange, compact = false, workspaceName = 'paper-plane', initialContextMenu, onInputFocus }: ComposerProps) {
   const [text, setText] = useState(initialValue);
   const [menu, setMenu] = useState<ContextMenu | null>(initialContextMenu === 'context' || initialContextMenu === 'skills' || initialContextMenu === 'files' || initialContextMenu === 'plugins' ? initialContextMenu : null);
   const [skillSearch, setSkillSearch] = useState('');
@@ -218,6 +228,47 @@ export function Composer({ running = false, onSend, onStop, onRoute, initialValu
       {running ? <button className="send-button stop" aria-label="停止生成" onClick={onStop}><span /></button> : <button className="send-button" aria-label="发送任务" disabled={!text.trim()} onClick={submit}><Icon name="arrow" size={18} /></button>}
     </div>
     <div className="composer-context"><button onClick={() => onRoute('P13')}><Icon name="folder" size={13} /> {workspaceName} <Icon name="down" size={11} /></button><button onClick={() => onRoute('O02')}><Icon name="monitor" size={13} /> 本地模式</button></div>
+    {notice && <p className="composer-local-note" role="status">{notice}</p>}
+  </div>;
+}
+
+function SanbaoProductComposer({ running = false, onSend, onStop, initialValue = '', onDraftChange, compact = false, onInputFocus, contentProfile }: ComposerProps & { contentProfile: PresentationContentProfile }) {
+  const copy = contentProfile.composer;
+  const [text, setText] = useState(initialValue);
+  const [contextMenuOpen, setContextMenuOpen] = useState(false);
+  const [mode, setMode] = useState<'goal' | 'plan' | null>(null);
+  const [notice, setNotice] = useState('');
+  const inputRef = useRef<HTMLTextAreaElement>(null);
+  const updateText = (value: string) => { setText(value); onDraftChange?.(value); };
+  const chooseMode = (next: 'goal' | 'plan') => {
+    setMode(next);
+    setContextMenuOpen(false);
+    setNotice(copy.goalPlanNotice);
+    requestAnimationFrame(() => inputRef.current?.focus({ preventScroll: true }));
+  };
+  const submit = () => {
+    if (!text.trim() || running) return;
+    onSend(text.trim());
+    updateText('');
+    setMode(null);
+    setNotice('');
+  };
+  return <div className={`composer composer-with-context ${compact ? 'compact' : ''}`}>
+    {mode && <div className="composer-selection"><span><Icon name={mode === 'goal' ? 'bolt' : 'file'} size={12} /> {mode === 'goal' ? '目标' : '计划'} · 本地演示</span><button aria-label={`移除${mode === 'goal' ? '目标' : '计划'}上下文`} onClick={() => { setMode(null); setNotice(''); }}>×</button></div>}
+    <textarea ref={inputRef} aria-label={copy.ariaLabel} placeholder={copy.placeholder} value={text} onFocus={onInputFocus} onChange={event => updateText(event.target.value)} onKeyDown={event => { if (event.key === 'Enter' && !event.shiftKey && !event.nativeEvent.isComposing) { event.preventDefault(); submit(); } }} />
+    <div className="composer-toolbar">
+      <div className="composer-tools">
+        <div className="relative">
+          <button className="icon-button" aria-label={copy.contextMenuLabel} aria-haspopup="menu" aria-expanded={contextMenuOpen} onClick={() => setContextMenuOpen(value => !value)}><Icon name="plus" /></button>
+          {contextMenuOpen && <div className="small-menu context-menu" role="menu" aria-label={copy.contextMenuLabel}>
+            <button role="menuitem" onClick={() => chooseMode('goal')}><span className="composer-context-item"><Icon name="bolt" size={14} />目标</span></button>
+            <button role="menuitem" onClick={() => chooseMode('plan')}><span className="composer-context-item"><Icon name="file" size={14} />计划</span></button>
+          </div>}
+        </div>
+      </div>
+      {running && onStop ? <button className="send-button stop" aria-label="停止本地演示" onClick={onStop}><span /></button> : <button className="send-button" aria-label={copy.sendLabel} disabled={!text.trim() || running} onClick={submit}><Icon name="arrow" size={18} /></button>}
+    </div>
+    <div className="composer-context"><button type="button" onClick={() => setNotice(copy.localBoundary)}><Icon name="monitor" size={13} /> {copy.localModeLabel}</button></div>
     {notice && <p className="composer-local-note" role="status">{notice}</p>}
   </div>;
 }

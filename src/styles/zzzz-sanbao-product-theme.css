@@ -1,0 +1,469 @@
+/*
+ * SanBao 产品主题只作用于产品模式的常规浅色工作面。
+ * 研究壳保留 Qoder 取证语境；局部深色模型参考由 data-reference-theme 隔离。
+ */
+.prototype.product-mode .product-window:not([data-reference-theme]) {
+  --ink: var(--sb-ink);
+  --muted: var(--sb-muted);
+  --line: var(--sb-line);
+  --accent: var(--sb-action);
+  --hover: var(--sb-selected-bg);
+  background: #eef3f6;
+  color: var(--sb-ink);
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) button:focus-visible,
+.prototype.product-mode .product-window:not([data-reference-theme]) input:focus-visible,
+.prototype.product-mode .product-window:not([data-reference-theme]) textarea:focus-visible,
+.prototype.product-mode .product-window:not([data-reference-theme]) select:focus-visible,
+.prototype.product-mode .product-window:not([data-reference-theme]) [role="option"]:focus-visible {
+  outline-color: var(--sb-focus);
+}
+
+/* Window chrome and navigation: blue is reserved for selection and action. */
+.prototype.product-mode .product-window:not([data-reference-theme]) .product-sidebar,
+.prototype.product-mode .product-window:not([data-reference-theme]) .settings-sidebar {
+  background: #eef3f6;
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .product-surface {
+  background: var(--sb-surface);
+  border-color: var(--sb-line);
+  box-shadow: 0 1px 2px rgb(27 43 56 / 4%);
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .mode-tabs,
+.prototype.product-mode .product-window:not([data-reference-theme]) .sidebar-divider,
+.prototype.product-mode .product-window:not([data-reference-theme]) .settings-sidebar-groups section,
+.prototype.product-mode .product-window:not([data-reference-theme]) .settings-sidebar-search {
+  border-color: var(--sb-line);
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .mode-tabs .active,
+.prototype.product-mode .product-window:not([data-reference-theme]) .sidebar-row.active,
+.prototype.product-mode .product-window:not([data-reference-theme]) .sidebar-task.active,
+.prototype.product-mode .product-window:not([data-reference-theme]) .settings-sidebar-groups section > button.active,
+.prototype.product-mode .product-window:not([data-reference-theme]) .settings-appearance-app-option.selected,
+.prototype.product-mode .product-window:not([data-reference-theme]) .settings-appearance-theme.selected {
+  background: var(--sb-selected-bg);
+  border-color: #c5d9e6;
+  color: var(--sb-brand-ink);
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .sidebar-row svg,
+.prototype.product-mode .product-window:not([data-reference-theme]) .sidebar-label,
+.prototype.product-mode .product-window:not([data-reference-theme]) .icon-button,
+.prototype.product-mode .product-window:not([data-reference-theme]) .text-button,
+.prototype.product-mode .product-window:not([data-reference-theme]) .settings-sidebar-groups section > button > svg {
+  color: var(--sb-muted);
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .sidebar-row.active svg,
+.prototype.product-mode .product-window:not([data-reference-theme]) .settings-sidebar-groups section > button.active > svg {
+  color: var(--sb-action);
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .workspace-mark,
+.prototype.product-mode .product-window:not([data-reference-theme]) .avatar {
+  background: #dcebf4;
+  color: var(--sb-brand-ink);
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .account-row small,
+.prototype.product-mode .product-window:not([data-reference-theme]) .credit-row,
+.prototype.product-mode .product-window:not([data-reference-theme]) .sidebar-label,
+.prototype.product-mode .product-window:not([data-reference-theme]) .sidebar-row kbd {
+  color: var(--sb-muted);
+}
+
+/* Home, composer, search, and reusable local fixture actions. */
+.prototype.product-mode .product-window:not([data-reference-theme]) .welcome-heading h1,
+.prototype.product-mode .product-window:not([data-reference-theme]) .automation-page h1,
+.prototype.product-mode .product-window:not([data-reference-theme]) .settings-appearance h1,
+.prototype.product-mode .product-window:not([data-reference-theme]) .settings-basic h1,
+.prototype.product-mode .product-window:not([data-reference-theme]) .settings-profile h1 {
+  color: var(--sb-ink);
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .welcome-heading p,
+.prototype.product-mode .product-window:not([data-reference-theme]) .automation-page header p,
+.prototype.product-mode .product-window:not([data-reference-theme]) .settings-basic-subtitle,
+.prototype.product-mode .product-window:not([data-reference-theme]) .settings-appearance-row-copy p,
+.prototype.product-mode .product-window:not([data-reference-theme]) .field-hint {
+  color: var(--sb-muted);
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .activity-card,
+.prototype.product-mode .product-window:not([data-reference-theme]) .composer-context,
+.prototype.product-mode .product-window:not([data-reference-theme]) .automation-toolbar,
+.prototype.product-mode .product-window:not([data-reference-theme]) .modal-footer {
+  border-color: var(--sb-line);
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .activity-tabs .active,
+.prototype.product-mode .product-window:not([data-reference-theme]) .tab.active,
+.prototype.product-mode .product-window:not([data-reference-theme]) .form-mode .active {
+  background: var(--sb-selected-bg);
+  border-color: #c5d9e6;
+  color: var(--sb-brand-ink);
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .heatmap span {
+  background: #edf4f8;
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .heatmap span:nth-child(5n),
+.prototype.product-mode .product-window:not([data-reference-theme]) .activity-caption i:nth-of-type(2) {
+  background: #d4e6f1;
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .heatmap span:nth-child(7n),
+.prototype.product-mode .product-window:not([data-reference-theme]) .activity-caption i:nth-of-type(3) {
+  background: #a9cbe0;
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .heatmap span:nth-child(11n),
+.prototype.product-mode .product-window:not([data-reference-theme]) .activity-caption i:nth-of-type(4) {
+  background: #6e9fbd;
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .composer,
+.prototype.product-mode .product-window:not([data-reference-theme]) .dialog-body > input,
+.prototype.product-mode .product-window:not([data-reference-theme]) .automation-form input,
+.prototype.product-mode .product-window:not([data-reference-theme]) .automation-form textarea,
+.prototype.product-mode .product-window:not([data-reference-theme]) .automation-form select {
+  border-color: var(--sb-line);
+  background: #fbfdfe;
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .composer textarea {
+  color: var(--sb-ink);
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .composer textarea::placeholder {
+  color: #7e909e;
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .send-button,
+.prototype.product-mode .product-window:not([data-reference-theme]) .primary-button,
+.prototype.product-mode .product-window:not([data-reference-theme]) .extensions-primary,
+.prototype.product-mode .product-window:not([data-reference-theme]) .settings-models-heading > button {
+  background: var(--sb-action);
+  border-color: var(--sb-action);
+  color: #fff;
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .send-button:not(:disabled):hover,
+.prototype.product-mode .product-window:not([data-reference-theme]) .primary-button:not(:disabled):hover,
+.prototype.product-mode .product-window:not([data-reference-theme]) .extensions-primary:not(:disabled):hover,
+.prototype.product-mode .product-window:not([data-reference-theme]) .settings-models-heading > button:hover {
+  background: var(--sb-action-hover);
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .primary-button:disabled,
+.prototype.product-mode .product-window:not([data-reference-theme]) .send-button:disabled {
+  background: #b7c5cf;
+  border-color: #b7c5cf;
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .secondary-button,
+.prototype.product-mode .product-window:not([data-reference-theme]) .extensions-secondary {
+  border-color: #b9cfdd;
+  color: var(--sb-action);
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .toggle.on,
+.prototype.product-mode .product-window:not([data-reference-theme]) .settings-basic .toggle.on {
+  background: var(--sb-action);
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .toggle.on:hover {
+  background: var(--sb-action-hover);
+}
+
+/* Settings and marketplace reuse the same selected/action language. */
+.prototype.product-mode .product-window:not([data-reference-theme]) .settings-appearance-select-trigger,
+.prototype.product-mode .product-window:not([data-reference-theme]) .settings-sidebar-search,
+.prototype.product-mode .product-window:not([data-reference-theme]) .settings-basic-card,
+.prototype.product-mode .product-window:not([data-reference-theme]) .extensions-search {
+  border-color: var(--sb-line);
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .settings-appearance-menu [aria-selected="true"],
+.prototype.product-mode .product-window:not([data-reference-theme]) .settings-voice-options [aria-selected="true"],
+.prototype.product-mode .product-window:not([data-reference-theme]) .extension-market-hero h1 > span,
+.prototype.product-mode .product-window:not([data-reference-theme]) .extension-market-install {
+  color: var(--sb-action);
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .settings-appearance-theme input:focus-visible + .settings-appearance-theme-preview,
+.prototype.product-mode .product-window:not([data-reference-theme]) .settings-appearance-app-option input:focus-visible + .settings-appearance-app-previews {
+  outline-color: var(--sb-focus);
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .modal-backdrop {
+  background: rgb(27 43 56 / 21%);
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .modal,
+.prototype.product-mode .product-window:not([data-reference-theme]) .small-menu {
+  border-color: var(--sb-line);
+  box-shadow: 0 20px 70px rgb(27 43 56 / 18%);
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .prototype-toast {
+  background: var(--sb-brand-ink);
+  color: #fff;
+}
+
+/* Qoder provenance belongs to research mode, not the SanBao product surface. */
+.prototype.product-mode .approval-plan-source,
+.prototype.product-mode .agent-runtime-source,
+.prototype.product-mode .artifact-source,
+.prototype.product-mode .automation-lifecycle-source,
+.prototype.product-mode .collaboration-collection-source,
+.prototype.product-mode .composer-design-source,
+.prototype.product-mode .entry-system-source,
+.prototype.product-mode .execution-lifecycle-source,
+.prototype.product-mode .plugin-entry-source,
+.prototype.product-mode .remaining-scope-source,
+.prototype.product-mode .session-interaction-source,
+.prototype.product-mode .session-resilience-source,
+.prototype.product-mode .session-workspace-entry-source,
+.prototype.product-mode .settings-leaf-source,
+.prototype.product-mode .task-monitor-source,
+.prototype.product-mode .task-search-workspace-source,
+.prototype.product-mode .tool-result-source,
+.prototype.product-mode .workspace-multipane-source {
+  display: none;
+}
+
+.prototype.product-mode .automation-lifecycle-boundary,
+.prototype.product-mode .session-interaction-boundary,
+.prototype.product-mode .session-resilience-boundary,
+.prototype.product-mode .tool-result-boundary,
+.prototype.product-mode .workspace-multipane-boundary {
+  display: none;
+}
+
+.prototype.product-mode .agent-runtime-boundary > span,
+.prototype.product-mode .collaboration-collection-boundary > span,
+.prototype.product-mode .execution-lifecycle-boundary > span,
+.prototype.product-mode .task-monitor-boundary > span {
+  display: none;
+}
+
+.prototype.product-mode .prototype-toast {
+  background: var(--sb-brand-ink);
+  color: #fff;
+}
+
+/* Session is the other primary SanBao surface after the home workspace. */
+.prototype.product-mode .product-window:not([data-reference-theme]) .session-header,
+.prototype.product-mode .product-window:not([data-reference-theme]) .task-panel,
+.prototype.product-mode .product-window:not([data-reference-theme]) .panel-tabs,
+.prototype.product-mode .product-window:not([data-reference-theme]) .conversation-bottom {
+  border-color: var(--sb-line);
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .task-panel,
+.prototype.product-mode .product-window:not([data-reference-theme]) .conversation-bottom {
+  background: #fbfdfe;
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .session-mode,
+.prototype.product-mode .product-window:not([data-reference-theme]) .run-label,
+.prototype.product-mode .product-window:not([data-reference-theme]) .thought-toggle,
+.prototype.product-mode .product-window:not([data-reference-theme]) .completed-meta,
+.prototype.product-mode .product-window:not([data-reference-theme]) .reply-actions,
+.prototype.product-mode .product-window:not([data-reference-theme]) .context-indicator,
+.prototype.product-mode .product-window:not([data-reference-theme]) .panel-tabs > button:not(.icon-button),
+.prototype.product-mode .product-window:not([data-reference-theme]) .summary-heading,
+.prototype.product-mode .product-window:not([data-reference-theme]) .task-summary h4,
+.prototype.product-mode .product-window:not([data-reference-theme]) .output-row,
+.prototype.product-mode .product-window:not([data-reference-theme]) .tool-toggle {
+  color: var(--sb-muted);
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .running-dot {
+  background: var(--sb-action);
+  box-shadow: 0 0 0 3px #e4eff5;
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .waiting-dot {
+  background: var(--sb-warning);
+  box-shadow: 0 0 0 3px #fdf3e7;
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .user-message > span,
+.prototype.product-mode .product-window:not([data-reference-theme]) .clarification-card,
+.prototype.product-mode .product-window:not([data-reference-theme]) .recap-card,
+.prototype.product-mode .product-window:not([data-reference-theme]) .tool-running,
+.prototype.product-mode .product-window:not([data-reference-theme]) .changes-card {
+  background: #f5f9fb;
+  border-color: #d6e4ec;
+  color: var(--sb-ink);
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .assistant-heading strong,
+.prototype.product-mode .product-window:not([data-reference-theme]) .reply-body,
+.prototype.product-mode .product-window:not([data-reference-theme]) .reply-body h2,
+.prototype.product-mode .product-window:not([data-reference-theme]) .artifact-open strong,
+.prototype.product-mode .product-window:not([data-reference-theme]) .paper-preview h2 {
+  color: var(--sb-ink);
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .assistant-mark {
+  background: transparent;
+  color: var(--sb-brand-ink);
+}
+
+/* Product-mode appearance swatches are SanBao variants, not inherited Qoder palettes. */
+.prototype.product-mode .product-window:not([data-reference-theme]) .settings-appearance-theme.theme-0 {
+  --theme-base: #dcebf4;
+  --theme-ink: #3f637c;
+  --theme-paper: #f9fcfd;
+  --theme-sidebar: #c6dfea;
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .settings-appearance-theme.theme-1 {
+  --theme-base: #eaf1f5;
+  --theme-ink: #607b8c;
+  --theme-paper: #fbfcfd;
+  --theme-sidebar: #d5e3eb;
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .settings-appearance-theme.theme-2 {
+  --theme-base: #d7e5ef;
+  --theme-ink: #315a75;
+  --theme-paper: #f4f8fa;
+  --theme-sidebar: #a4c0d2;
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .settings-appearance-theme.theme-3 {
+  --theme-base: #e6ecef;
+  --theme-ink: #526d7d;
+  --theme-paper: #fafdfe;
+  --theme-sidebar: #cedce3;
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .settings-appearance-theme-preview {
+  border-color: var(--sb-line);
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .settings-appearance-theme:hover .settings-appearance-theme-preview {
+  border-color: #8eb1c5;
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .settings-appearance-theme.selected .settings-appearance-theme-preview {
+  border-color: var(--sb-action);
+  box-shadow: 0 0 0 2px rgb(63 99 124 / 13%);
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .settings-appearance-theme-label {
+  color: #607b8c;
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .settings-appearance-theme.selected .settings-appearance-theme-label {
+  color: var(--sb-action);
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .settings-appearance-radio {
+  border-color: #b7cad5;
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .settings-appearance-theme.selected .settings-appearance-radio {
+  border-color: var(--sb-action);
+  background: var(--sb-action);
+  box-shadow: inset 0 0 0 3px var(--sb-surface);
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .thought-content {
+  background: #f7fafc;
+  border-color: #bfd5e3;
+  color: var(--sb-muted);
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .reply-body li p,
+.prototype.product-mode .product-window:not([data-reference-theme]) .artifact-open small,
+.prototype.product-mode .product-window:not([data-reference-theme]) .recap-card p,
+.prototype.product-mode .product-window:not([data-reference-theme]) .recap-card small,
+.prototype.product-mode .product-window:not([data-reference-theme]) .task-summary h4 span,
+.prototype.product-mode .product-window:not([data-reference-theme]) .muted {
+  color: var(--sb-muted);
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .suggestion-chips button,
+.prototype.product-mode .product-window:not([data-reference-theme]) .clarification-options button,
+.prototype.product-mode .product-window:not([data-reference-theme]) .artifact-card,
+.prototype.product-mode .product-window:not([data-reference-theme]) .tool-list,
+.prototype.product-mode .product-window:not([data-reference-theme]) .paper-preview,
+.prototype.product-mode .product-window:not([data-reference-theme]) .paper-items label,
+.prototype.product-mode .product-window:not([data-reference-theme]) .paper-add input {
+  border-color: #d6e4ec;
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .suggestion-chips button,
+.prototype.product-mode .product-window:not([data-reference-theme]) .clarification-options button,
+.prototype.product-mode .product-window:not([data-reference-theme]) .output-row,
+.prototype.product-mode .product-window:not([data-reference-theme]) .tool-toggle,
+.prototype.product-mode .product-window:not([data-reference-theme]) .tool-list > div,
+.prototype.product-mode .product-window:not([data-reference-theme]) .tool-list button {
+  color: var(--sb-action);
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .clarification-heading,
+.prototype.product-mode .product-window:not([data-reference-theme]) .clarification-card > p,
+.prototype.product-mode .product-window:not([data-reference-theme]) .clarification-options .selected,
+.prototype.product-mode .product-window:not([data-reference-theme]) .panel-tabs > button.active {
+  color: var(--sb-brand-ink);
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .clarification-options .selected,
+.prototype.product-mode .product-window:not([data-reference-theme]) .panel-tabs > button.active {
+  background: var(--sb-selected-bg);
+  border-color: #a9c8da;
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .context-indicator > span,
+.prototype.product-mode .product-window:not([data-reference-theme]) .spinner {
+  border-color: #b7d0df;
+  border-top-color: var(--sb-action);
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .run-label i,
+.prototype.product-mode .product-window:not([data-reference-theme]) .typing-cursor {
+  background: var(--sb-action);
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .html-file {
+  background: #eaf4f9;
+  border-color: #c9dfea;
+  color: var(--sb-action);
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .added {
+  color: var(--sb-success);
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .browser-address,
+.prototype.product-mode .product-window:not([data-reference-theme]) .browser-tab,
+.prototype.product-mode .product-window:not([data-reference-theme]) .diff-filename {
+  background: #f4f9fb;
+  border-color: #dbe8ef;
+  color: var(--sb-muted);
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .paper-preview {
+  background: #f8fbfd;
+  color: var(--sb-muted);
+}
+
+.prototype.product-mode .product-window:not([data-reference-theme]) .paper-preview > p:not(.paper-eyebrow),
+.prototype.product-mode .product-window:not([data-reference-theme]) .paper-eyebrow,
+.prototype.product-mode .product-window:not([data-reference-theme]) .paper-preview > small,
+.prototype.product-mode .product-window:not([data-reference-theme]) .diff-toolbar,
+.prototype.product-mode .product-window:not([data-reference-theme]) .diff-line > span,
+.prototype.product-mode .product-window:not([data-reference-theme]) .diff-ellipsis {
+  color: var(--sb-muted);
+}

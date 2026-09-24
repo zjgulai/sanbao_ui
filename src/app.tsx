@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { states } from './catalog';
 import { ReviewBar, ResearchDetail, StateDirectory } from './components/ReviewShell';
 import { AUTOMATION_TEMPLATES, AutomationDialog, AutomationPage, HomePage, ProductSidebar, SearchDialog, UsageDialog, WorkspaceDialog, type AutomationConfig, type AutomationTemplate, type AutomationView, type WorkspaceConfig } from './pages/ProductPages';
@@ -66,6 +66,8 @@ export const IMPLEMENTED_OBSERVATIONS = [
 const implemented = new Set<string>(IMPLEMENTED_OBSERVATIONS);
 const homeId = states.find(state => state.observationIds.includes('QB1-06'))!.id;
 const getStateId = () => new URLSearchParams(window.location.search).get('state') || homeId;
+type PresentationMode = 'product' | 'research';
+const getPresentationMode = (): PresentationMode => new URLSearchParams(window.location.search).get('mode') === 'research' ? 'research' : 'product';
 const getAutomationView = (): 'mine' | 'templates' | 'runs' => {
   const view = new URLSearchParams(window.location.search).get('automationView');
   return view === 'templates' || view === 'runs' ? view : 'mine';
@@ -244,6 +246,7 @@ const batch21DiscardReferenceVariants = new Set(['models.discard.open']);
 
 export function App() {
   const [id, setId] = useState(getStateId);
+  const [presentationMode, setPresentationMode] = useState<PresentationMode>(getPresentationMode);
   const [automationView, setAutomationView] = useState(getAutomationView);
   const [automationFixture, setAutomationFixture] = useState(getAutomationFixture);
   const [automationLifecycleView, setAutomationLifecycleView] = useState<AutomationLifecycleView | null>(getAutomationLifecycleView);
@@ -297,6 +300,7 @@ export function App() {
   const initialContextMenu: ComposerContextState | undefined = scene?.observationIds.includes('QD0-03') ? 'context' : scene?.observationIds.includes('QD0-04') ? 'skills' : ({ 'goal-mode': 'goal', 'plan-mode': 'plan', 'site-templates': 'sites', 'files-menu': 'files', 'plugins-menu': 'plugins' } as Record<string, ComposerContextState>)[scene?.variant ?? ''];
   const available = !!scene?.observationIds.some(item => implemented.has(item));
   const applyRoute = useCallback((next: string, searchBackground?: string) => {
+    setPresentationMode(getPresentationMode());
     if (isSearchState(next)) {
       if (!isSearchState(currentId.current)) {
         searchResetOrigin.current = null;
@@ -749,14 +753,22 @@ export function App() {
     };
     const key = (event: KeyboardEvent) => {
       if (event.isComposing) return;
+      if (presentationMode === 'product') return;
       if ((event.metaKey || event.ctrlKey) && ['g', 'k'].includes(event.key.toLowerCase())) { event.preventDefault(); go(3); }
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'n') { event.preventDefault(); go(6); }
     };
     window.addEventListener('popstate', pop);
     window.addEventListener('keydown', key);
     return () => { window.removeEventListener('popstate', pop); window.removeEventListener('keydown', key); };
-  }, [go, applyRoute]);
+  }, [go, applyRoute, presentationMode]);
   useEffect(() => { localStorage.setItem('sanbao-prototype-directory', directoryOpen ? 'open' : 'closed'); }, [directoryOpen]);
+  useEffect(() => { document.title = presentationMode === 'research' ? 'SanBao · Qoder UI 研究' : 'SanBao · 产品原型'; }, [presentationMode]);
+  useLayoutEffect(() => {
+    const root = document.querySelector<HTMLElement>('.prototype');
+    if (!root) return;
+    root.classList.remove('product-mode', 'research-mode');
+    root.classList.add(`${presentationMode}-mode`);
+  }, [presentationMode]);
   useEffect(() => { if (!toast) return; const timer = window.setTimeout(() => setToast(''), 4500); return () => window.clearTimeout(timer); }, [toast]);
   const initialUserMenu: UserAppearancePanel | undefined = available && scene?.groupIds.includes('OBS04') ? scene.variant === 'user-menu' ? 'user' : scene.variant === 'appearance-menu' ? 'appearance' : scene.variant.replace('quick-appearance-', '') as UserAppearancePanel : undefined;
   const approvalPlanKind = id === 'QDR.S03.scope.unexpanded' ? 'permission' : id === 'QDR.S04.scope.unexpanded' ? 'plan' : null;
