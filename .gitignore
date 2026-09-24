@@ -1,6 +1,7 @@
 # Local dependencies and generated static preview
 node_modules/
 dist/
+_site/
 output/
 .playwright-cli/
 

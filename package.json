@@ -11,6 +11,7 @@
     "check:catalog": "node scripts/check-catalog.mjs",
     "check:contract": "node scripts/check-interaction-contract.mjs",
     "check:content-profile": "node scripts/check-content-profile.mjs",
+    "build:pages": "pnpm typecheck && pnpm check:content-profile && pnpm check:catalog && pnpm check:contract && tsdown && node scripts/prepare-pages.mjs",
     "build": "pnpm typecheck && pnpm check:content-profile && pnpm check:catalog && pnpm check:contract && tsdown && node scripts/prepare-static.mjs",
     "preview": "python3 -m http.server 4173 --bind 127.0.0.1 --directory dist"
   },
