@@ -31,6 +31,16 @@ expect(productProfile.includes('不授予真实权限'), 'product profile must r
 expect(researchProfile.includes('Qoder'), 'research profile must retain Qoder semantics.');
 expect(researchProfile.includes('不止于编程'), 'research profile must retain the observed Qoder home label.');
 
+const app = read('src/app.tsx');
+const reviewShell = read('src/components/ReviewShell.tsx');
+expect(app.includes("type PresentationMode = 'catalog' | 'product' | 'research';"), 'app must define catalog, product, and research presentation modes.');
+expect(app.includes("return mode === 'product' || mode === 'research' ? mode : 'catalog';"), 'the root route must default to the complete catalog.');
+expect(app.includes("getPresentationMode() === 'catalog' || localStorage.getItem('sanbao-prototype-directory') !== 'closed'"), 'the complete catalog must open its directory on first load.');
+expect(app.includes("'SanBao · 完整原型目录'"), 'the complete catalog must have its own document title.');
+expect(reviewShell.includes('完整原型目录'), 'review shell must render a SanBao complete-catalog label.');
+expect(reviewShell.includes('isDirectoryMode'), 'review shell must preserve the directory for catalog and research modes.');
+expect(reviewShell.includes('isPublicPagesArtifact'), 'public Pages research mode must avoid unpublished evidence links.');
+
 const productPages = read('src/pages/ProductPages.tsx');
 const controls = read('src/components/Controls.tsx');
 const session = read('src/pages/SessionPage.tsx');

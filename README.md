@@ -16,9 +16,15 @@ pnpm preview
 
 打开 <http://127.0.0.1:4173>。静态预览仅监听本机；源码改动后重新执行 `pnpm build`。
 
-### 产品模式与研究模式
+### 完整原型、产品模式与研究模式
 
-默认 URL 是 SanBao 产品模式：使用 `A_StarSail_Product` 品牌锁定与钢蓝色语义令牌，且不显示 Qoder 名称、`QDR`／`QB` 状态编号、来源标签或证据目录。品牌 SVG 位于 `src/assets/brand/`，构建时会复制到 `dist/assets/brand/`；不要修改 `SanBao_Logo_Kit/` 中的原始交付资产。
+默认 URL 是 SanBao 的完整原型目录：它打开 206 条已登记状态的导航，并可直接进入设置与其他工作面；目录外壳使用 `A_StarSail_Product` 品牌锁定与钢蓝色语义令牌，不显示 Qoder 名称、`QDR`／`QB` 状态编号、来源标签或证据链接。品牌 SVG 位于 `src/assets/brand/`，构建时会复制到 `dist/assets/brand/`；不要修改 `SanBao_Logo_Kit/` 中的原始交付资产。
+
+需要仅查看简化的 SanBao 产品演示时，显式使用 `mode=product`：
+
+```text
+/?mode=product
+```
 
 在同一条状态 URL 加上 `mode=research` 可进入研究审计模式，例如：
 

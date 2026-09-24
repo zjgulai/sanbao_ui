@@ -1,5 +1,6 @@
 import React, { useEffect, useId, useRef, useState, type KeyboardEvent, type ReactNode } from 'react';
 import { states } from '../catalog';
+import { BrandMark } from '../components/BrandMark';
 import { Icon, Toggle } from '../components/Controls';
 
 const PANELS = {
@@ -8,8 +9,8 @@ const PANELS = {
   language: { label: '语言', options: ['简体中文', 'English'], initial: '简体中文' },
   'font-style': { label: '字体风格', options: ['无衬线', '衬线'], initial: '无衬线' },
   'content-width': { label: '内容宽度', options: ['标准', '宽'], initial: '标准' },
-  'file-icons': { label: '文件图标', options: ['Qoder', 'Material File Icons'], initial: 'Qoder' },
-  'icon-appearance': { label: '图标外观', options: ['跟随Qoder', '浅色', '深色'], initial: '跟随Qoder' },
+  'file-icons': { label: '文件图标', options: ['SanBao', 'Material File Icons'], initial: 'SanBao' },
+  'icon-appearance': { label: '图标外观', options: ['跟随 SanBao', '浅色', '深色'], initial: '跟随 SanBao' },
 } as const;
 export type AppearancePanel = keyof typeof PANELS;
 type NavigationProps = { onBack: () => void; onPending: (id: string) => void };
@@ -95,11 +96,8 @@ function SettingRow({ label, description, children }: { label: string; descripti
   return <div className="settings-appearance-row"><div className="settings-appearance-row-copy"><span>{label}</span><p>{description}</p></div><div className="settings-appearance-row-control">{children}</div></div>;
 }
 
-function OriginalAppIcon({ duck = false }: { duck?: boolean }) {
-  return <svg className="settings-appearance-original-icon" viewBox="0 0 100 100" role="img" aria-label={duck ? 'Qoduck 原创占位图标' : 'Qoder 原创占位图标'}>
-    <rect x="6" y="6" width="88" height="88" rx="23" fill="currentColor" />
-    {duck ? <><path d="M25 57c4-10 14-14 26-9-4-11 0-21 11-23 12-2 21 8 17 18l-9 7c0 17-11 28-27 26-10-1-17-8-18-19Z" fill="#f4f0d9" /><path d="m75 36 12 4-13 6Z" fill="#dca44d" /><circle cx="68" cy="35" r="2.5" fill="#485440" /></> : <><path d="m27 49 23-23 24 23-24 25Z" fill="none" stroke="#f4f3e8" strokeWidth="8" strokeLinejoin="round" /><path d="m49 53 19 19" stroke="#f4f3e8" strokeWidth="8" strokeLinecap="round" /></>}
-  </svg>;
+function BrandAppIcon({ tone }: { tone: 'light' | 'dark' }) {
+  return <BrandMark variant="symbol" tone={tone} size={66} imageClassName="settings-appearance-brand-icon" alt="SanBao 应用图标" />;
 }
 
 export function SettingsAppearancePage({ initialPanel, onBack }: Props) {
@@ -109,11 +107,11 @@ export function SettingsAppearancePage({ initialPanel, onBack }: Props) {
   const [linksInBrowser, setLinksInBrowser] = useState(false);
   const [glass, setGlass] = useState(true);
   const [noise, setNoise] = useState(false);
-  const [appIcon, setAppIcon] = useState('Qoder');
-  const [notice, setNotice] = useState('本地外观预览，选择不会更改 Qoder 或系统设置。');
+  const [appIcon, setAppIcon] = useState('SanBao');
+  const [notice, setNotice] = useState('本地外观预览，选择不会更改 SanBao 或系统设置。');
   const radioName = useId();
   useEffect(() => { setOpen(isPanel(initialPanel) ? initialPanel : null); }, [initialPanel]);
-  const localChange = (label: string, value: string) => setNotice(`已在本地预览中选择${label}：${value}。不会更改 Qoder 或系统设置。`);
+  const localChange = (label: string, value: string) => setNotice(`已在本地预览中选择${label}：${value}。不会更改 SanBao 或系统设置。`);
   const select = (panel: AppearancePanel) => <AppearanceSelect panel={panel} value={values[panel]} open={open === panel} onOpen={() => setOpen(panel)} onClose={() => setOpen(current => current === panel ? null : current)} onChange={value => { setValues(current => ({ ...current, [panel]: value })); localChange(PANELS[panel].label, value); }} />;
   return <div className="settings-appearance">
     <div className="settings-appearance-content">
@@ -135,7 +133,7 @@ export function SettingsAppearancePage({ initialPanel, onBack }: Props) {
           </label>)}
         </div>
         <div className="settings-appearance-rows">
-          <SettingRow label="终端主题" description="让终端跟随 Qoder 的亮暗主题，或保留在终端中手动选择的亮暗色。">{select('terminal-theme')}</SettingRow>
+          <SettingRow label="终端主题" description="让终端跟随 SanBao 的亮暗主题，或保留在终端中手动选择的亮暗色。">{select('terminal-theme')}</SettingRow>
           <SettingRow label="终端链接使用内置浏览器" description="关闭时使用系统默认浏览器打开 HTTP 和 HTTPS 链接。"><Toggle label="终端链接使用内置浏览器" checked={linksInBrowser} onChange={value => { setLinksInBrowser(value); localChange('终端链接使用内置浏览器', value ? '开启' : '关闭'); }} /></SettingRow>
           <SettingRow label="语言" description="控制转写时显示在屏幕右侧的界面样式。">{select('language')}</SettingRow>
           <SettingRow label="字体风格" description="控制转写时显示在屏幕右侧的界面样式。">{select('font-style')}</SettingRow>
@@ -149,13 +147,13 @@ export function SettingsAppearancePage({ initialPanel, onBack }: Props) {
       <section className="settings-appearance-app-section" aria-labelledby="settings-app-heading">
         <h2 id="settings-app-heading">应用图标</h2>
         <div className="settings-appearance-app-card">
-          <div className="settings-appearance-app-heading"><div><h3>图标样式</h3><p>选择 Qoder 在程序坞中使用的图标。</p></div><div className="settings-appearance-icon-control"><span>图标外观</span>{select('icon-appearance')}</div></div>
-          <div className="settings-appearance-app-options" role="radiogroup" aria-label="应用图标样式">{['Qoder', 'Qoduck'].map(item => <label key={item} className={`settings-appearance-app-option ${appIcon === item ? 'selected' : ''}`}>
+          <div className="settings-appearance-app-heading"><div><h3>图标样式</h3><p>选择 SanBao 在程序坞中使用的图标。</p></div><div className="settings-appearance-icon-control"><span>图标外观</span>{select('icon-appearance')}</div></div>
+          <div className="settings-appearance-app-options" role="radiogroup" aria-label="应用图标样式">{['SanBao'].map(item => <label key={item} className={`settings-appearance-app-option ${appIcon === item ? 'selected' : ''}`}>
             <input type="radio" name={`${radioName}-app-icon`} value={item} checked={appIcon === item} onChange={() => { setAppIcon(item); localChange('应用图标', item); }} />
-            <span className="settings-appearance-app-previews"><span className="icon-light"><OriginalAppIcon duck={item === 'Qoduck'} /><small>浅色</small></span><span className="icon-dark"><OriginalAppIcon duck={item === 'Qoduck'} /><small>深色</small></span></span>
+            <span className="settings-appearance-app-previews"><span className="icon-light"><BrandAppIcon tone="light" /><small>浅色</small></span><span className="icon-dark"><BrandAppIcon tone="dark" /><small>深色</small></span></span>
             <span className="settings-appearance-app-label"><span className="settings-appearance-radio" aria-hidden="true" />{item}</span>
           </label>)}</div>
-          <p className="settings-appearance-icon-note">图标为原创占位，用于布局预览。</p>
+          <p className="settings-appearance-icon-note">图标使用 SanBao 品牌资产，仅用于本地布局预览。</p>
         </div>
       </section>
       <p className="settings-appearance-local-note" role="status">{notice}</p>

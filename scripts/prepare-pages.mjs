@@ -17,7 +17,12 @@ if (!styleFiles.length) {
 
 await rm(artifactDirectory, { force: true, recursive: true });
 await mkdir(`${artifactDirectory}/assets/brand`, { recursive: true });
-await copyFile('index.html', `${artifactDirectory}/index.html`);
+const indexHtml = await readFile('index.html', 'utf8');
+const publicIndexHtml = indexHtml.replace('<html lang="zh-CN">', '<html lang="zh-CN" data-artifact="pages">');
+if (publicIndexHtml === indexHtml) {
+  throw new Error('Unable to mark the public Pages artifact.');
+}
+await writeFile(`${artifactDirectory}/index.html`, publicIndexHtml);
 await copyFile('dist/main.js', `${artifactDirectory}/main.js`);
 await copyFile('dist/main.js.map', `${artifactDirectory}/main.js.map`);
 await writeFile(

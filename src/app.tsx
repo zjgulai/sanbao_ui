@@ -66,8 +66,11 @@ export const IMPLEMENTED_OBSERVATIONS = [
 const implemented = new Set<string>(IMPLEMENTED_OBSERVATIONS);
 const homeId = states.find(state => state.observationIds.includes('QB1-06'))!.id;
 const getStateId = () => new URLSearchParams(window.location.search).get('state') || homeId;
-type PresentationMode = 'product' | 'research';
-const getPresentationMode = (): PresentationMode => new URLSearchParams(window.location.search).get('mode') === 'research' ? 'research' : 'product';
+type PresentationMode = 'catalog' | 'product' | 'research';
+const getPresentationMode = (): PresentationMode => {
+  const mode = new URLSearchParams(window.location.search).get('mode');
+  return mode === 'product' || mode === 'research' ? mode : 'catalog';
+};
 const getAutomationView = (): 'mine' | 'templates' | 'runs' => {
   const view = new URLSearchParams(window.location.search).get('automationView');
   return view === 'templates' || view === 'runs' ? view : 'mine';
@@ -275,7 +278,7 @@ export function App() {
   const [toolResultView, setToolResultView] = useState<ToolResultView | null>(getToolResultView);
   const [sceneId, setSceneId] = useState(() => isSearchState(getStateId()) ? homeId : getStateId());
   const [revision, setRevision] = useState(0);
-  const [directoryOpen, setDirectoryOpen] = useState(() => localStorage.getItem('sanbao-prototype-directory') !== 'closed');
+  const [directoryOpen, setDirectoryOpen] = useState(() => getPresentationMode() === 'catalog' || localStorage.getItem('sanbao-prototype-directory') !== 'closed');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [automationItems, setAutomationItems] = useState<AutomationConfig[]>([]);
   const [prompt, setPrompt] = useState('');
@@ -762,12 +765,13 @@ export function App() {
     return () => { window.removeEventListener('popstate', pop); window.removeEventListener('keydown', key); };
   }, [go, applyRoute, presentationMode]);
   useEffect(() => { localStorage.setItem('sanbao-prototype-directory', directoryOpen ? 'open' : 'closed'); }, [directoryOpen]);
-  useEffect(() => { document.title = presentationMode === 'research' ? 'SanBao · Qoder UI 研究' : 'SanBao · 产品原型'; }, [presentationMode]);
+  useEffect(() => { document.title = presentationMode === 'research' ? 'SanBao · Qoder UI 研究' : presentationMode === 'product' ? 'SanBao · 产品原型' : 'SanBao · 完整原型目录'; }, [presentationMode]);
   useLayoutEffect(() => {
     const root = document.querySelector<HTMLElement>('.prototype');
     if (!root) return;
-    root.classList.remove('product-mode', 'research-mode');
+    root.classList.remove('catalog-mode', 'product-mode', 'research-mode');
     root.classList.add(`${presentationMode}-mode`);
+    if (presentationMode === 'catalog') root.classList.add('product-mode');
   }, [presentationMode]);
   useEffect(() => { if (!toast) return; const timer = window.setTimeout(() => setToast(''), 4500); return () => window.clearTimeout(timer); }, [toast]);
   const initialUserMenu: UserAppearancePanel | undefined = available && scene?.groupIds.includes('OBS04') ? scene.variant === 'user-menu' ? 'user' : scene.variant === 'appearance-menu' ? 'appearance' : scene.variant.replace('quick-appearance-', '') as UserAppearancePanel : undefined;

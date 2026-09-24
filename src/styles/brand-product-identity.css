@@ -1,6 +1,18 @@
-/* Product-only SanBao identity. Research evidence remains in the separate review mode. */
-.prototype.product-mode .review-bar,
-.prototype.product-mode .state-directory{display:none}
+/* The compact product demo hides navigation; the complete SanBao catalog keeps it visible. */
+.prototype.product-mode:not(.catalog-mode) .review-bar,
+.prototype.product-mode:not(.catalog-mode) .state-directory{display:none}
+.prototype.catalog-mode .review-bar{background:var(--sb-brand-ink);color:var(--sb-brand-on-dark)}
+.prototype.catalog-mode .review-bar button:hover,.prototype.catalog-mode .review-link:hover{background:var(--sb-action-hover)}
+.prototype.catalog-mode .review-toggle.selected{background:var(--sb-action)}
+.prototype.catalog-mode .review-state{color:#dbe6ed}
+.prototype.catalog-mode .review-badge{border-color:#89a5b8}
+.prototype.catalog-mode .review-link{color:inherit;border-radius:4px;padding:5px 7px;white-space:nowrap;text-decoration:none}
+.review-public-note{opacity:.76;white-space:nowrap}
+.prototype.catalog-mode .state-directory{background:var(--sb-page);border-color:var(--sb-line)}
+.prototype.catalog-mode .directory-heading p,.prototype.catalog-mode .directory-count,.prototype.catalog-mode .state-meta,.prototype.catalog-mode .directory-footer{color:var(--sb-muted)}
+.prototype.catalog-mode .directory-search,.prototype.catalog-mode .directory-filters select{border-color:var(--sb-line)}
+.prototype.catalog-mode .state-item.active{background:var(--sb-selected-bg);border-color:#c3d9e6}
+.prototype.catalog-mode .implemented-dot{background:var(--sb-action)}
 .sidebar-top.sidebar-top-with-brand{gap:8px}
 .product-sidebar-brand{min-width:0}
 .product-sidebar-brand .sanbao-brand-mark-text{color:var(--sb-brand-ink);font-size:10px;font-weight:600;letter-spacing:.03em;white-space:nowrap}
@@ -15,5 +27,5 @@
 .settings-appearance .settings-appearance-app-previews .icon-dark{background:var(--sb-ink);color:var(--sb-brand-on-dark)}
 .settings-appearance .settings-appearance-app-previews small{color:var(--sb-muted)}
 .settings-appearance .settings-appearance-app-previews .icon-dark small{color:var(--sb-brand-on-dark)}
-.settings-appearance .settings-appearance-brand-icon{display:block}
+.settings-appearance .settings-appearance-brand-icon{display:block;width:66px;height:66px;filter:drop-shadow(0 3px 3px #28351f17)}
 @media(max-width:700px){.home-brand-lockup{max-width:34%}.product-sidebar-brand .sanbao-brand-mark-text{display:none}}
