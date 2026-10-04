@@ -124,3 +124,17 @@
 .extension-market-empty>span{display:grid;place-items:center;width:46px;height:46px;border:1px solid #e5e5e5;border-radius:8px;background:#fff;box-shadow:0 2px 4px #00000006;margin-bottom:20px;color:#aaa}
 .extension-market-empty h2{font-size:14px;line-height:22px;font-weight:500;color:#777}
 .extension-market-empty p{font-size:12px;line-height:20px;margin-top:7px;color:#999}
+
+/* P04 扩展族接线（batch T-X）：壳侧能力名册 live 区块；只出现在有壳分支。 */
+.extensions-live-roster{margin-top:14px;border:1px solid #e5e5e5;border-radius:10px;padding:13px 15px 11px;background:#fcfdfc}
+.extensions-live-roster>h2{font-size:12px;font-weight:500;line-height:20px;color:#555}
+.extensions-live-roster>h2>span{margin-left:5px;font-size:10px;color:#909090;background:#f2f2f2;border-radius:4px;padding:1px 5px}
+.extensions-live-list{margin-top:7px;padding:0;list-style:none}
+.extensions-live-entry{display:flex;align-items:center;gap:7px;min-height:33px;border-top:1px dashed #ececec;padding:5px 0}
+.extensions-live-entry:first-child{border-top:0}
+.extensions-live-entry strong{flex:1;min-width:0;font-size:12px;font-weight:500;line-height:19px;color:#333;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.extensions-live-badge{font-size:10px;line-height:16px;border:1px solid #e2ead9;color:#4d6c5a;background:#edf3e4;border-radius:4px;padding:1px 6px;white-space:nowrap}
+.extensions-live-badge[data-configured="no"],.extensions-live-badge[data-enabled="no"]{color:#929292;background:#f5f5f5;border-color:#e8e8e8}
+.extensions-live-note{font-size:10px;line-height:17px;color:#999;margin-top:9px}
+.extensions-live-empty{font-size:12px;line-height:19px;color:#909090;margin-top:7px}
+.extensions-live-strip{margin-top:14px;border:1px solid #e2ead9;background:#f7faf4;border-radius:6px;padding:8px 11px;font-size:11px;line-height:18px;color:#55705e}

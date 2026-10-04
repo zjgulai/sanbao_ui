@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Icon } from '../components/Controls';
+import { CapabilitiesLiveStatus, useCapabilitiesRead } from './ExtensionPages';
 
 type MarketDetailProps = {
   kind: 'skill' | 'connector';
@@ -68,13 +69,14 @@ function ConnectorDescription() {
 
 export function MarketDetailPage({ kind, onNavigate, onNotice }: MarketDetailProps) {
   const isSkill = kind === 'skill';
+  const cap = useCapabilitiesRead();
   const title = isSkill ? '深入研究' : 'GitHub';
   const typeLabel = isSkill ? '技能' : '连接器';
   const back = () => {
     if (!isSkill) onNotice('返回连接器市场为本地导航；目的页已有原生观察，不代表其他详情路径均已核验。');
     onNavigate(`QDR.P04.market.${isSkill ? 'skills' : 'connectors'}.default`);
   };
-  return <section className={`extension-detail market-content-detail market-content-${kind}`} aria-label={`${title}${typeLabel}详情`} tabIndex={0}>
+  return <section className={`extension-detail market-content-detail market-content-${kind}`} aria-label={`${title}${typeLabel}详情`} tabIndex={0} data-extensions-wiring={cap.wiring}>
     <nav className="extension-detail-breadcrumb" aria-label="市场详情导航"><button type="button" onClick={back}>{typeLabel}</button><Icon name="chevron" size={11} /><span aria-current="page">{title}</span></nav>
     <div className="extension-detail-content">
       <header className="extension-detail-header">
@@ -82,6 +84,7 @@ export function MarketDetailPage({ kind, onNavigate, onNotice }: MarketDetailPro
         <div className="extension-detail-identity"><div className="extension-detail-title"><h1>{title}</h1><span>{isSkill ? 'v1.0.0' : 'v1.0.1'}</span></div><div className="extension-detail-meta"><span>{isSkill ? '@Jose-Luis-Nunez' : '@GitHub'}</span><span title="本次采集快照，非实时指标">{isSkill ? '33872' : '1326'} 次安装</span><span>{isSkill ? 'Knowledge' : 'Coding'}</span></div></div>
         <button type="button" className="extensions-primary extension-detail-install" aria-label={`安装 ${title}`} onClick={() => onNotice(`“安装 ${title}”的结果尚未采集；未安装扩展、请求服务、授权账户或启动模型。`)}>安装</button>
       </header>
+      <CapabilitiesLiveStatus cap={cap} scope="detail" />
       <p className="extension-detail-intro">{isSkill ? '围绕技术主题收集资料，验证来源并进行交叉比对，整理为有引用支持的研究报告。' : '通过 MCP 汇集 GitHub 仓库、Issue、Pull Request 与评论等研发上下文，使智能体能围绕项目资料理解开发过程。仓库内容、问题讨论、提交与审阅记录可以为分析需求、梳理变更和协作评审提供相关信息。连接器介绍还涉及按任务查找并关联这些资料，将代码背景与讨论中的决策联系起来；实际可用工具取决于安装、启用及账户授权后的服务配置。'}</p>
       {isSkill ? <ResearchDescription onNotice={onNotice} /> : <ConnectorDescription />}
     </div>
@@ -116,11 +119,12 @@ export function PluginMarketDetailPage({ initialVariant, onNavigate, onNotice }:
   const expanded = initialVariant === 'plugins-superpowers-expanded';
   const failed = initialVariant === 'connectors-context7-error';
   const title = superpowers ? 'Superpowers' : failed ? 'context7' : 'Context7';
+  const cap = useCapabilitiesRead();
   const [retries, setRetries] = useState(0);
   const pending = (action: string) => onNotice(`“${action}”的结果尚未采集；未安装扩展、请求服务、授权账户或执行技能。`);
   const skills = superpowers ? SUPERPOWERS_SKILLS.slice(0, expanded ? 14 : 6) : [['context7-mcp', 'Find current library documentation and examples through the Context7 MCP service.']];
   const outline = (label: string) => <a href="#superpowers-summary" onClick={event => { event.preventDefault(); onNotice(`“${label}”目录链接的跳转尚未采集；当前保留本地结构摘要。`); }}>{label}</a>;
-  return <section className="extension-detail market-expanded-detail" aria-label={`${title}${failed ? '连接器读取失败' : '插件详情'}`}>
+  return <section className="extension-detail market-expanded-detail" aria-label={`${title}${failed ? '连接器读取失败' : '插件详情'}`} data-extensions-wiring={cap.wiring}>
     <nav className="extension-detail-breadcrumb" aria-label="插件详情导航"><button type="button" onClick={() => onNavigate(failed ? CONTEXT7_DETAIL : 'QDR.P04.market.plugins.default')}>{failed ? 'Context7' : '插件'}</button><Icon name="chevron" size={11} /><span aria-current="page">{title}</span></nav>
     <div className="market-expanded-scroll" role="region" aria-label={`${title}详情正文`} tabIndex={0}>
       <div className="extension-detail-content">
@@ -129,6 +133,7 @@ export function PluginMarketDetailPage({ initialVariant, onNavigate, onNotice }:
           <div className="extension-detail-identity"><div className="extension-detail-title"><h1>{title}</h1><span>{superpowers ? 'v6.3.0' : 'v1.0.0'}</span></div><div className="extension-detail-meta"><span>{superpowers ? '@Jesse Vincent' : '@Upstash'}</span><span title="本次采集快照，非实时指标">{superpowers ? '27109' : failed ? '0' : '16786'} 次安装</span><span>{superpowers ? 'Workflow' : 'Coding'}</span></div></div>
           <button type="button" className="extensions-primary extension-detail-install" aria-label={`安装 ${title}`} onClick={() => pending(`安装 ${title}`)}>安装</button>
         </header>
+        <CapabilitiesLiveStatus cap={cap} scope="detail" />
         {failed ? <div className="market-detail-failure-content"><div className="market-detail-failure">
           <span className="market-detail-failure-icon" aria-hidden="true"><Icon name="file" size={18} /></span>
           <h2>暂时无法读取详情</h2><p>市场条目的说明没有加载成功。你可以重试，已安装内容不会被改动。</p>

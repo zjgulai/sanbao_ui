@@ -16,7 +16,9 @@
  *   `answerClarification` 为可选回答能力，缺省时提交如实未接线。
  * - 设置族（QDR.P06.settings.models.*）：`readSettings` 为可选只读能力，返回设置命名空间的
  *   结构事实（命名空间名／保存层／生效语义／revision／密钥计数），绝不含任何配置值、密钥或路径；
- *   缺省时 models 面如实显示未接线，不用本地演示内容代替。
+ *   缺省时 models 面如实显示未接线，不用本地演示内容代替；
+ * - P04 扩展族（T-X）：`readCapabilities` 只读壳侧能力/插件名册（结构事实）；已装/市场/
+ *   详情页按读数渲染 live 区块，缺方法或读失败时如实显示“壳已连接但能力名册读取未接线”。
  * 后续页面批次按同一模式增量扩展本接口，不在页面内各自发明通道。
  */
 
@@ -93,11 +95,19 @@ export interface SanbaoHostPort {
   openArtifact?(sessionRef: string, name: string): Promise<{ readonly state: 'opened' } | HostUnavailable>;
   /** 设置族（T-S 片）；缺省＝设置读取未接线，设置页如实显示“未接线”。 */
   readSettings?(): Promise<HostSettingsRead>;
+  /**
+   * P04 扩展族（T-X 片）：壳侧能力/插件名册读取（只读结构事实）。
+   * 纪律：已配置 ≠ 已启用 ≠ 可用——本读只报 id/label 与配置、启用两态，
+   * 可用性核验不到就不声称；缺省＝名册读取未接线，页面如实说明。
+   */
+  readCapabilities?(): Promise<{ readonly state: 'read'; readonly entries: readonly HostCapability[] } | HostUnavailable>;
 }
 
 export type HostSessionHit = { readonly sessionRef: string; readonly title: string; readonly subtitle?: string };
 export type HostAutomation = { readonly title: string; readonly schedule: string; readonly enabled: boolean };
 export type HostQuota = { readonly remaining: number; readonly total: number };
+/** 名册条目：仅壳侧结构事实（名称 + 配置/启用两态），不含可用性、权限或健康推断。 */
+export type HostCapability = { readonly id: string; readonly label: string; readonly configured: boolean; readonly enabled: boolean };
 
 declare global {
   interface Window {
