@@ -21,6 +21,6 @@ QDR.P14.preview.html,todo(T-ART),read(when-built),产物面波次
 QDR.A01.diff.created,todo(T-ART),read(when-built),产物面波次
 QDR.M02.edit.expanded,todo(T-ART),read(when-built),产物面波次
 QDR.A01.diff.modified,todo(T-ART),read(when-built),产物面波次
-QDR.P13.create.empty,todo(T-WS),write,壳侧工作区绑定需壳动作；先行为（有壳时如实标注）后接线
-QDR.P13.create.ready,todo(T-WS),write,同上
+QDR.P13.create.empty,honest,write-later,evidence/wiring/workspace（有壳时如实标注绑定由壳完成；控制组 workspace-fixture）；壳侧目录选择后议
+QDR.P13.create.ready,honest,write-later,同上（ready 态同类证据）
 QDR.OBS01.usage.open,wired(read),read,evidence/wiring/usage（负控 usage-noread；控制组 usage-fixture）
