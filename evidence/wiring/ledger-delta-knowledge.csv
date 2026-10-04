@@ -1,0 +1,18 @@
+state_id,status,wire_depth_target,evidence
+QDR.OBS02.knowledge.entry,entry-verified,entry,evidence/wiring/knowledge（入口直落已接线知识页：读数=read＋壳侧集合名册出现）
+QDR.OBS03.sites.entry,entry-verified,entry,evidence/wiring/sites（入口直落已接线站点页：读数=read＋壳侧站点名册出现）
+QDR.OBS02.knowledge.empty,wired(read),read,evidence/wiring/knowledge（控制组 knowledge-fixture；负控 knowledge-unavailable）
+QDR.OBS02.knowledge.create.open,wired(read),read,evidence/wiring/knowledge（背景名册读自壳侧；创建提交为写路径，宿主态提交提示如实未接线）
+QDR.OBS02.knowledge.workspace-filter.open,wired(read),read,evidence/wiring/knowledge（筛选菜单为本地草稿；背景名册读自壳侧）
+QDR.OBS02.knowledge.create.workspace,wired(read),read,evidence/wiring/knowledge（工作区拾取显示壳读工作区名；背景名册读自壳侧）
+QDR.OBS02.knowledge.create.ready,wired(read),read,evidence/wiring/knowledge（同 create.workspace：壳读工作区名＋壳侧名册）
+QDR.OBS02.repo-wiki.default,honest,read,evidence/wiring/knowledge-wiki-honest（本批读形状不承载 Repo Wiki 名册→如实句替本地演示项目卡）
+QDR.OBS02.repo-wiki.generated.empty,honest,read,evidence/wiring/knowledge-wiki-honest（同如实句；已生成筛选草稿保留在工具栏）
+QDR.OBS02.repo-wiki.list,honest,read,evidence/wiring/knowledge-wiki-honest（同如实句；列表/卡片视图切换为本地草稿）
+QDR.OBS02.repo-wiki.search.empty,honest,read,evidence/wiring/knowledge-wiki-honest（同如实句；搜索草稿为本地输入）
+QDR.OBS02.repo-wiki.setup,honest,read,evidence/wiring/knowledge-wiki-honest（目录空态如实句；配置面保留，生成/切换提示改壳侧句）
+QDR.OBS02.repo-wiki.knowledge-cards,honest,read,evidence/wiring/knowledge-wiki-honest（同上；知识卡片面目录如实句）
+QDR.OBS02.repo-wiki.knowledge-cards.wide,honest,read,evidence/wiring/knowledge-wiki-honest（同上；宽版目录如实句）
+QDR.OBS03.sites.empty,wired(read),read,evidence/wiring/sites（控制组 sites-fixture；负控 sites-unavailable）
+QDR.OBS03.sites.shared.empty,honest,read,evidence/wiring/sites-honest（共享范围不随本批名册承载→如实句替本地空态）
+QDR.OBS03.sites.loading,honest,read,evidence/wiring/sites-honest（本地计时演示自述改为“计时结束后显示壳侧站点名册”；骨架非壳事实）

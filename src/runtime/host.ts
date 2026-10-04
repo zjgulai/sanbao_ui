@@ -13,12 +13,15 @@
  * - S1 会话页 streaming（QDR.S01.session.streaming）：流式态——`streaming` 标志驱动
  *   跟随轮询与停止键；`stopSession` 为可选停止能力，缺省时停止动作如实未接线；
  * - S2 澄清（QDR.S02.clarification.*）：`pendingClarification` 驱动澄清卡；
- *   `answerClarification` 为可选回答能力，缺省时提交如实未接线。
+ *   `answerClarification` 为可选回答能力，缺省时提交如实未接线；
  * - 设置族（QDR.P06.settings.models.*）：`readSettings` 为可选只读能力，返回设置命名空间的
  *   结构事实（命名空间名／保存层／生效语义／revision／密钥计数），绝不含任何配置值、密钥或路径；
  *   缺省时 models 面如实显示未接线，不用本地演示内容代替；
  * - P04 扩展族（T-X）：`readCapabilities` 只读壳侧能力/插件名册（结构事实）；已装/市场/
  *   详情页按读数渲染 live 区块，缺方法或读失败时如实显示“壳已连接但能力名册读取未接线”。
+ * - OBS02 知识中心（容器页批次）：`readKnowledge` 可选读取壳侧知识库集合名册；
+ *   缺省或读失败时如实标注未接线，不用本地 fixture 冒充；
+ * - OBS03 站点（容器页批次）：`readSites` 可选读取壳侧站点名册；同一纪律。
  * 后续页面批次按同一模式增量扩展本接口，不在页面内各自发明通道。
  */
 
@@ -43,6 +46,19 @@ export type HostClarification = {
 };
 
 export type HostArtifact = { readonly name: string; readonly kind: string; readonly additions?: number; readonly deletions?: number };
+
+/** 容器页名册条目（知识集合 / 站点）：只带壳可确证的标题与可选种类标签，不发明状态值。 */
+export type HostRosterItem = { readonly title: string; readonly kind?: string };
+
+/** OBS02 知识中心（知识库标签页）的壳读结果；Repo Wiki 名册不在本批读形状内。 */
+export type HostKnowledgeRead =
+  | { readonly state: 'read'; readonly collections: readonly HostRosterItem[] }
+  | HostUnavailable;
+
+/** OBS03 站点的壳读结果；共享范围不随本批名册承载。 */
+export type HostSitesRead =
+  | { readonly state: 'read'; readonly sites: readonly HostRosterItem[] }
+  | HostUnavailable;
 
 export type HostSessionRead =
   | { readonly state: 'read'; readonly sessionRef: string; readonly messages: readonly HostSessionMessage[]; readonly streaming?: boolean; readonly pendingClarification?: HostClarification | null; readonly artifacts?: readonly HostArtifact[] }
@@ -79,6 +95,10 @@ export interface SanbaoHostPort {
   readonly protocolVersion: 1;
   readWorkspace(): Promise<HostWorkspaceRead | HostUnavailable>;
   startRequirement(text: string): Promise<HostRequirementOpened | HostUnavailable>;
+  /** OBS02 知识中心（容器页批次）；缺省＝知识读取未接线，页面如实说明。 */
+  readKnowledge?(): Promise<HostKnowledgeRead>;
+  /** OBS03 站点（容器页批次）；缺省＝站点读取未接线，页面如实说明。 */
+  readSites?(): Promise<HostSitesRead>;
   /** S1 会话页（第二片起）；缺省＝该能力未提供，页面如实显示“未接线”。 */
   readSession?(sessionRef: string): Promise<HostSessionRead>;
   /** S1.streaming 停止键（第三片起）；缺省＝停止未接线，点击后如实说明。 */
