@@ -1,0 +1,7 @@
+state_id,status,wire_depth_target,evidence
+QDR.P02.search.empty,wired(read+entry),read+entry,evidence/wiring/search（负控 search-nosearch；控制组 search-fixture）
+QDR.O02.goal.mode.active,n/a(local),none,目标模式为输入区本地交互态，无壳对应事实
+QDR.O02.plan.mode.active,n/a(local),none,计划模式为输入区本地交互态，无壳对应事实
+QDR.O02.sites.templates.open,n/a(design),none,站点模板为本地设计素材（原创占位已标注）
+QDR.O02.files.menu.open,n/a(research-only),none,该菜单仅研究面（Qoder 复刻）承载；产品面 Composer 无此菜单
+QDR.O02.plugins.menu.open,n/a(research-only),none,同上；能力名册读取归 T-X（扩展族）

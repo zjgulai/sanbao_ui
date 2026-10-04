@@ -58,7 +58,11 @@ export interface SanbaoHostPort {
   stopSession?(sessionRef: string): Promise<{ readonly state: 'stopped' } | HostUnavailable>;
   /** S2 澄清回答（第四片起）；缺省＝回答未接线，提交后如实说明。 */
   answerClarification?(sessionRef: string, answer: string): Promise<{ readonly state: 'submitted' } | HostUnavailable>;
+  /** P02 搜索（第五片起）：壳侧会话检索；缺省＝检索未接线，如实说明。 */
+  searchSessions?(query: string): Promise<{ readonly state: 'read'; readonly results: readonly HostSessionHit[] } | HostUnavailable>;
 }
+
+export type HostSessionHit = { readonly sessionRef: string; readonly title: string; readonly subtitle?: string };
 
 declare global {
   interface Window {
