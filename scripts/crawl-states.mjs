@@ -73,7 +73,7 @@ function load(stateId) {
 const results = []
 for (const stateId of states) {
   const { dom, killed } = await load(stateId)
-  const mounted = dom.includes('class="prototype"')
+  const mounted = dom.includes('data-sanbao-wiring')
   const crashed = /Application error|Minified React error/.test(dom)
   const diag = /<title>DIAG/.test(dom)
   const ok = mounted && !crashed && !diag && !killed
