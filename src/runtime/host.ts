@@ -37,8 +37,10 @@ export type HostClarification = {
   readonly recommended?: string;
 };
 
+export type HostArtifact = { readonly name: string; readonly kind: string; readonly additions?: number; readonly deletions?: number };
+
 export type HostSessionRead =
-  | { readonly state: 'read'; readonly sessionRef: string; readonly messages: readonly HostSessionMessage[]; readonly streaming?: boolean; readonly pendingClarification?: HostClarification | null }
+  | { readonly state: 'read'; readonly sessionRef: string; readonly messages: readonly HostSessionMessage[]; readonly streaming?: boolean; readonly pendingClarification?: HostClarification | null; readonly artifacts?: readonly HostArtifact[] }
   | HostUnavailable;
 
 /** 页面对壳会话的绑定态（由 app 计算，页面只渲染；不新增第二事实家）。 */
@@ -64,6 +66,8 @@ export interface SanbaoHostPort {
   readAutomations?(): Promise<{ readonly state: 'read'; readonly items: readonly HostAutomation[] } | HostUnavailable>;
   /** OBS01 用量（第七片起）：壳侧额度读数；缺省＝用量未接线，如实说明。 */
   readUsage?(): Promise<{ readonly state: 'read'; readonly plan: HostQuota; readonly resources: HostQuota } | HostUnavailable>;
+  /** 产物打开请求（第八片起）：名单读自会话 read 的 artifacts；打开由壳执行，缺省＝未接线如实说明。 */
+  openArtifact?(sessionRef: string, name: string): Promise<{ readonly state: 'opened' } | HostUnavailable>;
 }
 
 export type HostSessionHit = { readonly sessionRef: string; readonly title: string; readonly subtitle?: string };

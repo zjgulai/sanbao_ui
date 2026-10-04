@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { BrandMark } from '../components/BrandMark';
 import { Composer, Icon, IconButton } from '../components/Controls';
 import { getPresentationContentProfile, type PresentationContentProfile } from '../content/presentation-profile';
-import { type SessionHostBinding } from '../runtime/host';
+import { getHostPort, type SessionHostBinding } from '../runtime/host';
 
 type Props = { onSend: (text: string, continued: boolean) => void; workspaceName: string; answerText: string; onAnswer: (text: string) => void; observation: number; go: (observation: number) => void; pending: (group: string) => void; prompt: string; notify: (text: string) => void; initialQuestionCollapsed?: boolean; onQuestionCollapsedChange?: (collapsed: boolean) => void; initialReviewExpanded?: boolean; onReviewExpandedChange?: (expanded: boolean) => void; initialToolCollapsed?: boolean; onToolCollapsedChange?: (collapsed: boolean) => void; hostSession?: SessionHostBinding; hostStop?: () => void; hostAnswer?: (answer: string) => Promise<boolean> };
 const PLAN = ['确定页面骨架：标题、待办清单和一个添加按钮，让主要操作一眼可见。', '完成单文件原型：将样式与交互放在 demo.html 中，使用虚构的三项待办。', '核对交互：点击完成、添加新事项，并检查小窗口中的排版。'];
@@ -96,6 +96,17 @@ function SanbaoProductSessionPage({ pending, prompt, notify, onSend, contentProf
   const hostReady = hostSession.kind === 'loaded' && hostSession.result.state === 'read' ? hostSession.result : null;
   // 流式态（S1.streaming 第三片）：壳报 streaming 时给停止键与跟随指示；输出结束即停。
   const hostStreaming = !!(hostReady && hostReady.streaming);
+  // 产物面（第八片）：名单读自会话 read 的 artifacts；打开请求走壳，缺能力如实说明。
+  const hostArtifacts = hostReady && hostReady.artifacts && hostReady.artifacts.length ? hostReady.artifacts : null;
+  const openHostArtifact = (name: string) => {
+    const port = getHostPort();
+    if (port === null || !hostReady) return;
+    if (typeof port.openArtifact !== 'function') { notify(`打开产物尚未接线：壳未提供该能力（${name}）。`); return; }
+    void port.openArtifact(hostReady.sessionRef, name).then(result => {
+      if (result.state === 'opened') { notify(`已请求壳打开 ${name}；以壳侧回执为准。`); return; }
+      notify(`壳未接线打开产物（${result.reason}）：本次未执行。`);
+    });
+  };
   // 澄清（S2 第四片）：壳报 pendingClarification 时以卡片请求回答；回答走壳，未受理不锁死。
   const pendingQuestion = hostReady && hostReady.pendingClarification ? hostReady.pendingClarification : null;
   const [questionCollapsed, setQuestionCollapsed] = useState(false);
@@ -158,6 +169,7 @@ function SanbaoProductSessionPage({ pending, prompt, notify, onSend, contentProf
                 </div>
               </React.Fragment>}
         </div>
+        {hostArtifacts && <div className="changes-card host-artifacts" data-artifacts-wiring="read">{hostArtifacts.map(item => <div key={`${item.kind}-${item.name}`} style={{ justifyContent: 'flex-start' }}><Icon name="file" size={14} /><span>{item.name}{item.kind === 'output' ? '' : ` · ${item.kind === 'diff-modified' ? '修改' : item.kind === 'diff-created' ? '新建' : item.kind}`}</span>{typeof item.additions === 'number' && <strong className="added">+{item.additions}</strong>}{typeof item.deletions === 'number' && <strong className="removed">−{item.deletions}</strong>}<button className="text-button" onClick={() => openHostArtifact(item.name)}>查看</button></div>)}</div>}
         <div className="conversation-bottom">{pendingQuestion ? <div className="clarification-card" data-clarification="waiting">
           <div className="clarification-heading"><Icon name="chat" size={17} /><strong>需要你的选择</strong><button className="text-button" aria-expanded={!questionCollapsed} onClick={() => setQuestionCollapsed(value => !value)}>{questionCollapsed ? '展开问题' : '收起问题'}</button></div>
           <p>{pendingQuestion.question}</p>
