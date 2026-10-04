@@ -78,8 +78,6 @@ QDR.A03.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）�
 QDR.A04.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
 QDR.A05.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
 QDR.A06.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
-QDR.OBS02.knowledge.entry,n/a(design),none,设计型工作面（原产品仅入口观察）；不注入壳 UI
-QDR.OBS03.sites.entry,n/a(design),none,设计型工作面（原产品仅入口观察）；不注入壳 UI
 QDR.O01.context.menu.open,n/a(design),none,组级/研究态（有观察证据）；产品面向后续波次
 QDR.O02.skills.menu.open,n/a(design),none,组级/研究态（有观察证据）；产品面向后续波次
 QDR.P06.settings.mobile.partial,n/a(design),none,组级/研究态（有观察证据）；产品面向后续波次

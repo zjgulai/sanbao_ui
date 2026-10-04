@@ -1,207 +1,207 @@
 state_id,groups,page,variant,source_kind,class,wire_depth_target,status,evidence
-QDR.P03.list.empty,P03,automation,empty,observed,runtime,read/entry,todo,
-QDR.P03.create.empty,P03,automation,create,observed,runtime,read/entry,todo,
-QDR.P02.search.empty,P02,search,empty,observed,runtime,read/entry,todo,
-QDR.P13.create.empty,P13,workspace,empty,observed,runtime,read/entry,todo,
-QDR.P13.create.ready,P13,workspace,ready,observed,runtime,read/entry,todo,
+QDR.P03.list.empty,P03,automation,empty,observed,runtime,read,wired(read),evidence/wiring/automation（负控 automation-noread；控制组 automation-fixture）
+QDR.P03.create.empty,P03,automation,create,observed,runtime,wording,honest,新建为本地演示表单（文案已声明未安排真实执行）；壳侧写入后议
+QDR.P02.search.empty,P02,search,empty,observed,runtime,read+entry,wired(read+entry),evidence/wiring/search（负控 search-nosearch；控制组 search-fixture）
+QDR.P13.create.empty,P13,workspace,empty,observed,runtime,write-later,honest,evidence/wiring/workspace（有壳时如实标注绑定由壳完成；控制组 workspace-fixture）；壳侧目录选择后议
+QDR.P13.create.ready,P13,workspace,ready,observed,runtime,write-later,honest,同上（ready 态同类证据）
 QDR.P01.home.workspace,P01|P13,home,workspace,observed,home,read+write,wired(B1-4),
 QDR.S01.session.running,P01|S01|M01,session,running,observed,session,read+write,wired(B1-4),
 QDR.S01.session.streaming,S01|M01,session,streaming,observed,session,read+write,wired(B1-4),
 QDR.S02.clarification.waiting,S02,session,clarification,observed,session,read+write,wired(B1-4),
 QDR.S02.clarification.custom,S02,session,clarification-custom,observed,session,read+write,wired(B1-4),
 QDR.S02.clarification.submitted,S02|M01,session,clarification-submitted,observed,session,read+write,wired(B1-4),
-QDR.M01.reply.completed,M01,session,completed,observed,session,read+write,todo,
-QDR.M01.reply.actions,M01,session,reply-actions,observed,session,read+write,todo,
-QDR.P16.review.summary,P16,session,task-review,observed,session,read+write,todo,
-QDR.S10.context.usage,S10,session,context,observed,session,read+write,todo,
-QDR.OBS01.usage.open,OBS01,home,usage,observed,home,read+write,todo,
-QDR.M02.file.writing,M02|S01,session,writing,observed,session,read+write,todo,
-QDR.A02.output.html,A02,session,artifact,observed,session,read+write,todo,
-QDR.A01.changes.created,A01,session,changes-created,observed,session,read+write,todo,
-QDR.P14.preview.html,P14|A04,session,preview,observed,session,read+write,todo,
-QDR.A01.diff.created,A01|P14,session,diff-created,observed,session,read+write,todo,
-QDR.M02.edit.expanded,M02,session,edit-expanded,observed,session,read+write,todo,
-QDR.A01.diff.modified,A01,session,diff-modified,observed,session,read+write,todo,
-QDR.S08.reply.interrupted,S08|S01,session,stopped,observed,session,read+write,todo,
-QDR.S08.reply.continued,S08|M01,session,continued,observed,session,read+write,todo,
-QDR.P01.anchor.preview,P01|M01,session,message-anchor,observed,session,read+write,todo,
-QDR.P06.settings.profile.entry,P06,discovery,settings-profile,entry-observed,design,n/a,todo,
-QDR.P06.settings.general.entry,P06,discovery,settings-general,entry-observed,design,n/a,todo,
-QDR.P06.settings.mode.entry,P06,discovery,settings-mode,entry-observed,design,n/a,todo,
-QDR.P06.settings.task-monitor.entry,P06,discovery,settings-task-monitor,entry-observed,design,n/a,todo,
-QDR.P06.settings.shortcuts.entry,P06,discovery,settings-shortcuts,entry-observed,design,n/a,todo,
-QDR.P06.settings.appearance.entry,P06,discovery,settings-appearance,entry-observed,design,n/a,todo,
-QDR.P06.settings.voice.entry,P06,discovery,settings-voice,entry-observed,design,n/a,todo,
-QDR.P06.settings.models.entry,P06,discovery,settings-models,entry-observed,design,n/a,todo,
-QDR.P06.settings.pet.entry,P06,discovery,settings-pet,entry-observed,design,n/a,todo,
-QDR.P06.settings.memory.entry,P06,discovery,settings-memory,entry-observed,design,n/a,todo,
-QDR.P06.settings.import.entry,P06,discovery,settings-import,entry-observed,design,n/a,todo,
-QDR.P06.settings.extensions.entry,P06,discovery,settings-extensions,entry-observed,design,n/a,todo,
-QDR.P06.settings.hooks.entry,P06,discovery,settings-hooks,entry-observed,design,n/a,todo,
-QDR.P06.settings.computer-control.entry,P06,discovery,settings-computer-control,entry-observed,design,n/a,todo,
-QDR.P06.settings.mobile.entry,P06,discovery,settings-mobile,entry-observed,design,n/a,todo,
-QDR.P06.settings.git.entry,P06,discovery,settings-git,entry-observed,design,n/a,todo,
-QDR.P06.settings.worktrees.entry,P06,discovery,settings-worktrees,entry-observed,design,n/a,todo,
-QDR.P06.settings.workspace-index.entry,P06,discovery,settings-workspace-index,entry-observed,design,n/a,todo,
-QDR.P06.settings.connections.entry,P06,discovery,settings-connections,entry-observed,design,n/a,todo,
-QDR.P06.settings.security.entry,P06,discovery,settings-security,entry-observed,design,n/a,todo,
-QDR.P06.settings.archived-tasks.entry,P06,discovery,settings-archived-tasks,entry-observed,design,n/a,todo,
-QDR.P06.settings.experiments.entry,P06,discovery,settings-experiments,entry-observed,design,n/a,todo,
-QDR.P06.settings.network.entry,P06,discovery,settings-network,entry-observed,design,n/a,todo,
-QDR.P06.settings.playground.entry,P06,discovery,settings-playground,entry-observed,design,n/a,todo,
-QDR.P01.scope.unexpanded,P01,discovery,group-p01,static-only,design,n/a,todo,
-QDR.P02.scope.unexpanded,P02,discovery,group-p02,static-only,design,n/a,todo,
-QDR.P03.scope.unexpanded,P03,discovery,group-p03,static-only,design,n/a,todo,
-QDR.P04.scope.unexpanded,P04,discovery,group-p04,static-only,design,n/a,todo,
-QDR.P05.scope.unexpanded,P05,discovery,group-p05,static-only,design,n/a,todo,
-QDR.P06.scope.unexpanded,P06,discovery,group-p06,static-only,design,n/a,todo,
-QDR.P07.scope.unexpanded,P07,discovery,group-p07,static-only,design,n/a,todo,
-QDR.P08.scope.unexpanded,P08,discovery,group-p08,static-only,design,n/a,todo,
-QDR.P09.scope.unexpanded,P09,discovery,group-p09,static-only,design,n/a,todo,
-QDR.P10.scope.unexpanded,P10,discovery,group-p10,static-only,design,n/a,todo,
-QDR.P11.scope.unexpanded,P11,discovery,group-p11,static-only,design,n/a,todo,
-QDR.P12.scope.unexpanded,P12,discovery,group-p12,static-only,design,n/a,todo,
-QDR.P13.scope.unexpanded,P13,discovery,group-p13,static-only,design,n/a,todo,
-QDR.P14.scope.unexpanded,P14,discovery,group-p14,static-only,design,n/a,todo,
-QDR.P15.scope.unexpanded,P15,discovery,group-p15,static-only,design,n/a,todo,
-QDR.P16.scope.unexpanded,P16,discovery,group-p16,static-only,design,n/a,todo,
-QDR.P17.scope.unexpanded,P17,discovery,group-p17,static-only,design,n/a,todo,
-QDR.O01.scope.unexpanded,O01,discovery,group-o01,static-only,design,n/a,todo,
-QDR.O02.scope.unexpanded,O02,discovery,group-o02,static-only,design,n/a,todo,
-QDR.O03.scope.unexpanded,O03,discovery,group-o03,static-only,design,n/a,todo,
-QDR.O04.scope.unexpanded,O04,discovery,group-o04,static-only,design,n/a,todo,
-QDR.O05.scope.unexpanded,O05,discovery,group-o05,static-only,design,n/a,todo,
-QDR.O06.scope.unexpanded,O06,discovery,group-o06,static-only,design,n/a,todo,
-QDR.O07.scope.unexpanded,O07,discovery,group-o07,static-only,design,n/a,todo,
-QDR.O08.scope.unexpanded,O08,discovery,group-o08,static-only,design,n/a,todo,
-QDR.O09.scope.unexpanded,O09,discovery,group-o09,static-only,design,n/a,todo,
-QDR.O10.scope.unexpanded,O10,discovery,group-o10,static-only,design,n/a,todo,
-QDR.O11.scope.unexpanded,O11,discovery,group-o11,static-only,design,n/a,todo,
-QDR.O12.scope.unexpanded,O12,discovery,group-o12,static-only,design,n/a,todo,
-QDR.O13.scope.unexpanded,O13,discovery,group-o13,static-only,design,n/a,todo,
-QDR.O14.scope.unexpanded,O14,discovery,group-o14,static-only,design,n/a,todo,
-QDR.S01.scope.unexpanded,S01,discovery,group-s01,static-only,design,n/a,todo,
-QDR.S02.scope.unexpanded,S02,discovery,group-s02,static-only,design,n/a,todo,
-QDR.S03.scope.unexpanded,S03,discovery,group-s03,static-only,design,n/a,todo,
-QDR.S04.scope.unexpanded,S04,discovery,group-s04,static-only,design,n/a,todo,
-QDR.S05.scope.unexpanded,S05,discovery,group-s05,static-only,design,n/a,todo,
-QDR.S06.scope.unexpanded,S06,discovery,group-s06,static-only,design,n/a,todo,
-QDR.S07.scope.unexpanded,S07,discovery,group-s07,static-only,design,n/a,todo,
-QDR.S08.scope.unexpanded,S08,discovery,group-s08,static-only,design,n/a,todo,
-QDR.S09.scope.unexpanded,S09,discovery,group-s09,static-only,design,n/a,todo,
-QDR.S10.scope.unexpanded,S10,discovery,group-s10,static-only,design,n/a,todo,
-QDR.S11.scope.unexpanded,S11,discovery,group-s11,static-only,design,n/a,todo,
-QDR.S12.scope.unexpanded,S12,discovery,group-s12,static-only,design,n/a,todo,
-QDR.S13.scope.unexpanded,S13,discovery,group-s13,static-only,design,n/a,todo,
-QDR.M01.scope.unexpanded,M01,discovery,group-m01,static-only,design,n/a,todo,
-QDR.M02.scope.unexpanded,M02,discovery,group-m02,static-only,design,n/a,todo,
-QDR.M03.scope.unexpanded,M03,discovery,group-m03,static-only,design,n/a,todo,
-QDR.M04.scope.unexpanded,M04,discovery,group-m04,static-only,design,n/a,todo,
-QDR.M05.scope.unexpanded,M05,discovery,group-m05,static-only,design,n/a,todo,
-QDR.A01.scope.unexpanded,A01,discovery,group-a01,static-only,design,n/a,todo,
-QDR.A02.scope.unexpanded,A02,discovery,group-a02,static-only,design,n/a,todo,
-QDR.A03.scope.unexpanded,A03,discovery,group-a03,static-only,design,n/a,todo,
-QDR.A04.scope.unexpanded,A04,discovery,group-a04,static-only,design,n/a,todo,
-QDR.A05.scope.unexpanded,A05,discovery,group-a05,static-only,design,n/a,todo,
-QDR.A06.scope.unexpanded,A06,discovery,group-a06,static-only,design,n/a,todo,
-QDR.OBS02.knowledge.entry,OBS02,discovery,knowledge-entry,entry-observed,design,n/a,todo,
-QDR.OBS03.sites.entry,OBS03,discovery,sites-entry,entry-observed,design,n/a,todo,
-QDR.O01.context.menu.open,O01|O02,discovery,context-menu,observed,design,n/a,todo,
-QDR.O02.skills.menu.open,O02,discovery,skills-menu,observed,design,n/a,todo,
-QDR.P06.settings.mobile.partial,P06,discovery,settings-mobile-partial,observed,design,n/a,todo,
-QDR.P14.terminal.entry,P14,discovery,terminal-entry,entry-observed,design,n/a,todo,
-QDR.P14.sidepanel.entry,P14,discovery,sidepanel-entry,entry-observed,design,n/a,todo,
-QDR.P06.settings.appearance.default,P06,settings,default,observed,settings,read/honest,todo,
-QDR.P06.settings.appearance.color-mode.open,P06,settings,color-mode,observed,settings,read/honest,todo,
-QDR.P06.settings.appearance.terminal-theme.open,P06,settings,terminal-theme,observed,settings,read/honest,todo,
-QDR.P06.settings.appearance.language.open,P06,settings,language,observed,settings,read/honest,todo,
-QDR.P06.settings.appearance.font-style.open,P06,settings,font-style,observed,settings,read/honest,todo,
-QDR.P06.settings.appearance.content-width.open,P06,settings,content-width,observed,settings,read/honest,todo,
-QDR.P06.settings.appearance.file-icons.open,P06,settings,file-icons,observed,settings,read/honest,todo,
-QDR.P06.settings.appearance.icon-appearance.open,P06,settings,icon-appearance,observed,settings,read/honest,todo,
-QDR.OBS04.user.menu.open,OBS04,discovery,user-menu,observed,design,n/a,todo,
-QDR.OBS04.appearance.menu.open,OBS04,discovery,appearance-menu,observed,design,n/a,todo,
-QDR.OBS04.appearance.language.open,OBS04,discovery,quick-appearance-language,observed,design,n/a,todo,
-QDR.OBS04.appearance.color-mode.open,OBS04,discovery,quick-appearance-color-mode,observed,design,n/a,todo,
-QDR.OBS04.appearance.theme.open,OBS04,discovery,quick-appearance-theme,observed,design,n/a,todo,
-QDR.OBS04.appearance.font-style.open,OBS04,discovery,quick-appearance-font-style,observed,design,n/a,todo,
-QDR.OBS04.appearance.text-size.open,OBS04,discovery,quick-appearance-text-size,observed,design,n/a,todo,
-QDR.OBS04.appearance.ui-scale.open,OBS04,discovery,quick-appearance-ui-scale,observed,design,n/a,todo,
-QDR.OBS04.appearance.content-width.open,OBS04,discovery,quick-appearance-content-width,observed,design,n/a,todo,
-QDR.O02.goal.mode.active,O02,home,goal-mode,observed,home,read+write,todo,
-QDR.O02.plan.mode.active,O02,home,plan-mode,observed,home,read+write,todo,
-QDR.O02.sites.templates.open,O02,home,site-templates,observed,home,read+write,todo,
-QDR.O02.files.menu.open,O02,home,files-menu,observed,home,read+write,todo,
-QDR.OBS02.knowledge.empty,OBS02,knowledge,empty,observed,collection,read,todo,
-QDR.OBS02.knowledge.create.open,OBS02,knowledge,create,observed,collection,read,todo,
-QDR.OBS03.sites.empty,OBS03,sites,empty,observed,collection,read,todo,
-QDR.O02.plugins.menu.open,O02,home,plugins-menu,observed,home,read+write,todo,
-QDR.OBS02.knowledge.workspace-filter.open,OBS02,knowledge,workspace-filter,observed,collection,read,todo,
-QDR.OBS02.repo-wiki.default,OBS02,knowledge,repo-wiki,observed,collection,read,todo,
-QDR.OBS02.repo-wiki.generated.empty,OBS02,knowledge,repo-wiki-generated,observed,collection,read,todo,
-QDR.OBS02.repo-wiki.list,OBS02,knowledge,repo-wiki-list,observed,collection,read,todo,
-QDR.OBS02.repo-wiki.setup,OBS02,knowledge,repo-wiki-setup,observed,collection,read,todo,
-QDR.OBS03.sites.shared.empty,OBS03,sites,shared,observed,collection,read,todo,
-QDR.OBS03.sites.loading,OBS03,sites,loading,observed,collection,read,todo,
-QDR.P06.settings.profile.default,P06,settings,profile,observed,settings,read/honest,todo,
-QDR.P04.installed.plugins.empty,P04|P06,settings,extensions-plugins,observed,settings,read/honest,todo,
-QDR.P04.installed.skills.empty,P04|P06,settings,extensions-skills,observed,settings,read/honest,todo,
-QDR.P04.installed.connectors.empty,P04|P06,settings,extensions-connectors,observed,settings,read/honest,todo,
-QDR.P04.installed.agents.empty,P04|P06,settings,extensions-agents,observed,settings,read/honest,todo,
-QDR.P04.installed.plugins.add.open,P04|P06,settings,extensions-plugin-add,observed,settings,read/honest,todo,
-QDR.P04.installed.skills.add.open,P04|P06,settings,extensions-skill-add,observed,settings,read/honest,todo,
-QDR.P04.market.skills.default,P04,extensions,skills,observed,market,read,todo,
-QDR.P04.market.plugins.default,P04,extensions,plugins,observed,market,read,todo,
-QDR.P04.market.plugins.ppt.detail,P04,extensions,plugins-ppt-detail,observed,market,read,todo,
-QDR.P04.market.skills.deep-research.detail,P04,extensions,skills-deep-research-detail,observed,market,read,todo,
-QDR.P04.market.skills.search.match,P04,extensions,skills-search-match,observed,market,read,todo,
-QDR.P04.market.skills.search.empty,P04,extensions,skills-search-empty,observed,market,read,todo,
-QDR.P04.market.skills.featured,P04,extensions,skills-featured,observed,market,read,todo,
-QDR.P04.market.skills.latest,P04,extensions,skills-latest,observed,market,read,todo,
-QDR.P04.market.connectors.default,P04,extensions,connectors,observed,market,read,todo,
-QDR.P04.market.connectors.github.detail,P04,extensions,connectors-github-detail,observed,market,read,todo,
-QDR.O08.mcp.form.empty,O08|P04,settings,extensions-connectors-mcp-form,observed,settings,read/honest,todo,
-QDR.O08.mcp.json.default,O08|P04,settings,extensions-connectors-mcp-json,observed,settings,read/honest,todo,
-QDR.O08.mcp.transport.open,O08|P04,settings,extensions-connectors-mcp-transport,observed,settings,read/honest,todo,
-QDR.O08.mcp.form.stdio,O08|P04,settings,extensions-connectors-mcp-stdio,observed,settings,read/honest,todo,
-QDR.O08.mcp.form.http,O08|P04,settings,extensions-connectors-mcp-http,observed,settings,read/honest,todo,
-QDR.O08.mcp.http.header-row,O08|P04,settings,extensions-connectors-mcp-http-header,observed,settings,read/honest,todo,
-QDR.O08.mcp.form.sse,O08|P04,settings,extensions-connectors-mcp-sse,observed,settings,read/honest,todo,
-QDR.O08.mcp.name.preview,O08|P04,settings,extensions-connectors-mcp-sse-named,observed,settings,read/honest,todo,
-QDR.O08.mcp.discard.open,O08|P04,settings,extensions-connectors-mcp-discard,observed,settings,read/honest,todo,
-QDR.O08.mcp.stdio.argument-row,O08|P04,settings,extensions-connectors-mcp-stdio-argument,observed,settings,read/honest,todo,
-QDR.O08.mcp.stdio.environment-row,O08|P04,settings,extensions-connectors-mcp-stdio-env,observed,settings,read/honest,todo,
-QDR.P04.market.plugins.superpowers.detail,P04,extensions,plugins-superpowers-detail,observed,market,read,todo,
-QDR.P04.market.plugins.superpowers.expanded,P04,extensions,plugins-superpowers-expanded,observed,market,read,todo,
-QDR.P04.market.plugins.context7.detail,P04,extensions,plugins-context7-detail,observed,market,read,todo,
-QDR.P04.market.connectors.context7.error,P04,extensions,connectors-context7-error,observed,market,read,todo,
-QDR.OBS02.knowledge.create.workspace,OBS02,knowledge,create-workspace,observed,collection,read,todo,
-QDR.OBS02.knowledge.create.ready,OBS02,knowledge,create-ready,observed,collection,read,todo,
-QDR.OBS02.repo-wiki.search.empty,OBS02,knowledge,repo-wiki-search-empty,observed,collection,read,todo,
-QDR.OBS02.repo-wiki.knowledge-cards,OBS02,knowledge,repo-wiki-knowledge-cards,observed,collection,read,todo,
-QDR.OBS02.repo-wiki.knowledge-cards.wide,OBS02,knowledge,repo-wiki-knowledge-cards-wide,observed,collection,read,todo,
-QDR.P06.settings.general.default,P06,settings,general,observed,settings,read/honest,todo,
-QDR.P06.settings.mode.default,P06,settings,mode,observed,settings,read/honest,todo,
-QDR.P06.settings.task-monitor.default,P06,settings,task-monitor,observed,settings,read/honest,todo,
-QDR.P06.settings.shortcuts.default,P06,settings,shortcuts,observed,settings,read/honest,todo,
-QDR.P06.settings.shortcuts.search.voice,P06,settings,shortcuts.search.voice,observed,settings,read/honest,todo,
-QDR.P06.settings.shortcuts.search.empty,P06,settings,shortcuts.search.empty,observed,settings,read/honest,todo,
-QDR.P06.settings.shortcuts.send-menu.open,P06,settings,shortcuts.send-menu.open,observed,settings,read/honest,todo,
-QDR.P06.settings.shortcuts.edit.settings,P06,settings,shortcuts.edit.settings,observed,settings,read/honest,todo,
-QDR.P06.settings.voice.default,P06,settings,voice,observed,settings,read/honest,todo,
-QDR.P06.settings.voice.tone.open,P06,settings,voice.tone.open,observed,settings,read/honest,todo,
-QDR.P06.settings.voice.speed.open,P06,settings,voice.speed.open,observed,settings,read/honest,todo,
-QDR.P06.settings.voice.duration.open,P06,settings,voice.duration.open,observed,settings,read/honest,todo,
-QDR.P06.settings.voice.input-device.open,P06,settings,voice.input-device.open,observed,settings,read/honest,todo,
-QDR.P06.settings.voice.shortcut.edit,P06,settings,voice.shortcut.edit,observed,settings,read/honest,todo,
-QDR.P06.settings.voice.word.draft,P06,settings,voice.word.draft,observed,settings,read/honest,todo,
-QDR.P06.settings.models.default,P06,settings,models,observed,settings,read/honest,todo,
-QDR.P06.settings.models.add.default,P06,settings,models.add.default,observed,settings,read/honest,todo,
-QDR.P06.settings.models.provider.open,P06,settings,models.provider.open,observed,settings,read/honest,todo,
-QDR.P06.settings.models.add.deepseek,P06,settings,models.add.deepseek,observed,settings,read/honest,todo,
-QDR.P06.settings.models.deepseek.models.open,P06,settings,models.deepseek.models.open,observed,settings,read/honest,todo,
-QDR.P06.settings.models.deepseek.type.open,P06,settings,models.deepseek.type.open,observed,settings,read/honest,todo,
-QDR.P06.settings.models.discard.open,P06,settings,models.discard.open,observed,settings,read/honest,todo,
-QDR.P06.settings.models.add.openai-compatible,P06,settings,models.add.openai-compatible,observed,settings,read/honest,todo,
-QDR.P06.settings.models.openai-compatible.api-type.open,P06,settings,models.openai-compatible.api-type.open,observed,settings,read/honest,todo,
-QDR.P06.settings.models.add.anthropic-compatible,P06,settings,models.add.anthropic-compatible,observed,settings,read/honest,todo,
+QDR.M01.reply.completed,M01,session,completed,observed,session,read,wired(read),由 B2 片 readSession 消息渲染承接（完成态=读到的消息线程）
+QDR.M01.reply.actions,M01,session,reply-actions,observed,session,none,n/a(product-face-absent),回复动作行仅研究面承载
+QDR.P16.review.summary,P16,session,task-review,observed,session,none,n/a(product-face-absent),任务回顾浮层仅研究面；产品会话页右栏为协作说明
+QDR.S10.context.usage,S10,session,context,observed,session,none,n/a(research-only),上下文浮层仅研究面
+QDR.OBS01.usage.open,OBS01,home,usage,observed,home,read,wired(read),evidence/wiring/usage（负控 usage-noread；控制组 usage-fixture）
+QDR.M02.file.writing,M02|S01,session,writing,observed,session,none,n/a(research-only),写入指示为研究面
+QDR.A02.output.html,A02,session,artifact,observed,session,read,wired(read),evidence/wiring/artifacts（会话读附 artifacts 名单＋计数；查看=openArtifact；负控 artifacts-noopen）
+QDR.A01.changes.created,A01,session,changes-created,observed,session,read,wired(read),变更计数读自壳（+67/−0）；diff 内容视图后批
+QDR.P14.preview.html,P14|A04,session,preview,observed,session,open-request,honest,打开请求经 openArtifact 接线；独立预览窗口由壳承载
+QDR.A01.diff.created,A01|P14,session,diff-created,observed,session,read,wired(read),新建变更计数已读；diff 内容视图后批
+QDR.M02.edit.expanded,M02,session,edit-expanded,observed,session,tools-later,honest,工具执行列表产品面未建；产物名单由 A02 卡承载
+QDR.A01.diff.modified,A01,session,diff-modified,observed,session,read,wired(read),修改计数已读；diff 内容视图后批
+QDR.S08.reply.interrupted,S08|S01,session,stopped,observed,session,none,n/a(research-only),中断提示为研究面（停止动作本身已由 stopSession 接线）
+QDR.S08.reply.continued,S08|M01,session,continued,observed,session,none,n/a(research-only),续写为研究面
+QDR.P01.anchor.preview,P01|M01,session,message-anchor,observed,session,none,n/a(research-only),消息锚点预览为研究面
+QDR.P06.settings.profile.entry,P06,discovery,settings-profile,entry-observed,design,none,n/a(design),设计型工作面（原产品仅入口观察）；不注入壳 UI
+QDR.P06.settings.general.entry,P06,discovery,settings-general,entry-observed,design,none,n/a(design),设计型工作面（原产品仅入口观察）；不注入壳 UI
+QDR.P06.settings.mode.entry,P06,discovery,settings-mode,entry-observed,design,none,n/a(design),设计型工作面（原产品仅入口观察）；不注入壳 UI
+QDR.P06.settings.task-monitor.entry,P06,discovery,settings-task-monitor,entry-observed,design,none,n/a(design),设计型工作面（原产品仅入口观察）；不注入壳 UI
+QDR.P06.settings.shortcuts.entry,P06,discovery,settings-shortcuts,entry-observed,design,none,n/a(design),设计型工作面（原产品仅入口观察）；不注入壳 UI
+QDR.P06.settings.appearance.entry,P06,discovery,settings-appearance,entry-observed,design,none,n/a(design),设计型工作面（原产品仅入口观察）；不注入壳 UI
+QDR.P06.settings.voice.entry,P06,discovery,settings-voice,entry-observed,design,none,n/a(design),设计型工作面（原产品仅入口观察）；不注入壳 UI
+QDR.P06.settings.models.entry,P06,discovery,settings-models,entry-observed,design,none,n/a(design),设计型工作面（原产品仅入口观察）；不注入壳 UI
+QDR.P06.settings.pet.entry,P06,discovery,settings-pet,entry-observed,design,none,n/a(design),设计型工作面（原产品仅入口观察）；不注入壳 UI
+QDR.P06.settings.memory.entry,P06,discovery,settings-memory,entry-observed,design,none,n/a(design),设计型工作面（原产品仅入口观察）；不注入壳 UI
+QDR.P06.settings.import.entry,P06,discovery,settings-import,entry-observed,design,none,n/a(design),设计型工作面（原产品仅入口观察）；不注入壳 UI
+QDR.P06.settings.extensions.entry,P06,discovery,settings-extensions,entry-observed,design,none,n/a(design),设计型工作面（原产品仅入口观察）；不注入壳 UI
+QDR.P06.settings.hooks.entry,P06,discovery,settings-hooks,entry-observed,design,none,n/a(design),设计型工作面（原产品仅入口观察）；不注入壳 UI
+QDR.P06.settings.computer-control.entry,P06,discovery,settings-computer-control,entry-observed,design,none,n/a(design),设计型工作面（原产品仅入口观察）；不注入壳 UI
+QDR.P06.settings.mobile.entry,P06,discovery,settings-mobile,entry-observed,design,none,n/a(design),设计型工作面（原产品仅入口观察）；不注入壳 UI
+QDR.P06.settings.git.entry,P06,discovery,settings-git,entry-observed,design,none,n/a(design),设计型工作面（原产品仅入口观察）；不注入壳 UI
+QDR.P06.settings.worktrees.entry,P06,discovery,settings-worktrees,entry-observed,design,none,n/a(design),设计型工作面（原产品仅入口观察）；不注入壳 UI
+QDR.P06.settings.workspace-index.entry,P06,discovery,settings-workspace-index,entry-observed,design,none,n/a(design),设计型工作面（原产品仅入口观察）；不注入壳 UI
+QDR.P06.settings.connections.entry,P06,discovery,settings-connections,entry-observed,design,none,n/a(design),设计型工作面（原产品仅入口观察）；不注入壳 UI
+QDR.P06.settings.security.entry,P06,discovery,settings-security,entry-observed,design,none,n/a(design),设计型工作面（原产品仅入口观察）；不注入壳 UI
+QDR.P06.settings.archived-tasks.entry,P06,discovery,settings-archived-tasks,entry-observed,design,none,n/a(design),设计型工作面（原产品仅入口观察）；不注入壳 UI
+QDR.P06.settings.experiments.entry,P06,discovery,settings-experiments,entry-observed,design,none,n/a(design),设计型工作面（原产品仅入口观察）；不注入壳 UI
+QDR.P06.settings.network.entry,P06,discovery,settings-network,entry-observed,design,none,n/a(design),设计型工作面（原产品仅入口观察）；不注入壳 UI
+QDR.P06.settings.playground.entry,P06,discovery,settings-playground,entry-observed,design,none,n/a(design),设计型工作面（原产品仅入口观察）；不注入壳 UI
+QDR.P01.scope.unexpanded,P01,discovery,group-p01,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.P02.scope.unexpanded,P02,discovery,group-p02,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.P03.scope.unexpanded,P03,discovery,group-p03,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.P04.scope.unexpanded,P04,discovery,group-p04,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.P05.scope.unexpanded,P05,discovery,group-p05,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.P06.scope.unexpanded,P06,discovery,group-p06,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.P07.scope.unexpanded,P07,discovery,group-p07,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.P08.scope.unexpanded,P08,discovery,group-p08,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.P09.scope.unexpanded,P09,discovery,group-p09,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.P10.scope.unexpanded,P10,discovery,group-p10,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.P11.scope.unexpanded,P11,discovery,group-p11,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.P12.scope.unexpanded,P12,discovery,group-p12,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.P13.scope.unexpanded,P13,discovery,group-p13,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.P14.scope.unexpanded,P14,discovery,group-p14,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.P15.scope.unexpanded,P15,discovery,group-p15,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.P16.scope.unexpanded,P16,discovery,group-p16,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.P17.scope.unexpanded,P17,discovery,group-p17,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.O01.scope.unexpanded,O01,discovery,group-o01,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.O02.scope.unexpanded,O02,discovery,group-o02,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.O03.scope.unexpanded,O03,discovery,group-o03,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.O04.scope.unexpanded,O04,discovery,group-o04,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.O05.scope.unexpanded,O05,discovery,group-o05,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.O06.scope.unexpanded,O06,discovery,group-o06,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.O07.scope.unexpanded,O07,discovery,group-o07,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.O08.scope.unexpanded,O08,discovery,group-o08,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.O09.scope.unexpanded,O09,discovery,group-o09,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.O10.scope.unexpanded,O10,discovery,group-o10,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.O11.scope.unexpanded,O11,discovery,group-o11,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.O12.scope.unexpanded,O12,discovery,group-o12,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.O13.scope.unexpanded,O13,discovery,group-o13,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.O14.scope.unexpanded,O14,discovery,group-o14,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.S01.scope.unexpanded,S01,discovery,group-s01,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.S02.scope.unexpanded,S02,discovery,group-s02,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.S03.scope.unexpanded,S03,discovery,group-s03,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.S04.scope.unexpanded,S04,discovery,group-s04,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.S05.scope.unexpanded,S05,discovery,group-s05,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.S06.scope.unexpanded,S06,discovery,group-s06,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.S07.scope.unexpanded,S07,discovery,group-s07,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.S08.scope.unexpanded,S08,discovery,group-s08,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.S09.scope.unexpanded,S09,discovery,group-s09,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.S10.scope.unexpanded,S10,discovery,group-s10,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.S11.scope.unexpanded,S11,discovery,group-s11,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.S12.scope.unexpanded,S12,discovery,group-s12,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.S13.scope.unexpanded,S13,discovery,group-s13,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.M01.scope.unexpanded,M01,discovery,group-m01,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.M02.scope.unexpanded,M02,discovery,group-m02,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.M03.scope.unexpanded,M03,discovery,group-m03,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.M04.scope.unexpanded,M04,discovery,group-m04,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.M05.scope.unexpanded,M05,discovery,group-m05,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.A01.scope.unexpanded,A01,discovery,group-a01,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.A02.scope.unexpanded,A02,discovery,group-a02,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.A03.scope.unexpanded,A03,discovery,group-a03,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.A04.scope.unexpanded,A04,discovery,group-a04,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.A05.scope.unexpanded,A05,discovery,group-a05,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.A06.scope.unexpanded,A06,discovery,group-a06,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.OBS02.knowledge.entry,OBS02,discovery,knowledge-entry,entry-observed,design,entry,entry-verified,evidence/wiring/knowledge（入口直落已接线知识页：读数=read＋壳侧集合名册出现）
+QDR.OBS03.sites.entry,OBS03,discovery,sites-entry,entry-observed,design,entry,entry-verified,evidence/wiring/sites（入口直落已接线站点页：读数=read＋壳侧站点名册出现）
+QDR.O01.context.menu.open,O01|O02,discovery,context-menu,observed,design,none,n/a(design),组级/研究态（有观察证据）；产品面向后续波次
+QDR.O02.skills.menu.open,O02,discovery,skills-menu,observed,design,none,n/a(design),组级/研究态（有观察证据）；产品面向后续波次
+QDR.P06.settings.mobile.partial,P06,discovery,settings-mobile-partial,observed,design,none,n/a(design),组级/研究态（有观察证据）；产品面向后续波次
+QDR.P14.terminal.entry,P14,discovery,terminal-entry,entry-observed,design,none,n/a(design),设计型工作面（原产品仅入口观察）；不注入壳 UI
+QDR.P14.sidepanel.entry,P14,discovery,sidepanel-entry,entry-observed,design,none,n/a(design),设计型工作面（原产品仅入口观察）；不注入壳 UI
+QDR.P06.settings.appearance.default,P06,settings,default,observed,settings,read/honest,honest,本批无对应壳方法（显示偏好为本地渲染事实）；保持本地演示；动作已有诚实未采集提示
+QDR.P06.settings.appearance.color-mode.open,P06,settings,color-mode,observed,settings,read/honest,honest,本批无对应壳方法（显示偏好为本地渲染事实）；保持本地演示；动作已有诚实未采集提示
+QDR.P06.settings.appearance.terminal-theme.open,P06,settings,terminal-theme,observed,settings,read/honest,honest,本批无对应壳方法（显示偏好为本地渲染事实）；保持本地演示；动作已有诚实未采集提示
+QDR.P06.settings.appearance.language.open,P06,settings,language,observed,settings,read/honest,honest,本批无对应壳方法（显示偏好为本地渲染事实）；保持本地演示；动作已有诚实未采集提示
+QDR.P06.settings.appearance.font-style.open,P06,settings,font-style,observed,settings,read/honest,honest,本批无对应壳方法（显示偏好为本地渲染事实）；保持本地演示；动作已有诚实未采集提示
+QDR.P06.settings.appearance.content-width.open,P06,settings,content-width,observed,settings,read/honest,honest,本批无对应壳方法（显示偏好为本地渲染事实）；保持本地演示；动作已有诚实未采集提示
+QDR.P06.settings.appearance.file-icons.open,P06,settings,file-icons,observed,settings,read/honest,honest,本批无对应壳方法（显示偏好为本地渲染事实）；保持本地演示；动作已有诚实未采集提示
+QDR.P06.settings.appearance.icon-appearance.open,P06,settings,icon-appearance,observed,settings,read/honest,honest,本批无对应壳方法（显示偏好为本地渲染事实）；保持本地演示；动作已有诚实未采集提示
+QDR.OBS04.user.menu.open,OBS04,discovery,user-menu,observed,design,none,n/a(design),组级/研究态（有观察证据）；产品面向后续波次
+QDR.OBS04.appearance.menu.open,OBS04,discovery,appearance-menu,observed,design,none,n/a(design),组级/研究态（有观察证据）；产品面向后续波次
+QDR.OBS04.appearance.language.open,OBS04,discovery,quick-appearance-language,observed,design,none,n/a(design),组级/研究态（有观察证据）；产品面向后续波次
+QDR.OBS04.appearance.color-mode.open,OBS04,discovery,quick-appearance-color-mode,observed,design,none,n/a(design),组级/研究态（有观察证据）；产品面向后续波次
+QDR.OBS04.appearance.theme.open,OBS04,discovery,quick-appearance-theme,observed,design,none,n/a(design),组级/研究态（有观察证据）；产品面向后续波次
+QDR.OBS04.appearance.font-style.open,OBS04,discovery,quick-appearance-font-style,observed,design,none,n/a(design),组级/研究态（有观察证据）；产品面向后续波次
+QDR.OBS04.appearance.text-size.open,OBS04,discovery,quick-appearance-text-size,observed,design,none,n/a(design),组级/研究态（有观察证据）；产品面向后续波次
+QDR.OBS04.appearance.ui-scale.open,OBS04,discovery,quick-appearance-ui-scale,observed,design,none,n/a(design),组级/研究态（有观察证据）；产品面向后续波次
+QDR.OBS04.appearance.content-width.open,OBS04,discovery,quick-appearance-content-width,observed,design,none,n/a(design),组级/研究态（有观察证据）；产品面向后续波次
+QDR.O02.goal.mode.active,O02,home,goal-mode,observed,home,none,n/a(local),目标模式为输入区本地交互态，无壳对应事实
+QDR.O02.plan.mode.active,O02,home,plan-mode,observed,home,none,n/a(local),计划模式为输入区本地交互态，无壳对应事实
+QDR.O02.sites.templates.open,O02,home,site-templates,observed,home,none,n/a(design),站点模板为本地设计素材（原创占位已标注）
+QDR.O02.files.menu.open,O02,home,files-menu,observed,home,none,n/a(research-only),该菜单仅研究面（Qoder 复刻）承载；产品面 Composer 无此菜单
+QDR.OBS02.knowledge.empty,OBS02,knowledge,empty,observed,collection,read,wired(read),evidence/wiring/knowledge（控制组 knowledge-fixture；负控 knowledge-unavailable）
+QDR.OBS02.knowledge.create.open,OBS02,knowledge,create,observed,collection,read,wired(read),evidence/wiring/knowledge（背景名册读自壳侧；创建提交为写路径，宿主态提交提示如实未接线）
+QDR.OBS03.sites.empty,OBS03,sites,empty,observed,collection,read,wired(read),evidence/wiring/sites（控制组 sites-fixture；负控 sites-unavailable）
+QDR.O02.plugins.menu.open,O02,home,plugins-menu,observed,home,none,n/a(research-only),同上；能力名册读取归 T-X（扩展族）
+QDR.OBS02.knowledge.workspace-filter.open,OBS02,knowledge,workspace-filter,observed,collection,read,wired(read),evidence/wiring/knowledge（筛选菜单为本地草稿；背景名册读自壳侧）
+QDR.OBS02.repo-wiki.default,OBS02,knowledge,repo-wiki,observed,collection,read,honest,evidence/wiring/knowledge-wiki-honest（本批读形状不承载 Repo Wiki 名册→如实句替本地演示项目卡）
+QDR.OBS02.repo-wiki.generated.empty,OBS02,knowledge,repo-wiki-generated,observed,collection,read,honest,evidence/wiring/knowledge-wiki-honest（同如实句；已生成筛选草稿保留在工具栏）
+QDR.OBS02.repo-wiki.list,OBS02,knowledge,repo-wiki-list,observed,collection,read,honest,evidence/wiring/knowledge-wiki-honest（同如实句；列表/卡片视图切换为本地草稿）
+QDR.OBS02.repo-wiki.setup,OBS02,knowledge,repo-wiki-setup,observed,collection,read,honest,evidence/wiring/knowledge-wiki-honest（目录空态如实句；配置面保留，生成/切换提示改壳侧句）
+QDR.OBS03.sites.shared.empty,OBS03,sites,shared,observed,collection,read,honest,evidence/wiring/sites-honest（共享范围不随本批名册承载→如实句替本地空态）
+QDR.OBS03.sites.loading,OBS03,sites,loading,observed,collection,read,honest,evidence/wiring/sites-honest（本地计时演示自述改为“计时结束后显示壳侧站点名册”；骨架非壳事实）
+QDR.P06.settings.profile.default,P06,settings,profile,observed,settings,read/honest,honest,身份/资料读取不在本批接缝（红线）；页面已自标注虚构资料
+QDR.P04.installed.plugins.empty,P04|P06,settings,extensions-plugins,observed,settings,read/honest,honest,本批无扩展清单壳方法；空态保持并如实提示
+QDR.P04.installed.skills.empty,P04|P06,settings,extensions-skills,observed,settings,read/honest,honest,本批无扩展清单壳方法；空态保持并如实提示
+QDR.P04.installed.connectors.empty,P04|P06,settings,extensions-connectors,observed,settings,read/honest,honest,本批无扩展清单壳方法；空态保持并如实提示
+QDR.P04.installed.agents.empty,P04|P06,settings,extensions-agents,observed,settings,read/honest,honest,本批无扩展清单壳方法；空态保持并如实提示
+QDR.P04.installed.plugins.add.open,P04|P06,settings,extensions-plugin-add,observed,settings,read/honest,honest,本批无扩展清单壳方法；菜单保持本地并如实提示
+QDR.P04.installed.skills.add.open,P04|P06,settings,extensions-skill-add,observed,settings,read/honest,honest,本批无扩展清单壳方法；菜单保持本地并如实提示
+QDR.P04.market.skills.default,P04,extensions,skills,observed,market,read,wired(read),evidence/wiring/extensions-states (host stub→READY read；名册块 3 条) ; evidence/wiring/extensions-fixture (控制组 READY fixture) ; evidence/wiring/extensions-nocap (负控 READY unavailable)
+QDR.P04.market.plugins.default,P04,extensions,plugins,observed,market,read,wired(read),evidence/wiring/extensions (主场景 READY：市场名册块→Superpowers 详情条→返回→已装页名册；capReadCalls=4) ; evidence/wiring/extensions-states (逐状态探针) ; evidence/wiring/extensions-fixture (控制组)
+QDR.P04.market.plugins.ppt.detail,P04,extensions,plugins-ppt-detail,observed,market,read,wired(read),evidence/wiring/extensions-states READY read+strip (ExtensionDetailPage 同一组件) ; evidence/wiring/extensions-fixture
+QDR.P04.market.skills.deep-research.detail,P04,extensions,skills-deep-research-detail,observed,market,read,wired(read),evidence/wiring/extensions-states READY read+strip (MarketDetailPage 同一组件) ; evidence/wiring/extensions-fixture
+QDR.P04.market.skills.search.match,P04,extensions,skills-search-match,observed,market,read,wired(read),evidence/wiring/extensions-states READY read+名册块 (ExtensionMarketPage 同一组件) ; evidence/wiring/extensions-fixture
+QDR.P04.market.skills.search.empty,P04,extensions,skills-search-empty,observed,market,read,wired(read),evidence/wiring/extensions-states READY read+名册块 (ExtensionMarketPage 同一组件) ; evidence/wiring/extensions-fixture
+QDR.P04.market.skills.featured,P04,extensions,skills-featured,observed,market,read,wired(read),evidence/wiring/extensions-states READY read+名册块 (ExtensionMarketPage 同一组件) ; evidence/wiring/extensions-fixture
+QDR.P04.market.skills.latest,P04,extensions,skills-latest,observed,market,read,wired(read),evidence/wiring/extensions-states READY read+名册块 (ExtensionMarketPage 同一组件) ; evidence/wiring/extensions-fixture
+QDR.P04.market.connectors.default,P04,extensions,connectors,observed,market,read,wired(read),evidence/wiring/extensions-states READY read+名册块 (ExtensionMarketPage 同一组件) ; evidence/wiring/extensions-fixture
+QDR.P04.market.connectors.github.detail,P04,extensions,connectors-github-detail,observed,market,read,wired(read),evidence/wiring/extensions-states READY read+strip (MarketDetailPage 同一组件) ; evidence/wiring/extensions-fixture
+QDR.O08.mcp.form.empty,O08|P04,settings,extensions-connectors-mcp-form,observed,settings,read/honest,honest,本批无 MCP 配置壳方法；表单提交已有诚实未采集提示
+QDR.O08.mcp.json.default,O08|P04,settings,extensions-connectors-mcp-json,observed,settings,read/honest,honest,本批无 MCP 配置壳方法；表单提交已有诚实未采集提示
+QDR.O08.mcp.transport.open,O08|P04,settings,extensions-connectors-mcp-transport,observed,settings,read/honest,honest,本批无 MCP 配置壳方法；表单提交已有诚实未采集提示
+QDR.O08.mcp.form.stdio,O08|P04,settings,extensions-connectors-mcp-stdio,observed,settings,read/honest,honest,本批无 MCP 配置壳方法；表单提交已有诚实未采集提示
+QDR.O08.mcp.form.http,O08|P04,settings,extensions-connectors-mcp-http,observed,settings,read/honest,honest,本批无 MCP 配置壳方法；表单提交已有诚实未采集提示
+QDR.O08.mcp.http.header-row,O08|P04,settings,extensions-connectors-mcp-http-header,observed,settings,read/honest,honest,本批无 MCP 配置壳方法；表单提交已有诚实未采集提示
+QDR.O08.mcp.form.sse,O08|P04,settings,extensions-connectors-mcp-sse,observed,settings,read/honest,honest,本批无 MCP 配置壳方法；表单提交已有诚实未采集提示
+QDR.O08.mcp.name.preview,O08|P04,settings,extensions-connectors-mcp-sse-named,observed,settings,read/honest,honest,本批无 MCP 配置壳方法；表单提交已有诚实未采集提示
+QDR.O08.mcp.discard.open,O08|P04,settings,extensions-connectors-mcp-discard,observed,settings,read/honest,honest,本批无 MCP 配置壳方法；放弃确认保持本地并如实提示
+QDR.O08.mcp.stdio.argument-row,O08|P04,settings,extensions-connectors-mcp-stdio-argument,observed,settings,read/honest,honest,本批无 MCP 配置壳方法；表单提交已有诚实未采集提示
+QDR.O08.mcp.stdio.environment-row,O08|P04,settings,extensions-connectors-mcp-stdio-env,observed,settings,read/honest,honest,本批无 MCP 配置壳方法；表单提交已有诚实未采集提示
+QDR.P04.market.plugins.superpowers.detail,P04,extensions,plugins-superpowers-detail,observed,market,read,wired(read),evidence/wiring/extensions (主场景直接驱动：详情条断言 READY) ; evidence/wiring/extensions-states
+QDR.P04.market.plugins.superpowers.expanded,P04,extensions,plugins-superpowers-expanded,observed,market,read,wired(read),evidence/wiring/extensions-states READY read+strip (PluginMarketDetailPage 同一组件) ; evidence/wiring/extensions-fixture
+QDR.P04.market.plugins.context7.detail,P04,extensions,plugins-context7-detail,observed,market,read,wired(read),evidence/wiring/extensions-states READY read+strip (PluginMarketDetailPage 同一组件) ; evidence/wiring/extensions-fixture
+QDR.P04.market.connectors.context7.error,P04,extensions,connectors-context7-error,observed,market,read,wired(read),evidence/wiring/extensions-states READY read+strip (PluginMarketDetailPage failed 变体；本地失败内容保持本地演示) ; evidence/wiring/extensions-fixture
+QDR.OBS02.knowledge.create.workspace,OBS02,knowledge,create-workspace,observed,collection,read,wired(read),evidence/wiring/knowledge（工作区拾取显示壳读工作区名；背景名册读自壳侧）
+QDR.OBS02.knowledge.create.ready,OBS02,knowledge,create-ready,observed,collection,read,wired(read),evidence/wiring/knowledge（同 create.workspace：壳读工作区名＋壳侧名册）
+QDR.OBS02.repo-wiki.search.empty,OBS02,knowledge,repo-wiki-search-empty,observed,collection,read,honest,evidence/wiring/knowledge-wiki-honest（同如实句；搜索草稿为本地输入）
+QDR.OBS02.repo-wiki.knowledge-cards,OBS02,knowledge,repo-wiki-knowledge-cards,observed,collection,read,honest,evidence/wiring/knowledge-wiki-honest（同上；知识卡片面目录如实句）
+QDR.OBS02.repo-wiki.knowledge-cards.wide,OBS02,knowledge,repo-wiki-knowledge-cards-wide,observed,collection,read,honest,evidence/wiring/knowledge-wiki-honest（同上；宽版目录如实句）
+QDR.P06.settings.general.default,P06,settings,general,observed,settings,read/honest,honest,本批无显示偏好壳方法；切换动作已有诚实未采集提示
+QDR.P06.settings.mode.default,P06,settings,mode,observed,settings,read/honest,honest,本批无显示偏好壳方法；切换动作已有诚实未采集提示
+QDR.P06.settings.task-monitor.default,P06,settings,task-monitor,observed,settings,read/honest,honest,本批无显示偏好壳方法；切换动作已有诚实未采集提示
+QDR.P06.settings.shortcuts.default,P06,settings,shortcuts,observed,settings,read/honest,honest,本批无快捷键壳方法；保持本地演示与诚实提示
+QDR.P06.settings.shortcuts.search.voice,P06,settings,shortcuts.search.voice,observed,settings,read/honest,honest,本批无快捷键壳方法；保持本地演示与诚实提示
+QDR.P06.settings.shortcuts.search.empty,P06,settings,shortcuts.search.empty,observed,settings,read/honest,honest,本批无快捷键壳方法；保持本地演示与诚实提示
+QDR.P06.settings.shortcuts.send-menu.open,P06,settings,shortcuts.send-menu.open,observed,settings,read/honest,honest,本批无快捷键壳方法；保持本地演示与诚实提示
+QDR.P06.settings.shortcuts.edit.settings,P06,settings,shortcuts.edit.settings,observed,settings,read/honest,honest,本批无快捷键壳方法；保持本地演示与诚实提示
+QDR.P06.settings.voice.default,P06,settings,voice,observed,settings,read/honest,honest,本批无语音偏好壳方法；选值结果已有诚实未采集提示
+QDR.P06.settings.voice.tone.open,P06,settings,voice.tone.open,observed,settings,read/honest,honest,本批无语音偏好壳方法；选值结果已有诚实未采集提示
+QDR.P06.settings.voice.speed.open,P06,settings,voice.speed.open,observed,settings,read/honest,honest,本批无语音偏好壳方法；选值结果已有诚实未采集提示
+QDR.P06.settings.voice.duration.open,P06,settings,voice.duration.open,observed,settings,read/honest,honest,本批无语音偏好壳方法；选值结果已有诚实未采集提示
+QDR.P06.settings.voice.input-device.open,P06,settings,voice.input-device.open,observed,settings,read/honest,honest,本批无语音偏好壳方法；选值结果已有诚实未采集提示
+QDR.P06.settings.voice.shortcut.edit,P06,settings,voice.shortcut.edit,observed,settings,read/honest,honest,本批无语音偏好壳方法；编辑保持本地并如实提示
+QDR.P06.settings.voice.word.draft,P06,settings,voice.word.draft,observed,settings,read/honest,honest,本批无语音偏好壳方法；草稿保持本地并如实提示
+QDR.P06.settings.models.default,P06,settings,models,observed,settings,read,wired(read),evidence/wiring/settings/ READY（18 checks 含 canary/密钥样/路径样缺席）；控制组 evidence/wiring/settings-fixture/ READY；负控 evidence/wiring/settings-no-method/ READY
+QDR.P06.settings.models.add.default,P06,settings,models.add.default,observed,settings,read/honest,honest,容器 read 背景已接线（evidence/wiring/settings/ @models.add.deepseek READY）；本行对话框本体保持本地并如实提示
+QDR.P06.settings.models.provider.open,P06,settings,models.provider.open,observed,settings,read/honest,honest,容器 read 背景已接线（evidence/wiring/settings/ @models.add.deepseek READY）；本行对话框本体保持本地并如实提示
+QDR.P06.settings.models.add.deepseek,P06,settings,models.add.deepseek,observed,settings,read/honest,honest,容器 read 背景已接线（evidence/wiring/settings/ @models.add.deepseek READY）；本行对话框本体保持本地并如实提示
+QDR.P06.settings.models.deepseek.models.open,P06,settings,models.deepseek.models.open,observed,settings,read/honest,honest,容器 read 背景已接线（evidence/wiring/settings/ @models.add.deepseek READY）；本行对话框本体保持本地并如实提示
+QDR.P06.settings.models.deepseek.type.open,P06,settings,models.deepseek.type.open,observed,settings,read/honest,honest,容器 read 背景已接线（evidence/wiring/settings/ @models.add.deepseek READY）；本行对话框本体保持本地并如实提示
+QDR.P06.settings.models.discard.open,P06,settings,models.discard.open,observed,settings,read/honest,honest,容器 read 背景已接线（evidence/wiring/settings/ @models.add.deepseek READY）；本行放弃确认保持本地并如实提示
+QDR.P06.settings.models.add.openai-compatible,P06,settings,models.add.openai-compatible,observed,settings,read/honest,honest,容器 read 背景已接线（evidence/wiring/settings/ @models.add.deepseek READY）；本行对话框本体保持本地并如实提示
+QDR.P06.settings.models.openai-compatible.api-type.open,P06,settings,models.openai-compatible.api-type.open,observed,settings,read/honest,honest,容器 read 背景已接线（evidence/wiring/settings/ @models.add.deepseek READY）；本行对话框本体保持本地并如实提示
+QDR.P06.settings.models.add.anthropic-compatible,P06,settings,models.add.anthropic-compatible,observed,settings,read/honest,honest,容器 read 背景已接线（evidence/wiring/settings/ @models.add.deepseek READY）；本行对话框本体保持本地并如实提示
