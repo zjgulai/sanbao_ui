@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { BrandMark } from '../components/BrandMark';
 import { Composer, Icon, IconButton } from '../components/Controls';
 import { getPresentationContentProfile, type PresentationContentProfile } from '../content/presentation-profile';
+import { type SessionHostBinding } from '../runtime/host';
 
-type Props = { onSend: (text: string, continued: boolean) => void; workspaceName: string; answerText: string; onAnswer: (text: string) => void; observation: number; go: (observation: number) => void; pending: (group: string) => void; prompt: string; notify: (text: string) => void; initialQuestionCollapsed?: boolean; onQuestionCollapsedChange?: (collapsed: boolean) => void; initialReviewExpanded?: boolean; onReviewExpandedChange?: (expanded: boolean) => void; initialToolCollapsed?: boolean; onToolCollapsedChange?: (collapsed: boolean) => void };
+type Props = { onSend: (text: string, continued: boolean) => void; workspaceName: string; answerText: string; onAnswer: (text: string) => void; observation: number; go: (observation: number) => void; pending: (group: string) => void; prompt: string; notify: (text: string) => void; initialQuestionCollapsed?: boolean; onQuestionCollapsedChange?: (collapsed: boolean) => void; initialReviewExpanded?: boolean; onReviewExpandedChange?: (expanded: boolean) => void; initialToolCollapsed?: boolean; onToolCollapsedChange?: (collapsed: boolean) => void; hostSession?: SessionHostBinding; hostStop?: () => void; hostAnswer?: (answer: string) => Promise<boolean> };
 const PLAN = ['确定页面骨架：标题、待办清单和一个添加按钮，让主要操作一眼可见。', '完成单文件原型：将样式与交互放在 demo.html 中，使用虚构的三项待办。', '核对交互：点击完成、添加新事项，并检查小窗口中的排版。'];
 const STREAM = ['我会先从界面和交互路径开始，把任务拆成可以逐项核对的部分。', '第一步，整理已经观察到的首页、工作区、搜索和任务状态，区分实际证据与设计假设。', '第二步，用一个纸飞机清单作为小型示例，串起澄清、生成、预览和修改流程。', '第三步，保留尚未观察到的页面，不把推断当成已经完成的研究。'];
 const DEFAULT_PROMPT = '请帮我规划一个简单的纸飞机待办清单：整理桌面、浇花、阅读十页。先说明步骤，再创建一个可以预览的 HTML 页面。';
@@ -86,32 +87,92 @@ function QoderResearchSessionPage({ observation, go, pending, prompt, notify, wo
 }
 
 
-function SanbaoProductSessionPage({ pending, prompt, notify, onSend, contentProfile }: Pick<Props, 'pending' | 'prompt' | 'notify' | 'onSend'> & { contentProfile: PresentationContentProfile }) {
+function SanbaoProductSessionPage({ pending, prompt, notify, onSend, contentProfile, hostSession = { kind: 'none' }, hostStop, hostAnswer }: Pick<Props, 'pending' | 'prompt' | 'notify' | 'onSend'> & { contentProfile: PresentationContentProfile; hostSession?: SessionHostBinding; hostStop?: () => void; hostAnswer?: (answer: string) => Promise<boolean> }) {
   const copy = contentProfile.session;
   const [panelClosed, setPanelClosed] = useState(false);
   const sessionPrompt = prompt || copy.defaultPrompt;
-  return <div className="session-page">
+  // 接线（S1 会话页）：只有无壳时才渲染本地演示线程；有壳时按绑定态如实呈现。
+  const wiringState = hostSession.kind === 'none' ? 'fixture' : hostSession.kind === 'loaded' ? hostSession.result.state : hostSession.kind;
+  const hostReady = hostSession.kind === 'loaded' && hostSession.result.state === 'read' ? hostSession.result : null;
+  // 流式态（S1.streaming 第三片）：壳报 streaming 时给停止键与跟随指示；输出结束即停。
+  const hostStreaming = !!(hostReady && hostReady.streaming);
+  // 澄清（S2 第四片）：壳报 pendingClarification 时以卡片请求回答；回答走壳，未受理不锁死。
+  const pendingQuestion = hostReady && hostReady.pendingClarification ? hostReady.pendingClarification : null;
+  const [questionCollapsed, setQuestionCollapsed] = useState(false);
+  const [customMode, setCustomMode] = useState(false);
+  const [selectedOption, setSelectedOption] = useState('');
+  const [customAnswer, setCustomAnswer] = useState('');
+  const [answered, setAnswered] = useState(false);
+  const [submittingAnswer, setSubmittingAnswer] = useState(false);
+  useEffect(() => {
+    setQuestionCollapsed(false); setCustomMode(false); setSelectedOption(''); setCustomAnswer(''); setAnswered(false); setSubmittingAnswer(false);
+  }, [pendingQuestion?.question]);
+  const submitHostAnswer = () => {
+    if (answered || submittingAnswer) return;
+    const answer = customMode ? customAnswer.trim() : selectedOption;
+    setSubmittingAnswer(true);
+    void (hostAnswer ? hostAnswer(answer || '无偏好') : Promise.resolve(false)).then(accepted => {
+      setSubmittingAnswer(false);
+      if (accepted) setAnswered(true);
+    });
+  };
+  const hostNotice = hostSession.kind === 'awaiting-ref'
+    ? '壳已连接：本页尚未绑定会话。从首页提交需求后，这里会读取对应会话。'
+    : hostSession.kind === 'loading'
+      ? `正在从壳读取会话 ${hostSession.sessionRef}…`
+      : hostSession.kind === 'loaded' && hostSession.result.state === 'unavailable'
+        ? `壳已连接但会话读取未接线（${hostSession.result.reason}）：不显示本地演示内容代替。`
+        : null;
+  return <div className="session-page" data-session-wiring={wiringState}>
     <header className="session-header">
-      <div><span className="tiny-dot" /><strong>{copy.title}</strong><span className="session-mode">{copy.modeLabel}</span></div>
-      <div><button className="text-button" onClick={() => setPanelClosed(value => !value)}><Icon name="panel" size={15} /> {panelClosed ? '打开说明' : '协作说明'}</button><IconButton name="more" label="查看本地演示边界" onClick={() => notify(copy.boundary)} /></div>
+      <div>{hostStreaming ? <span className="running-dot" /> : <span className="tiny-dot" />}<strong>{copy.title}</strong><span className="session-mode">{hostReady ? `壳会话 ${hostReady.sessionRef}` : copy.modeLabel}</span></div>
+      <div><button className="text-button" onClick={() => setPanelClosed(value => !value)}><Icon name="panel" size={15} /> {panelClosed ? '打开说明' : '协作说明'}</button><IconButton name="more" label="查看本地演示边界" onClick={() => notify(hostReady ? '当前会话内容读自壳侧；边界与写路径以壳的接线为准。' : copy.boundary)} /></div>
     </header>
     <div className="session-layout">
       <div className="conversation">
         <div className="message-scroll">
-          <div className="user-message"><span>{sessionPrompt}</span></div>
-          <div className="assistant-message">
-            <div className="assistant-heading"><BrandMark variant="symbol" size={21} className="assistant-brand-mark" alt="SanBao" /><strong>{copy.assistantName}</strong></div>
-            <div className="reply-body">
-              <h2>先把下一步说清楚</h2>
-              <p>{copy.lead}</p>
-              <ol>{copy.plan.map(item => <li key={item}>{item}</li>)}</ol>
-              <small className="muted" role="note">{copy.boundary}</small>
-            </div>
-          </div>
+          {hostReady
+            ? (hostReady.messages.length > 0
+              ? hostReady.messages.map((message, index) => message.role === 'user'
+                ? <div className="user-message" key={index}><span>{message.text}</span></div>
+                : <div className="assistant-message" key={index}><div className="assistant-heading"><BrandMark variant="symbol" size={21} className="assistant-brand-mark" alt="SanBao" /><strong>{copy.assistantName}</strong>{hostStreaming && index === hostReady.messages.length - 1 && <span className="run-label"><i /> 正在输出 · 壳侧流式</span>}</div><div className="reply-body"><p>{message.text}</p>{hostStreaming && index === hostReady.messages.length - 1 && <span className="typing-cursor" />}</div></div>)
+              : <React.Fragment>
+                {prompt && <div className="user-message"><span>{prompt}</span></div>}
+                <div className="assistant-message"><div className="assistant-heading"><BrandMark variant="symbol" size={21} className="assistant-brand-mark" alt="SanBao" /><strong>{copy.assistantName}</strong></div><div className="reply-body"><p role="status">会话已创建（{hostReady.sessionRef}），壳侧尚无可读消息。</p></div></div>
+              </React.Fragment>)
+            : hostNotice !== null
+              ? <React.Fragment>
+                {prompt && <div className="user-message"><span>{prompt}</span></div>}
+                <div className="assistant-message"><div className="assistant-heading"><BrandMark variant="symbol" size={21} className="assistant-brand-mark" alt="SanBao" /><strong>{copy.assistantName}</strong></div><div className="reply-body"><p role="status">{hostNotice}</p></div></div>
+              </React.Fragment>
+              : <React.Fragment>
+                <div className="user-message"><span>{sessionPrompt}</span></div>
+                <div className="assistant-message">
+                  <div className="assistant-heading"><BrandMark variant="symbol" size={21} className="assistant-brand-mark" alt="SanBao" /><strong>{copy.assistantName}</strong></div>
+                  <div className="reply-body">
+                    <h2>先把下一步说清楚</h2>
+                    <p>{copy.lead}</p>
+                    <ol>{copy.plan.map(item => <li key={item}>{item}</li>)}</ol>
+                    <small className="muted" role="note">{copy.boundary}</small>
+                  </div>
+                </div>
+              </React.Fragment>}
         </div>
-        <div className="conversation-bottom"><div className="session-input-top"><span className="muted">本地协作输入</span></div><Composer contentProfile={contentProfile} compact onSend={text => onSend(text, false)} onRoute={pending} /></div>
+        <div className="conversation-bottom">{pendingQuestion ? <div className="clarification-card" data-clarification="waiting">
+          <div className="clarification-heading"><Icon name="chat" size={17} /><strong>需要你的选择</strong><button className="text-button" aria-expanded={!questionCollapsed} onClick={() => setQuestionCollapsed(value => !value)}>{questionCollapsed ? '展开问题' : '收起问题'}</button></div>
+          <p>{pendingQuestion.question}</p>
+          {!questionCollapsed && <div>
+            {customMode
+              ? <textarea aria-label="自定义答案" placeholder="告诉我你的想法…" value={customAnswer} onChange={event => setCustomAnswer(event.target.value)} />
+              : <div className="clarification-options">{pendingQuestion.options.map((option, index) => <button key={option} disabled={answered} className={selectedOption === option ? 'selected' : ''} onClick={() => setSelectedOption(option)}><span className="option-letter">{String.fromCharCode(65 + index)}</span>{option}{pendingQuestion.recommended === option && <em>推荐</em>}{selectedOption === option && <Icon name="check" size={14} />}</button>)}</div>}
+            <div className="clarification-footer">
+              <button className="text-button" onClick={() => setCustomMode(value => !value)}>{customMode ? '返回选项' : '自定义答案'}</button>
+              <button className="primary-button" disabled={answered || submittingAnswer} onClick={submitHostAnswer}>{(customMode ? customAnswer.trim() : selectedOption) ? '发送答案' : '无偏好'}</button>
+            </div>
+          </div>}
+        </div> : <React.Fragment><div className="session-input-top"><span className="muted">{hostStreaming ? '壳侧输出中 · 停止键可用' : '本地协作输入'}</span></div><Composer contentProfile={contentProfile} compact running={hostStreaming} onStop={hostStreaming ? hostStop : undefined} onSend={text => onSend(text, false)} onRoute={pending} /></React.Fragment>}</div>
       </div>
-      {!panelClosed && <aside className="task-panel"><div className="panel-tabs"><button className="active">{copy.panelTitle}</button><IconButton name="close" label="关闭协作说明" onClick={() => setPanelClosed(true)} /></div><div className="task-summary"><div className="summary-heading"><strong>{copy.panelTitle}</strong></div><div className="recap-card"><span><Icon name="chat" size={16} /> 本地协作结构</span><p>{copy.panelSummary}</p><small>演示状态 · 不触发外部动作</small></div><h4>外部回执 <span>0</span></h4><p className="muted panel-empty">尚未接入外部系统。</p></div></aside>}
+      {!panelClosed && <aside className="task-panel"><div className="panel-tabs"><button className="active">{copy.panelTitle}</button><IconButton name="close" label="关闭协作说明" onClick={() => setPanelClosed(true)} /></div><div className="task-summary"><div className="summary-heading"><strong>{copy.panelTitle}</strong></div><div className="recap-card"><span><Icon name="chat" size={16} /> 本地协作结构</span><p>{copy.panelSummary}</p><small>演示状态 · 不触发外部动作</small></div>{hostReady ? <React.Fragment><h4>外部回执 <span>{hostReady.messages.length}</span></h4><div className="recap-card"><span><Icon name="chat" size={16} /> 会话 {hostReady.sessionRef}</span><p>已从壳读取 {hostReady.messages.length} 条消息。</p><small>只读回执 · 不代表壳侧动作已完成</small></div></React.Fragment> : <React.Fragment><h4>外部回执 <span>0</span></h4><p className="muted panel-empty">{hostNotice !== null ? '会话读取未接线。' : '尚未接入外部系统。'}</p></React.Fragment>}</div></aside>}
     </div>
   </div>;
 }

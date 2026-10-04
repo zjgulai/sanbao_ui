@@ -4,6 +4,7 @@ import { Composer, Icon, IconButton, Modal, Toggle, type ComposerContextState } 
 import { getPresentationContentProfile, type PresentationContentProfile } from '../content/presentation-profile';
 
 import { UserAppearanceMenu, type UserAppearancePanel } from '../components/UserAppearanceMenu';
+import type { HostWorkspaceRead } from '../runtime/host';
 
 type Routes = { go: (observation: number) => void; pending: (group: string) => void };
 export type WorkspaceConfig = { name: string; color: string };
@@ -11,7 +12,7 @@ export type AutomationConfig = { name: string; prompt: string; mode: string; fre
 export type AutomationView = 'mine' | 'templates' | 'runs';
 export type AutomationTemplate = { id: string; title: string; detail: string; prompt: string; cadence: string; frequency: string; time: string; icon: string };
 type ProductSidebarProps = Routes & { workspace: WorkspaceConfig; initialUserMenu?: UserAppearancePanel; menuRevision: string; notify: (message: string) => void; page: string; onSearch: () => void; onWorkspace: () => void; collapsed: boolean; toggleCollapsed: () => void };
-type HomePageProps = Routes & { workspaceName: string; onSend: (text: string) => void; initialContextMenu?: ComposerContextState; draft: string; onDraftChange: (value: string) => void; skill: string; onSkillChange: (value: string) => void };
+type HomePageProps = Routes & { workspaceName: string; onSend: (text: string) => void; initialContextMenu?: ComposerContextState; draft: string; onDraftChange: (value: string) => void; skill: string; onSkillChange: (value: string) => void; hostWorkspace?: HostWorkspaceRead | null };
 
 // These are Sanbao-only review fixtures. They are deliberately separate from Qoder observations.
 export const AUTOMATION_TEMPLATES: AutomationTemplate[] = [
@@ -74,7 +75,7 @@ function QoderResearchHomePage({ go, pending, onSend, workspaceName, initialCont
   return <div className="home-page"><div className="home-top"><span /><button className="text-button" onClick={() => pending('QDR.P06.settings.mobile.entry')}><Icon name="monitor" size={15} /> 下载移动端 <Icon name="chevron" size={12} /></button></div><div className="welcome-content"><div className="welcome-heading"><div><h1>不止于编程</h1><p>你好，欢迎来到 {workspaceName}。</p></div><TreeStamp /></div><div className="workspace-summary" aria-label="已绑定的本地示例工作区"><span className="workspace-mark">{workspaceName.slice(0, 1).toUpperCase()}</span><div><strong>{workspaceName}</strong><span>已绑定 · 本地模式</span></div><small>示例仓库 · main</small></div><div className="activity-card"><div className="activity-heading"><div className="activity-tabs"><button className={tab === '会话' ? 'active' : ''} onClick={() => setTab('会话')}>会话</button><button className={tab === 'Credits' ? 'active' : ''} onClick={() => setTab('Credits')}>Credits</button></div><span>过去一年 <Icon name="down" size={11} /></span></div><div className="heatmap" aria-label={`${tab}活动热力图，虚构示例数据`}>{Array.from({ length: 365 }, (_, index) => <span key={index}  />)}</div><div className="activity-caption"><span>{tab === '会话' ? '从一个想法，开始新的探索' : '记录每一次思考与创造'}</span><span>少 <i /><i /><i /><i /> 多</span></div></div><div className="welcome-prompts"><button onClick={() => go(9)}><Icon name="chat" size={14} /> 帮我梳理一个想法</button><button onClick={() => go(18)}><Icon name="code" size={14} /> 制作一个小工具</button><button onClick={() => go(1)}><Icon name="clock" size={14} /> 安排一项自动化</button></div></div><div className="home-composer"><Composer onSend={onSend} onRoute={pending} workspaceName={workspaceName} initialContextMenu={initialContextMenu} initialValue={draft} onDraftChange={onDraftChange} initialSkill={skill} onSkillChange={onSkillChange} /><p>思考、创作、执行，都从这里开始</p></div></div>;
 }
 
-function SanbaoProductHome({ onSend, pending, draft, onDraftChange, contentProfile }: HomePageProps & { contentProfile: PresentationContentProfile }) {
+function SanbaoProductHome({ onSend, pending, draft, onDraftChange, hostWorkspace, contentProfile }: HomePageProps & { contentProfile: PresentationContentProfile }) {
   const copy = contentProfile.home;
   const [tab, setTab] = useState<'primary' | 'secondary'>('primary');
   const primary = tab === 'primary';
@@ -85,10 +86,12 @@ function SanbaoProductHome({ onSend, pending, draft, onDraftChange, contentProfi
         <div><h1>{copy.headline}</h1><p>{copy.description}</p></div>
         <BrandMark variant="full" size={36} className="home-brand-lockup" alt="SanBao" />
       </div>
-      <div className="workspace-summary" aria-label={copy.summaryAriaLabel}>
-        <span className="workspace-mark">S</span>
-        <div><strong>{copy.summaryTitle}</strong><span>{copy.summaryDetail}</span></div>
-        <small>{copy.summaryMeta}</small>
+      <div className="workspace-summary" aria-label={copy.summaryAriaLabel} data-workspace-wiring={hostWorkspace ? 'live' : 'fixture'}>
+        <span className="workspace-mark">{hostWorkspace ? hostWorkspace.name.slice(0, 1).toUpperCase() : 'S'}</span>
+        {hostWorkspace
+          ? <div><strong>{hostWorkspace.name}</strong><span>{'已绑定 · ' + (hostWorkspace.mode === 'local' ? '本地模式' : hostWorkspace.mode) + '（壳已接线）'}</span></div>
+          : <div><strong>{copy.summaryTitle}</strong><span>{copy.summaryDetail}</span></div>}
+        <small>{hostWorkspace ? `${hostWorkspace.repo ?? '未标注'} · ${hostWorkspace.branch ?? '未标注'}` : copy.summaryMeta}</small>
       </div>
       <div className="activity-card">
         <div className="activity-heading">
