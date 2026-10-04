@@ -5,3 +5,22 @@ QDR.O02.plan.mode.active,n/a(local),none,计划模式为输入区本地交互态
 QDR.O02.sites.templates.open,n/a(design),none,站点模板为本地设计素材（原创占位已标注）
 QDR.O02.files.menu.open,n/a(research-only),none,该菜单仅研究面（Qoder 复刻）承载；产品面 Composer 无此菜单
 QDR.O02.plugins.menu.open,n/a(research-only),none,同上；能力名册读取归 T-X（扩展族）
+QDR.P03.list.empty,wired(read),read,evidence/wiring/automation（负控 automation-noread；控制组 automation-fixture）
+QDR.P03.create.empty,honest,wording,新建为本地演示表单（文案已声明未安排真实执行）；壳侧写入后议
+QDR.M01.reply.completed,wired(read),read,由 B2 片 readSession 消息渲染承接（完成态=读到的消息线程）
+QDR.M01.reply.actions,n/a(product-face-absent),none,回复动作行仅研究面承载
+QDR.P16.review.summary,n/a(product-face-absent),none,任务回顾浮层仅研究面；产品会话页右栏为协作说明
+QDR.S10.context.usage,n/a(research-only),none,上下文浮层仅研究面
+QDR.M02.file.writing,n/a(research-only),none,写入指示为研究面
+QDR.S08.reply.interrupted,n/a(research-only),none,中断提示为研究面（停止动作本身已由 stopSession 接线）
+QDR.S08.reply.continued,n/a(research-only),none,续写为研究面
+QDR.P01.anchor.preview,n/a(research-only),none,消息锚点预览为研究面
+QDR.A02.output.html,todo(T-ART),read(when-built),产物面波次：等待产品面产物卡＋壳侧产物读
+QDR.A01.changes.created,todo(T-ART),read(when-built),产物面波次
+QDR.P14.preview.html,todo(T-ART),read(when-built),产物面波次
+QDR.A01.diff.created,todo(T-ART),read(when-built),产物面波次
+QDR.M02.edit.expanded,todo(T-ART),read(when-built),产物面波次
+QDR.A01.diff.modified,todo(T-ART),read(when-built),产物面波次
+QDR.P13.create.empty,todo(T-WS),write,壳侧工作区绑定需壳动作；先行为（有壳时如实标注）后接线
+QDR.P13.create.ready,todo(T-WS),write,同上
+QDR.OBS01.usage.open,todo(T-USE),read,用量读取（壳侧额度事实）下一微批

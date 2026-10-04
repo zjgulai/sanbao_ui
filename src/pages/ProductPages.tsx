@@ -4,7 +4,7 @@ import { Composer, Icon, IconButton, Modal, Toggle, type ComposerContextState } 
 import { getPresentationContentProfile, type PresentationContentProfile } from '../content/presentation-profile';
 
 import { UserAppearanceMenu, type UserAppearancePanel } from '../components/UserAppearanceMenu';
-import { getHostPort, type HostSessionHit, type HostWorkspaceRead } from '../runtime/host';
+import { getHostPort, type HostAutomation, type HostSessionHit, type HostWorkspaceRead } from '../runtime/host';
 
 type Routes = { go: (observation: number) => void; pending: (group: string) => void };
 export type WorkspaceConfig = { name: string; color: string };
@@ -185,14 +185,37 @@ function QoderResearchAutomationPage({ items, view, fixture, onViewChange, onSta
 
 function SanbaoProductAutomationPage({ onNotice, contentProfile }: Pick<AutomationPageProps, 'onNotice'> & { contentProfile: PresentationContentProfile }) {
   const copy = contentProfile.automation;
-  return <section className="automation-page">
+  // 接线（P03 自动化第六片）：有壳时读壳侧自动化名册（只读）；无壳/未接线如实。
+  const hostPort = getHostPort();
+  const [hostAutomations, setHostAutomations] = useState<readonly HostAutomation[] | null>(null);
+  const [hostNotice, setHostNotice] = useState('');
+  useEffect(() => {
+    const port = getHostPort();
+    if (port === null) return;
+    if (typeof port.readAutomations !== 'function') { setHostNotice('壳已连接但自动化名册未接线：壳未提供读取能力。'); return; }
+    let cancelled = false;
+    void port.readAutomations().then(result => {
+      if (cancelled) return;
+      if (result.state === 'read') { setHostAutomations(result.items); return; }
+      setHostNotice(`壳已连接但自动化名册未接线（${result.reason}）。`);
+    });
+    return () => { cancelled = true; };
+  }, []);
+  const wiring = hostPort === null ? 'fixture' : hostNotice ? 'unavailable' : hostAutomations !== null ? 'read' : 'loading';
+  return <section className="automation-page" data-automation-wiring={wiring}>
     <header><div><h1>{copy.title}</h1><p>{copy.lead}</p></div><button className="primary-button" onClick={() => onNotice(copy.boundary)}><Icon name="monitor" size={15} /> {copy.action}</button></header>
-    <div className="automation-empty">
+    {wiring === 'fixture' ? <div className="automation-empty">
       <div className="automation-empty-icon"><Icon name="clock" size={34} /></div>
       <h2>{copy.emptyTitle}</h2>
       <p>{copy.emptyDetail}</p>
       <button className="secondary-button" onClick={() => onNotice(copy.boundary)}>本地演示说明</button>
-    </div>
+    </div> : hostNotice
+      ? <div className="automation-empty"><div className="automation-empty-icon"><Icon name="clock" size={34} /></div><h2>自动化名册未接线</h2><p role="status">{hostNotice}</p></div>
+      : <div className="automation-list">{hostAutomations === null
+        ? <p className="muted" role="status">正在读取壳侧自动化…</p>
+        : hostAutomations.length
+          ? hostAutomations.map(item => <article key={item.title}><span className="automation-icon"><Icon name="clock" size={21} /></span><div><h3>{item.title}</h3><p>{item.schedule}</p></div><span className="status-pill">{item.enabled ? '已启用' : '未启用'}</span></article>)
+          : <p className="muted">壳侧暂无自动化。</p>}</div>}
     <footer className="automation-footer"><Icon name="monitor" size={15} /><span>{copy.boundary}</span></footer>
   </section>;
 }

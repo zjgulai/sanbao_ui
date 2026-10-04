@@ -60,9 +60,12 @@ export interface SanbaoHostPort {
   answerClarification?(sessionRef: string, answer: string): Promise<{ readonly state: 'submitted' } | HostUnavailable>;
   /** P02 搜索（第五片起）：壳侧会话检索；缺省＝检索未接线，如实说明。 */
   searchSessions?(query: string): Promise<{ readonly state: 'read'; readonly results: readonly HostSessionHit[] } | HostUnavailable>;
+  /** P03 自动化（第六片起）：壳侧自动化名册读取；缺省＝名册未接线，如实说明。 */
+  readAutomations?(): Promise<{ readonly state: 'read'; readonly items: readonly HostAutomation[] } | HostUnavailable>;
 }
 
 export type HostSessionHit = { readonly sessionRef: string; readonly title: string; readonly subtitle?: string };
+export type HostAutomation = { readonly title: string; readonly schedule: string; readonly enabled: boolean };
 
 declare global {
   interface Window {
