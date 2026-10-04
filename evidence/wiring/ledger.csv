@@ -4,12 +4,12 @@ QDR.P03.create.empty,P03,automation,create,observed,runtime,wording,honest,新�
 QDR.P02.search.empty,P02,search,empty,observed,runtime,read+entry,wired(read+entry),evidence/wiring/search（负控 search-nosearch；控制组 search-fixture）
 QDR.P13.create.empty,P13,workspace,empty,observed,runtime,write-later,honest,evidence/wiring/workspace（有壳时如实标注绑定由壳完成；控制组 workspace-fixture）；壳侧目录选择后议
 QDR.P13.create.ready,P13,workspace,ready,observed,runtime,write-later,honest,同上（ready 态同类证据）
-QDR.P01.home.workspace,P01|P13,home,workspace,observed,home,read+write,wired(B1-4),
-QDR.S01.session.running,P01|S01|M01,session,running,observed,session,read+write,wired(B1-4),
-QDR.S01.session.streaming,S01|M01,session,streaming,observed,session,read+write,wired(B1-4),
-QDR.S02.clarification.waiting,S02,session,clarification,observed,session,read+write,wired(B1-4),
-QDR.S02.clarification.custom,S02,session,clarification-custom,observed,session,read+write,wired(B1-4),
-QDR.S02.clarification.submitted,S02|M01,session,clarification-submitted,observed,session,read+write,wired(B1-4),
+QDR.P01.home.workspace,P01|P13,home,workspace,observed,home,read+write,wired(read+write),evidence/wiring/example-session＋example-session-fixture；B1-4 提交 0aa4cfd
+QDR.S01.session.running,P01|S01|M01,session,running,observed,session,read+write,wired(read+write),evidence/wiring/example-session；0aa4cfd
+QDR.S01.session.streaming,S01|M01,session,streaming,observed,session,read+write,wired(read+write),evidence/wiring/session-streaming＋session-streaming-fixture；0aa4cfd
+QDR.S02.clarification.waiting,S02,session,clarification,observed,session,read+write,wired(read+write),evidence/wiring/example-session；0aa4cfd
+QDR.S02.clarification.custom,S02,session,clarification-custom,observed,session,read+write,wired(read+write),evidence/wiring/example-session；0aa4cfd
+QDR.S02.clarification.submitted,S02|M01,session,clarification-submitted,observed,session,read+write,wired(read+write),evidence/wiring/example-session；0aa4cfd
 QDR.M01.reply.completed,M01,session,completed,observed,session,read,wired(read),由 B2 片 readSession 消息渲染承接（完成态=读到的消息线程）
 QDR.M01.reply.actions,M01,session,reply-actions,observed,session,none,n/a(product-face-absent),回复动作行仅研究面承载
 QDR.P16.review.summary,P16,session,task-review,observed,session,none,n/a(product-face-absent),任务回顾浮层仅研究面；产品会话页右栏为协作说明
