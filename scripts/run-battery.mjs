@@ -43,6 +43,11 @@ const PAIRS = [
   ['sites-fixture', 'QDR.OBS03.sites.empty'],
   ['sites-honest', 'QDR.OBS03.sites.shared.empty'],
   ['sites-unavailable', 'QDR.OBS03.sites.empty'],
+  ['knowledge-repowiki', 'QDR.OBS02.repo-wiki.default'],
+  ['knowledge-repowiki-fixture', 'QDR.OBS02.repo-wiki.default'],
+  ['sites-shared', 'QDR.OBS03.sites.shared.empty'],
+  ['sites-shared-fixture', 'QDR.OBS03.sites.shared.empty'],
+  ['sites-loading', 'QDR.OBS03.sites.loading'],
 ]
 
 let ok = 0

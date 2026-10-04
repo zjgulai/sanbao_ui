@@ -137,12 +137,12 @@ QDR.OBS02.knowledge.create.open,OBS02,knowledge,create,observed,collection,read,
 QDR.OBS03.sites.empty,OBS03,sites,empty,observed,collection,read,wired(read),evidence/wiring/sites（控制组 sites-fixture；负控 sites-unavailable）
 QDR.O02.plugins.menu.open,O02,home,plugins-menu,observed,home,none,n/a(research-only),同上；能力名册读取归 T-X（扩展族）
 QDR.OBS02.knowledge.workspace-filter.open,OBS02,knowledge,workspace-filter,observed,collection,read,wired(read),evidence/wiring/knowledge（筛选菜单为本地草稿；背景名册读自壳侧）
-QDR.OBS02.repo-wiki.default,OBS02,knowledge,repo-wiki,observed,collection,read,honest,evidence/wiring/knowledge-wiki-honest（本批读形状不承载 Repo Wiki 名册→如实句替本地演示项目卡）
-QDR.OBS02.repo-wiki.generated.empty,OBS02,knowledge,repo-wiki-generated,observed,collection,read,honest,evidence/wiring/knowledge-wiki-honest（同如实句；已生成筛选草稿保留在工具栏）
-QDR.OBS02.repo-wiki.list,OBS02,knowledge,repo-wiki-list,observed,collection,read,honest,evidence/wiring/knowledge-wiki-honest（同如实句；列表/卡片视图切换为本地草稿）
-QDR.OBS02.repo-wiki.setup,OBS02,knowledge,repo-wiki-setup,observed,collection,read,honest,evidence/wiring/knowledge-wiki-honest（目录空态如实句；配置面保留，生成/切换提示改壳侧句）
-QDR.OBS03.sites.shared.empty,OBS03,sites,shared,observed,collection,read,honest,evidence/wiring/sites-honest（共享范围不随本批名册承载→如实句替本地空态）
-QDR.OBS03.sites.loading,OBS03,sites,loading,observed,collection,read,honest,evidence/wiring/sites-honest（本地计时演示自述改为“计时结束后显示壳侧站点名册”；骨架非壳事实）
+QDR.OBS02.repo-wiki.default,OBS02,knowledge,repo-wiki,observed,collection,read,wired(read),evidence/wiring/knowledge-repowiki（壳供 repoWiki 名册：读数=read＋壳侧名册文本；控制组 knowledge-repowiki-fixture；缺字段负控 knowledge-wiki-honest）
+QDR.OBS02.repo-wiki.generated.empty,OBS02,knowledge,repo-wiki-generated,observed,collection,read,wired(read),evidence/wiring/knowledge-repowiki（读形状同 default：已生成筛选草稿保留在工具栏；名册读自壳侧）
+QDR.OBS02.repo-wiki.list,OBS02,knowledge,repo-wiki-list,observed,collection,read,wired(read),evidence/wiring/knowledge-repowiki（读形状同 default：列表/卡片视图切换仍为本地草稿；名册读自壳侧）
+QDR.OBS02.repo-wiki.setup,OBS02,knowledge,repo-wiki-setup,observed,collection,read,wired(read),evidence/wiring/knowledge-repowiki（配置页目录区按壳侧名册渲染；配置面保留本地草稿；控制组 knowledge-repowiki-fixture@setup）
+QDR.OBS03.sites.shared.empty,OBS03,sites,shared,observed,collection,read,wired(read),evidence/wiring/sites-shared（壳供 shared 名册：读数=read＋共享名册文本且“我的站点”名册不混入；控制组 sites-shared-fixture；缺字段负控 sites-honest）
+QDR.OBS03.sites.loading,OBS03,sites,loading,observed,collection,read,wired(read),evidence/wiring/sites-loading（延迟壳读：骨架期=壳读挂起＋如实注（骨架非壳事实）＋fail-closed=unavailable；同场景读成转 read＋壳侧名册；3 跑一致）
 QDR.P06.settings.profile.default,P06,settings,profile,observed,settings,read/honest,honest,身份/资料读取不在本批接缝（红线）；页面已自标注虚构资料
 QDR.P04.installed.plugins.empty,P04|P06,settings,extensions-plugins,observed,settings,read/honest,honest,本批无扩展清单壳方法；空态保持并如实提示
 QDR.P04.installed.skills.empty,P04|P06,settings,extensions-skills,observed,settings,read/honest,honest,本批无扩展清单壳方法；空态保持并如实提示
@@ -177,9 +177,9 @@ QDR.P04.market.plugins.context7.detail,P04,extensions,plugins-context7-detail,ob
 QDR.P04.market.connectors.context7.error,P04,extensions,connectors-context7-error,observed,market,read,wired(read),evidence/wiring/extensions-states READY read+strip (PluginMarketDetailPage failed 变体；本地失败内容保持本地演示) ; evidence/wiring/extensions-fixture
 QDR.OBS02.knowledge.create.workspace,OBS02,knowledge,create-workspace,observed,collection,read,wired(read),evidence/wiring/knowledge（工作区拾取显示壳读工作区名；背景名册读自壳侧）
 QDR.OBS02.knowledge.create.ready,OBS02,knowledge,create-ready,observed,collection,read,wired(read),evidence/wiring/knowledge（同 create.workspace：壳读工作区名＋壳侧名册）
-QDR.OBS02.repo-wiki.search.empty,OBS02,knowledge,repo-wiki-search-empty,observed,collection,read,honest,evidence/wiring/knowledge-wiki-honest（同如实句；搜索草稿为本地输入）
-QDR.OBS02.repo-wiki.knowledge-cards,OBS02,knowledge,repo-wiki-knowledge-cards,observed,collection,read,honest,evidence/wiring/knowledge-wiki-honest（同上；知识卡片面目录如实句）
-QDR.OBS02.repo-wiki.knowledge-cards.wide,OBS02,knowledge,repo-wiki-knowledge-cards-wide,observed,collection,read,honest,evidence/wiring/knowledge-wiki-honest（同上；宽版目录如实句）
+QDR.OBS02.repo-wiki.search.empty,OBS02,knowledge,repo-wiki-search-empty,observed,collection,read,wired(read),evidence/wiring/knowledge-repowiki（搜索草稿为本地输入；名册读自壳侧）
+QDR.OBS02.repo-wiki.knowledge-cards,OBS02,knowledge,repo-wiki-knowledge-cards,observed,collection,read,wired(read),evidence/wiring/knowledge-repowiki（知识卡片目录区按壳侧名册渲染；生成/配置提示保持壳侧句）
+QDR.OBS02.repo-wiki.knowledge-cards.wide,OBS02,knowledge,repo-wiki-knowledge-cards-wide,observed,collection,read,wired(read),evidence/wiring/knowledge-repowiki（宽版目录同断言）
 QDR.P06.settings.general.default,P06,settings,general,observed,settings,read/honest,honest,本批无显示偏好壳方法；切换动作已有诚实未采集提示
 QDR.P06.settings.mode.default,P06,settings,mode,observed,settings,read/honest,honest,本批无显示偏好壳方法；切换动作已有诚实未采集提示
 QDR.P06.settings.task-monitor.default,P06,settings,task-monitor,observed,settings,read/honest,honest,本批无显示偏好壳方法；切换动作已有诚实未采集提示
