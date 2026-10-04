@@ -1,6 +1,7 @@
-// 证据：OBS03 站点诚实面 grader——两种姿态自判：
-// 1) 加载态（短虚拟时间预算下运行）：本地计时演示自述改为“计时结束后显示壳侧站点名册”；
-// 2) 共享态：读数=unavailable＋“共享站点读取未接线”如实句，本地演示空态不得出现。
+// 证据：OBS03 站点诚实面 grader（缺 shared 字段负控）——两种姿态自判：
+// 1) 加载态（仅慢读壳下可观察到；本 stub 为快读，loading→read 直连证据见 sites-loading/）：
+//    骨架期＝壳读挂起，自述“等待壳侧站点名册读取…”，读数 fail-closed=unavailable；
+// 2) 共享态：读数=unavailable＋“共享站点读取未接线”如实句（壳未提供 shared 字段），本地演示空态不得出现。
 (function () {
   window.addEventListener('error', function (e) {
     document.title = 'DIAG ' + String(e.message).slice(0, 140);
@@ -15,8 +16,8 @@
       var noteText = note ? note.textContent : '';
       facts.posture = 'loading';
       facts.note = noteText;
-      var noteHonest = noteText.indexOf('计时结束后显示壳侧站点名册') !== -1;
-      if (!noteHonest || wiring !== 'read') {
+      var noteHonest = noteText.indexOf('等待壳侧站点名册读取') !== -1;
+      if (!noteHonest || wiring !== 'unavailable') {
         document.title = 'FAIL-LOADING-NOTE ' + JSON.stringify(facts);
         clearInterval(timer);
         return;

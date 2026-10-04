@@ -20,8 +20,11 @@
  * - P04 扩展族（T-X）：`readCapabilities` 只读壳侧能力/插件名册（结构事实）；已装/市场/
  *   详情页按读数渲染 live 区块，缺方法或读失败时如实显示“壳已连接但能力名册读取未接线”。
  * - OBS02 知识中心（容器页批次）：`readKnowledge` 可选读取壳侧知识库集合名册；
- *   缺省或读失败时如实标注未接线，不用本地 fixture 冒充；
- * - OBS03 站点（容器页批次）：`readSites` 可选读取壳侧站点名册；同一纪律。
+ *   缺省或读失败时如实标注未接线，不用本地 fixture 冒充。Repo Wiki 名册为同一读的
+ *   加法式扩展字段（`repoWiki?`）：字段缺省＝壳未提供该名册，Repo Wiki 面保持如实句；
+ * - OBS03 站点（容器页批次）：`readSites` 可选读取壳侧站点名册；同一纪律。共享范围名册为
+ *   同一读的加法式扩展字段（`shared?`）：字段缺省＝壳未提供，共享面保持如实句；
+ *   有壳时加载态骨架由壳读挂起驱动（读成结束加载），不再用固定本地计时冒充读数。
  * 后续页面批次按同一模式增量扩展本接口，不在页面内各自发明通道。
  */
 
@@ -47,17 +50,25 @@ export type HostClarification = {
 
 export type HostArtifact = { readonly name: string; readonly kind: string; readonly additions?: number; readonly deletions?: number };
 
-/** 容器页名册条目（知识集合 / 站点）：只带壳可确证的标题与可选种类标签，不发明状态值。 */
+/** 容器页名册条目（知识集合 / Repo Wiki / 站点 / 共享范围）：只带壳可确证的标题与可选种类标签，不发明状态值。 */
 export type HostRosterItem = { readonly title: string; readonly kind?: string };
 
-/** OBS02 知识中心（知识库标签页）的壳读结果；Repo Wiki 名册不在本批读形状内。 */
+/**
+ * OBS02 知识中心（知识库标签页）的壳读结果。
+ * `repoWiki` 为加法式扩展字段（本批）：壳提供的 Repo Wiki 名册；缺省＝壳未提供，
+ * Repo Wiki 面按未接线如实展示，绝不回落到本地演示名册。
+ */
 export type HostKnowledgeRead =
-  | { readonly state: 'read'; readonly collections: readonly HostRosterItem[] }
+  | { readonly state: 'read'; readonly collections: readonly HostRosterItem[]; readonly repoWiki?: readonly HostRosterItem[] }
   | HostUnavailable;
 
-/** OBS03 站点的壳读结果；共享范围不随本批名册承载。 */
+/**
+ * OBS03 站点的壳读结果。
+ * `shared` 为加法式扩展字段（本批）：壳提供的共享范围名册；缺省＝壳未提供，
+ * 共享面按未接线如实展示，绝不回落到本地演示空态。
+ */
 export type HostSitesRead =
-  | { readonly state: 'read'; readonly sites: readonly HostRosterItem[] }
+  | { readonly state: 'read'; readonly sites: readonly HostRosterItem[]; readonly shared?: readonly HostRosterItem[] }
   | HostUnavailable;
 
 export type HostSessionRead =

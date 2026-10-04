@@ -1,0 +1,10 @@
+state_id,status,wire_depth_target,evidence
+QDR.OBS02.repo-wiki.default,wired(read),read,evidence/wiring/knowledge-repowiki（壳供 repoWiki 名册：读数=read＋壳侧名册文本；控制组 knowledge-repowiki-fixture；缺字段负控 knowledge-wiki-honest）
+QDR.OBS02.repo-wiki.generated.empty,wired(read),read,evidence/wiring/knowledge-repowiki（读形状同 default：已生成筛选草稿保留在工具栏；名册读自壳侧）
+QDR.OBS02.repo-wiki.list,wired(read),read,evidence/wiring/knowledge-repowiki（读形状同 default：列表/卡片视图切换仍为本地草稿；名册读自壳侧）
+QDR.OBS02.repo-wiki.setup,wired(read),read,evidence/wiring/knowledge-repowiki（配置页目录区按壳侧名册渲染；配置面保留本地草稿；控制组 knowledge-repowiki-fixture@setup）
+QDR.OBS02.repo-wiki.search.empty,wired(read),read,evidence/wiring/knowledge-repowiki（搜索草稿为本地输入；名册读自壳侧）
+QDR.OBS02.repo-wiki.knowledge-cards,wired(read),read,evidence/wiring/knowledge-repowiki（知识卡片目录区按壳侧名册渲染；生成/配置提示保持壳侧句）
+QDR.OBS02.repo-wiki.knowledge-cards.wide,wired(read),read,evidence/wiring/knowledge-repowiki（宽版目录同断言）
+QDR.OBS03.sites.shared.empty,wired(read),read,evidence/wiring/sites-shared（壳供 shared 名册：读数=read＋共享名册文本且“我的站点”名册不混入；控制组 sites-shared-fixture；缺字段负控 sites-honest）
+QDR.OBS03.sites.loading,wired(read),read,evidence/wiring/sites-loading（延迟壳读：骨架期=壳读挂起＋如实注（骨架非壳事实）＋fail-closed=unavailable；同场景读成转 read＋壳侧名册；3 跑一致）

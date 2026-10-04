@@ -1,0 +1,2 @@
+// 证据：Repo Wiki fixture 控制组参数（无 host.js——独立原型口径）。
+window.__SMOKE_EXPECT__ = 'repo-wiki-fixture';

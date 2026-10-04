@@ -7,12 +7,12 @@ export type KnowledgePageProps = NoticeProps & { onNavigate: (id: string) => voi
 
 /** 知识中心壳读态：null＝读取未回（fail-closed 按未接线展示）。 */
 type KnowledgeHostState =
-  | { readonly kind: 'read'; readonly collections: readonly HostRosterItem[] }
+  | { readonly kind: 'read'; readonly collections: readonly HostRosterItem[]; readonly repoWiki?: readonly HostRosterItem[] }
   | { readonly kind: 'unavailable'; readonly reason: string };
 
 /** 站点壳读态：null＝读取未回（fail-closed 按未接线展示）。 */
 type SitesHostState =
-  | { readonly kind: 'read'; readonly sites: readonly HostRosterItem[] }
+  | { readonly kind: 'read'; readonly sites: readonly HostRosterItem[]; readonly shared?: readonly HostRosterItem[] }
   | { readonly kind: 'unavailable'; readonly reason: string };
 
 // 接线（OBS02 知识库标签页）：有壳读过＝壳侧集合名册驱动；缺方法/读失败＝如实句；无壳＝fixture 原样。
@@ -27,15 +27,33 @@ function KnowledgeHostPanel({ state }: { state: KnowledgeHostState | null }) {
   </div>;
 }
 
+// 接线（OBS02 Repo Wiki）：有壳读过且名册字段在场＝壳侧名册驱动；缺字段/读失败＝如实句；无壳＝fixture 原样。
+// surface=content 用于知识库主体，surface=directory 用于生成配置页的目录区（cards 区分知识卡片面）。
+function RepoWikiHostPanel({ state, surface = 'content', cards = false }: { state: KnowledgeHostState | null; surface?: 'content' | 'directory'; cards?: boolean }) {
+  if (state === null) return <div className="knowledge-host-notice" data-knowledge-notice="repo-wiki-pending" role="status">正在读取壳侧 Repo Wiki 名册…</div>;
+  if (state.kind === 'unavailable' || state.repoWiki === undefined) return <div className="knowledge-host-notice" data-knowledge-notice="repo-wiki-unavailable" role="status">壳已连接但 Repo Wiki 读取未接线（壳未提供 Repo Wiki 名册读取）：不显示本地演示内容。</div>;
+  if (state.repoWiki.length === 0) return <div className="knowledge-host-notice" data-knowledge-notice="repo-wiki-empty" role="status">壳侧 Repo Wiki 名册为空：这里不显示本地演示数据。</div>;
+  const heading = surface === 'directory' ? cards ? '壳侧知识卡片' : '壳侧 Repo Wiki' : '壳侧 Repo Wiki';
+  const caption = surface === 'directory' ? '以下名册读自壳侧；生成与配置为本地草稿。' : '以下名册读自壳侧；筛选、搜索与视图切换为本地草稿。';
+  return <div className="knowledge-host-roster" data-repowiki-roster="shell" role="region" aria-label={surface === 'directory' && cards ? '壳侧知识卡片名册' : '壳侧 Repo Wiki 名册'}>
+    <h2>{heading}</h2>
+    <p>{caption}</p>
+    <ul>{state.repoWiki.map((item, index) => <li data-repowiki-item key={`${item.title}-${index}`}><Icon name="book" size={14} />{item.title}{item.kind ? <em>{item.kind}</em> : null}</li>)}</ul>
+  </div>;
+}
+
 // 接线（OBS03 我的站点）：有壳读过＝壳侧站点名册驱动；缺方法/读失败＝如实句；无壳＝fixture 原样。
-function SitesHostPanel({ state }: { state: SitesHostState | null }) {
+// shared＝共享范围视图：共享名册字段缺省时独立如实句，不与“我的站点”名册混用。
+function SitesHostPanel({ state, shared = false }: { state: SitesHostState | null; shared?: boolean }) {
   if (state === null) return <div className="sites-host-notice" data-sites-notice="pending" role="status">正在读取壳侧站点名册…</div>;
   if (state.kind === 'unavailable') return <div className="sites-host-notice" data-sites-notice="unavailable" role="status">壳已连接但站点读取未接线（{state.reason}）：不显示本地演示内容。</div>;
-  if (state.sites.length === 0) return <div className="sites-host-notice" data-sites-notice="empty" role="status">壳侧站点名册为空：这里不显示本地演示数据。</div>;
-  return <div className="sites-host-roster" data-sites-roster="shell" role="region" aria-label="壳侧站点名册">
-    <h2>壳侧站点</h2>
-    <p>站点名册读自壳侧；新建与发布动作尚未接线。</p>
-    <ul>{state.sites.map((item, index) => <li data-site-item key={`${item.title}-${index}`}><Icon name="grid" size={14} />{item.title}{item.kind ? <em>{item.kind}</em> : null}</li>)}</ul>
+  if (shared && state.shared === undefined) return <div className="sites-host-notice" data-sites-notice="shared-unavailable" role="status">壳已连接但共享站点读取未接线（壳未提供共享范围名册）：不显示本地演示空态。</div>;
+  const items = shared ? state.shared ?? [] : state.sites;
+  if (items.length === 0) return <div className="sites-host-notice" data-sites-notice={shared ? 'shared-empty' : 'empty'} role="status">{shared ? '壳侧共享站点名册为空：这里不显示本地演示数据。' : '壳侧站点名册为空：这里不显示本地演示数据。'}</div>;
+  return <div className="sites-host-roster" data-sites-roster="shell" role="region" aria-label={shared ? '壳侧共享站点名册' : '壳侧站点名册'}>
+    <h2>{shared ? '壳侧共享站点' : '壳侧站点'}</h2>
+    <p>{shared ? '共享站点名册读自壳侧；新建与发布动作尚未接线。' : '站点名册读自壳侧；新建与发布动作尚未接线。'}</p>
+    <ul>{items.map((item, index) => <li data-site-item key={`${item.title}-${index}`}><Icon name="grid" size={14} />{item.title}{item.kind ? <em>{item.kind}</em> : null}</li>)}</ul>
   </div>;
 }
 
@@ -87,17 +105,18 @@ function RefreshButton({ onNotice, label, disabled = false }: NoticeProps & { la
   return <button type="button" className="collection-icon-button" aria-label={`刷新${label}`} title="刷新" disabled={disabled} onClick={() => onNotice(`${label}刷新结果尚未采集，未请求服务。`)}><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5" /><path d="M6 7a7 7 0 0 1 12-1l2 6M4 12l2 6a7 7 0 0 0 12-1" /></svg></button>;
 }
 
-function RepoWikiSetup({ workspaceName, variant, onBack, onNavigate, onNotice, hostConnected }: NoticeProps & { workspaceName: string; variant: string; onBack: () => void; onNavigate: (id: string) => void; hostConnected: boolean }) {
+function RepoWikiSetup({ workspaceName, variant, onBack, onNavigate, onNotice, hostConnected, hostState }: NoticeProps & { workspaceName: string; variant: string; onBack: () => void; onNavigate: (id: string) => void; hostConnected: boolean; hostState: KnowledgeHostState | null }) {
   const cards = variant.startsWith('repo-wiki-knowledge-cards');
   const wide = variant === 'repo-wiki-knowledge-cards-wide';
+  const repoWikiWiring = hostConnected ? hostState !== null && hostState.kind === 'read' && hostState.repoWiki !== undefined ? 'read' : 'unavailable' : 'fixture';
   const pending = (label: string) => onNotice(hostConnected
     ? `壳已连接但“${label}”尚未接线：未更改配置、未生成${cards ? '知识卡片' : ' Repo Wiki'}。`
     : `${label}的操作结果尚未采集；未更改配置或生成${cards ? '知识卡片' : ' Repo Wiki'}。`);
-  return <section className={`knowledge-page repo-wiki-setup${wide ? ' repo-wiki-reading-wide' : ''}`} aria-label={cards ? '知识卡片配置' : 'Repo Wiki 配置'} data-knowledge-wiring={hostConnected ? 'unavailable' : 'fixture'}>
+  return <section className={`knowledge-page repo-wiki-setup${wide ? ' repo-wiki-reading-wide' : ''}`} aria-label={cards ? '知识卡片配置' : 'Repo Wiki 配置'} data-knowledge-wiring={repoWikiWiring}>
     <header className="repo-wiki-setup-header"><div className="repo-wiki-breadcrumb"><button type="button" onClick={onBack}>Repo Wiki</button><span>/</span><h1>{workspaceName}</h1></div><div className="collection-header-actions"><button type="button" className="collection-feedback" onClick={() => onNotice('问题反馈入口尚未采集，未发送反馈。')}><Icon name="chat" size={14} />问题反馈</button><button type="button" className="collection-icon-button" aria-label={wide ? '打开侧边栏' : '隐藏侧边栏'} onClick={() => cards ? onNavigate(wide ? REPO_WIKI_CARDS : REPO_WIKI_CARDS_WIDE) : pending('隐藏侧边栏')}><Icon name="panel" size={16} /></button></div></header>
     <div className="repo-wiki-setup-body">
       <aside className="repo-wiki-directory" aria-label={cards ? '知识卡片目录' : 'Wiki 目录'}><div className="repo-wiki-directory-toolbar"><label className="repo-wiki-disabled-search"><Icon name="search" size={14} /><input aria-label={cards ? '搜索知识卡片' : '搜索 Wiki 页面'} placeholder={cards ? '搜索知识卡片' : '搜索 Wiki 页面'} disabled /></label><div className="repo-wiki-directory-tabs"><button type="button" className={!cards ? 'selected' : ''} aria-label="Repo Wiki 页面" aria-pressed={!cards} onClick={() => cards ? onNavigate(REPO_WIKI_SETUP) : pending('Repo Wiki 页面标签')}><Icon name="book" size={17} /></button><button type="button" className={cards ? 'selected' : ''} aria-label="知识卡片" aria-pressed={cards} onClick={() => { if (!cards) onNavigate(REPO_WIKI_CARDS); }}><Icon name="grid" size={17} /></button></div></div>{hostConnected
-          ? <div className="repo-wiki-directory-empty" data-knowledge-notice="repo-wiki-unavailable"><Icon name={cards ? 'grid' : 'book'} size={26} /><h2>读取未接线</h2><p>壳已连接但 Repo Wiki 读取未接线（壳未提供 Repo Wiki 名册读取）：不显示本地演示内容。</p></div>
+          ? <RepoWikiHostPanel state={hostState} surface="directory" cards={cards} />
           : <div className="repo-wiki-directory-empty"><Icon name={cards ? 'grid' : 'book'} size={26} /><h2>{cards ? '还没有知识卡片' : '尚未生成 Repo Wiki'}</h2><p>{cards ? '在右侧完成配置并生成知识卡片' : '在右侧完成配置并生成 Repo Wiki'}</p></div>}</aside>
       {!wide && <div className="repo-wiki-configuration">{!cards && <p className="repo-wiki-hint">Repo Wiki（供你阅读）和知识卡片（供智能体使用）会基于当前代码库一同生成并持续更新</p>}<div className="repo-wiki-configuration-content"><div className="repo-wiki-configuration-icon"><Icon name={cards ? 'grid' : 'book'} size={33} /></div><h2>{cards ? '生成知识卡片' : '生成 Repo Wiki'}</h2><div className="repo-wiki-config-rows">
         <div className="repo-wiki-config-row"><span>语言</span><div className="repo-wiki-languages" aria-label="Repo Wiki 语言"><button type="button" aria-pressed="false" onClick={() => pending('语言切换')}>English</button><button type="button" className="selected" aria-pressed="true" onClick={() => pending('语言切换')}>简体中文</button></div></div>
@@ -123,14 +142,16 @@ export function KnowledgePage({ onNavigate, onNotice, initialCreate = false, ini
     let cancelled = false;
     void hostPort.readKnowledge().then(result => {
       if (cancelled) return;
-      setHostKnowledge(result.state === 'read' ? { kind: 'read', collections: result.collections } : { kind: 'unavailable', reason: result.reason });
+      setHostKnowledge(result.state === 'read' ? { kind: 'read', collections: result.collections, repoWiki: result.repoWiki } : { kind: 'unavailable', reason: result.reason });
     }, () => { if (!cancelled) setHostKnowledge({ kind: 'unavailable', reason: '壳读取失败' }); });
     return () => { cancelled = true; };
   }, []);
   const hostConnected = getHostPort() !== null;
-  // 读数属性：无壳＝fixture；Repo Wiki 面（本批读形状不承载其名册）＝unavailable；
-  // 知识库面＝读取未回前 fail-closed 按 unavailable，读成落 read。
-  const knowledgeWiring = !hostConnected ? 'fixture' : isWiki ? 'unavailable' : hostKnowledge !== null && hostKnowledge.kind === 'read' ? 'read' : 'unavailable';
+  // 读数属性：无壳＝fixture；知识库面＝读取未回前 fail-closed 按 unavailable，读成落 read；
+  // Repo Wiki 面＝读成且壳提供 repoWiki 名册字段才落 read，字段缺省仍为 unavailable。
+  const knowledgeWiring = !hostConnected ? 'fixture' : isWiki
+    ? hostKnowledge !== null && hostKnowledge.kind === 'read' && hostKnowledge.repoWiki !== undefined ? 'read' : 'unavailable'
+    : hostKnowledge !== null && hostKnowledge.kind === 'read' ? 'read' : 'unavailable';
   const [search, setSearch] = useState('');
   const [wikiSearch, setWikiSearch] = useState(variant === 'repo-wiki-search-empty' ? WIKI_EMPTY_QUERY : '');
   const [workspaceFilter, setWorkspaceFilter] = useState('all');
@@ -269,7 +290,7 @@ export function KnowledgePage({ onNavigate, onNotice, initialCreate = false, ini
     showWiki(view === 'list' ? REPO_WIKI_LIST : REPO_WIKI);
   };
   const closeCreate = () => onNavigate(KNOWLEDGE_EMPTY);
-  if (variant === 'repo-wiki-setup' || variant.startsWith('repo-wiki-knowledge-cards')) return <RepoWikiSetup workspaceName={workspaceName} variant={variant} onBack={resetWiki} onNavigate={onNavigate} onNotice={onNotice} hostConnected={hostConnected} />;
+  if (variant === 'repo-wiki-setup' || variant.startsWith('repo-wiki-knowledge-cards')) return <RepoWikiSetup workspaceName={workspaceName} variant={variant} onBack={resetWiki} onNavigate={onNavigate} onNotice={onNotice} hostConnected={hostConnected} hostState={hostKnowledge} />;
   return <section className="knowledge-page" aria-label="知识中心" data-knowledge-wiring={knowledgeWiring}>
     <header className="collection-header">
       <nav className="collection-tabs" aria-label="知识中心分类"><button type="button" className={!isWiki ? 'selected' : ''} aria-current={!isWiki ? 'page' : undefined} onClick={() => onNavigate(KNOWLEDGE_EMPTY)}>知识库</button><button type="button" className={isWiki ? 'selected' : ''} aria-current={isWiki ? 'page' : undefined} onClick={resetWiki}>Repo Wiki</button></nav>
@@ -280,7 +301,7 @@ export function KnowledgePage({ onNavigate, onNotice, initialCreate = false, ini
       {isWiki ? <>
         <div className="collection-toolbar"><nav className="repo-wiki-status-tabs" aria-label="Repo Wiki 生成状态"><button type="button" className={wikiFilter === 'all' ? 'selected' : ''} aria-pressed={wikiFilter === 'all'} onClick={() => filterWiki('all')}>全部</button><button type="button" className={wikiFilter === 'generated' ? 'selected' : ''} aria-pressed={wikiFilter === 'generated'} onClick={() => filterWiki('generated')}>已生成</button><button type="button" className={wikiFilter === 'ungenerated' ? 'selected' : ''} aria-pressed={wikiFilter === 'ungenerated'} onClick={() => filterWiki('ungenerated')}>未生成</button></nav><ViewButtons value={wikiView} onChange={changeWikiView} onNotice={onNotice} /></div>
         {hostConnected
-          ? <div className="knowledge-host-notice" data-knowledge-notice="repo-wiki-unavailable" role="status">壳已连接但 Repo Wiki 读取未接线（壳未提供 Repo Wiki 名册读取）：不显示本地演示内容。</div>
+          ? <RepoWikiHostPanel state={hostKnowledge} />
           : wikiFilter === 'generated' || variant === 'repo-wiki-search-empty' && wikiSearch === WIKI_EMPTY_QUERY ? <div className="knowledge-empty repo-wiki-empty"><div className="knowledge-empty-icon"><Icon name="book" size={30} /></div><h2>没有匹配的 Repo Wiki 项目</h2><p>尝试调整搜索词或生成状态。</p></div> : <article className={`repo-wiki-project ${wikiView}`} aria-label={`${workspaceName} Repo Wiki 项目`}><div className="repo-wiki-project-title"><Icon name="folder" size={20} /><a href={`?state=${REPO_WIKI_SETUP}`} onClick={event => { event.preventDefault(); showWiki(REPO_WIKI_SETUP); }}>{workspaceName}</a></div><div className="repo-wiki-project-stats"><span aria-label="项目指标一 0"><Icon name="book" size={14} />0</span><span aria-label="项目指标二 0"><Icon name="grid" size={14} />0</span></div><span className="repo-wiki-status">未生成</span><button type="button" className="repo-wiki-project-generate" onClick={() => onNotice('“去生成”按钮路径尚未采集；请使用项目名称进入已观察的配置页，未执行生成。')}>去生成<Icon name="chevron" size={12} /></button></article>}
       </> : <>
         <div className="collection-toolbar"><div className="collection-workspace-root" ref={workspaceRoot}><button type="button" id="knowledge-workspace-trigger" className="collection-workspace-filter" ref={workspaceTrigger} aria-haspopup="menu" aria-expanded={workspaceMenuOpen} onClick={() => { if (workspaceMenuOpen) closeWorkspaceMenu(); else { setWorkspaceMenuOpen(true); if (variant !== 'workspace-filter') onNavigate(KNOWLEDGE_WORKSPACE); } }}>{workspaceFilter === 'all' ? '全部工作区' : workspaceName}<Icon name="down" size={12} /></button>{workspaceMenuOpen && <div className="collection-workspace-menu" ref={workspaceMenu} data-focus-return="knowledge-workspace-trigger" role="menu" aria-label="知识库工作区筛选" onKeyDown={workspaceKeys} onBlur={event => { if (!workspaceRoot.current?.contains(event.relatedTarget)) setWorkspaceMenuOpen(false); }}>{[{ value: 'all', label: '全部工作区' }, { value: 'workspace', label: workspaceName }].map(option => <button type="button" role="menuitemradio" aria-checked={workspaceFilter === option.value} key={option.value} onClick={() => { setWorkspaceFilter(option.value); closeWorkspaceMenu(); }}><span>{option.label}</span>{workspaceFilter === option.value && <Icon name="check" size={13} />}</button>)}</div>}</div><ViewButtons value={knowledgeView} onChange={setKnowledgeView} onNotice={onNotice} /></div>
@@ -318,18 +339,25 @@ function SitesEmptyArt() {
 
 export function SitesPage({ onNotice, initialVariant = 'empty', onNavigate }: NoticeProps & { initialVariant?: string; onNavigate?: (id: string) => void }) {
   const shared = initialVariant === 'shared';
+  // 接线（OBS03 站点）：容器页直连接缝——挂载时读壳、cancelled 清理，不经过 app.tsx。
+  // 无壳＝fixture 原样；有壳读过＝壳侧站点/共享名册驱动；缺方法/读失败＝如实句；
+  // 有壳时加载态骨架由壳读挂起驱动（读成结束加载），不再用固定本地计时冒充读数。
+  const hostConnected = getHostPort() !== null;
   const [view, setView] = useState<'card' | 'list'>('card');
+  const [hostSites, setHostSites] = useState<SitesHostState | null>(null);
   const [loading, setLoading] = useState(initialVariant === 'loading');
   useEffect(() => {
     setLoading(initialVariant === 'loading');
     if (initialVariant !== 'loading') return;
-    // Local fixture duration only. Do not navigate when it ends: a search overlay may be open.
+    // 无壳：本地计时演示（fixture 原样），结束时不得导航（可能有搜索浮层）。有壳：由壳读结果结束加载。
+    if (hostConnected) return;
     const timer = window.setTimeout(() => setLoading(false), 1400);
     return () => window.clearTimeout(timer);
-  }, [initialVariant]);
-  // 接线（OBS03 站点）：容器页直连接缝——挂载时读壳、cancelled 清理，不经过 app.tsx。
-  // 无壳＝fixture 原样；有壳读过＝壳侧站点名册驱动；缺方法/读失败＝如实句；共享范围不随名册承载。
-  const [hostSites, setHostSites] = useState<SitesHostState | null>(null);
+  }, [initialVariant, hostConnected]);
+  useEffect(() => {
+    if (!hostConnected || initialVariant !== 'loading' || hostSites === null) return;
+    setLoading(false);
+  }, [hostConnected, initialVariant, hostSites]);
   useEffect(() => {
     const hostPort = getHostPort();
     if (hostPort === null) return;
@@ -337,21 +365,23 @@ export function SitesPage({ onNotice, initialVariant = 'empty', onNavigate }: No
     let cancelled = false;
     void hostPort.readSites().then(result => {
       if (cancelled) return;
-      setHostSites(result.state === 'read' ? { kind: 'read', sites: result.sites } : { kind: 'unavailable', reason: result.reason });
+      setHostSites(result.state === 'read' ? { kind: 'read', sites: result.sites, shared: result.shared } : { kind: 'unavailable', reason: result.reason });
     }, () => { if (!cancelled) setHostSites({ kind: 'unavailable', reason: '壳读取失败' }); });
     return () => { cancelled = true; };
   }, []);
-  const hostConnected = getHostPort() !== null;
-  // 读数属性：无壳＝fixture；共享面（本批名册不承载共享范围）＝unavailable；站点面按读取结果，未回前 fail-closed。
-  const sitesWiring = !hostConnected ? 'fixture' : shared ? 'unavailable' : hostSites !== null && hostSites.kind === 'read' ? 'read' : 'unavailable';
+  // 读数属性：无壳＝fixture；站点面/共享面按读取结果驱动，未回前 fail-closed 按 unavailable；
+  // 共享面读成且壳提供 shared 名册字段才落 read，字段缺省仍为 unavailable。
+  const sitesWiring = !hostConnected ? 'fixture' : shared
+    ? hostSites !== null && hostSites.kind === 'read' && hostSites.shared !== undefined ? 'read' : 'unavailable'
+    : hostSites !== null && hostSites.kind === 'read' ? 'read' : 'unavailable';
   const navigate = (id: string) => onNavigate ? onNavigate(id) : onNotice('站点场景导航尚未接入。');
   return <section className="sites-page" aria-label="站点" data-sites-wiring={sitesWiring}>
     <header className="collection-header sites-header"><div className="collection-header-actions"><RefreshButton label="站点" onNotice={onNotice} disabled={loading} /><button type="button" className="collection-add-site" disabled={loading} onClick={() => navigate('QDR.O02.sites.templates.open')}><Icon name="plus" size={14} />添加站点</button></div></header>
     <div className="collection-content">
       <div className="collection-banner"><h1>探索 Sites<br /><span>让你的想法，成为真实的网站</span></h1><CollectionArt site /></div>
       <div className="collection-toolbar"><nav className="collection-tabs" aria-label="站点分类"><button type="button" className={!shared ? 'selected' : ''} aria-current={!shared ? 'page' : undefined} onClick={() => navigate(shared ? SITES_LOADING : SITES_EMPTY)}>我的站点</button><button type="button" className={shared ? 'selected' : ''} aria-current={shared ? 'page' : undefined} onClick={() => navigate(SITES_SHARED)}>共享给我的</button></nav><ViewButtons value={view} onChange={next => { if (shared || loading) onNotice('该站点状态的视图切换尚未采集；保留当前视图。'); else setView(next); }} onNotice={onNotice} /></div>
-      {loading ? <div className="sites-loading" role="status" aria-label="加载中…"><div className="sites-skeleton-grid" aria-hidden="true">{Array.from({ length: 6 }, (_, index) => <div className="sites-skeleton-card" key={index}><div /><span /><span /></div>)}</div><p className="collection-local-note">{hostConnected ? '本地计时演示，未请求站点服务；计时结束后显示壳侧站点名册。' : '本地计时演示，未请求站点服务；计时结束后恢复我的站点空态。'}</p></div> : hostConnected ? (shared
-        ? <div className="sites-host-notice" data-sites-notice="shared-unavailable" role="status">壳已连接但共享站点读取未接线（共享范围未随本批站点名册提供）：不显示本地演示空态。</div>
+      {loading ? <div className="sites-loading" role="status" aria-label="加载中…"><div className="sites-skeleton-grid" aria-hidden="true">{Array.from({ length: 6 }, (_, index) => <div className="sites-skeleton-card" key={index}><div /><span /><span /></div>)}</div><p className="collection-local-note">{hostConnected ? '等待壳侧站点名册读取；骨架为本地等待占位（非壳事实），读成后显示壳侧名册。' : '本地计时演示，未请求站点服务；计时结束后恢复我的站点空态。'}</p></div> : hostConnected ? (shared
+        ? <SitesHostPanel state={hostSites} shared />
         : <SitesHostPanel state={hostSites} />) : <div className="sites-empty"><SitesEmptyArt /><span className="sites-art-label">原创示意插图</span>{shared ? <p className="sites-shared-empty">暂时没有分享给你的站点。</p> : <><h2>还没有站点</h2><p>在本地工作区让 Agent 生成网站，再确认发布。</p></>}</div>}
     </div>
   </section>;
