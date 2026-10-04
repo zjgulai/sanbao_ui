@@ -14,6 +14,9 @@
  *   跟随轮询与停止键；`stopSession` 为可选停止能力，缺省时停止动作如实未接线；
  * - S2 澄清（QDR.S02.clarification.*）：`pendingClarification` 驱动澄清卡；
  *   `answerClarification` 为可选回答能力，缺省时提交如实未接线。
+ * - 设置族（QDR.P06.settings.models.*）：`readSettings` 为可选只读能力，返回设置命名空间的
+ *   结构事实（命名空间名／保存层／生效语义／revision／密钥计数），绝不含任何配置值、密钥或路径；
+ *   缺省时 models 面如实显示未接线，不用本地演示内容代替。
  * 后续页面批次按同一模式增量扩展本接口，不在页面内各自发明通道。
  */
 
@@ -41,6 +44,26 @@ export type HostSessionRead =
   | { readonly state: 'read'; readonly sessionRef: string; readonly messages: readonly HostSessionMessage[]; readonly streaming?: boolean; readonly pendingClarification?: HostClarification | null }
   | HostUnavailable;
 
+/**
+ * 设置命名空间结构事实（T-S 片）：只含结构，绝不含任何配置值、密钥或路径。
+ * - ns：命名空间名；
+ * - saved：当前保存层标识（如 user/base，壳自报字符串）；
+ * - applies：生效语义（如 live=即时生效 / restart=重启后生效，壳自报字符串）；
+ * - revision：壳侧版本号；
+ * - secrets：密钥条目的已设置/总数计数——计数不是密钥本身。
+ */
+export type HostSettingsNamespace = {
+  readonly ns: string;
+  readonly revision: number;
+  readonly applies: string;
+  readonly saved: string;
+  readonly secrets: { readonly set: number; readonly total: number };
+};
+
+export type HostSettingsRead =
+  | { readonly state: 'read'; readonly namespaces: readonly HostSettingsNamespace[] }
+  | HostUnavailable;
+
 /** 页面对壳会话的绑定态（由 app 计算，页面只渲染；不新增第二事实家）。 */
 export type SessionHostBinding =
   | { readonly kind: 'none' }
@@ -58,6 +81,8 @@ export interface SanbaoHostPort {
   stopSession?(sessionRef: string): Promise<{ readonly state: 'stopped' } | HostUnavailable>;
   /** S2 澄清回答（第四片起）；缺省＝回答未接线，提交后如实说明。 */
   answerClarification?(sessionRef: string, answer: string): Promise<{ readonly state: 'submitted' } | HostUnavailable>;
+  /** 设置族（T-S 片）；缺省＝设置读取未接线，设置页如实显示“未接线”。 */
+  readSettings?(): Promise<HostSettingsRead>;
 }
 
 declare global {
