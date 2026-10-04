@@ -1,0 +1,96 @@
+state_id,status,wire_depth_target,evidence
+QDR.P06.settings.profile.entry,n/a(design),none,设计型工作面（原产品仅入口观察）；不注入壳 UI
+QDR.P06.settings.general.entry,n/a(design),none,设计型工作面（原产品仅入口观察）；不注入壳 UI
+QDR.P06.settings.mode.entry,n/a(design),none,设计型工作面（原产品仅入口观察）；不注入壳 UI
+QDR.P06.settings.task-monitor.entry,n/a(design),none,设计型工作面（原产品仅入口观察）；不注入壳 UI
+QDR.P06.settings.shortcuts.entry,n/a(design),none,设计型工作面（原产品仅入口观察）；不注入壳 UI
+QDR.P06.settings.appearance.entry,n/a(design),none,设计型工作面（原产品仅入口观察）；不注入壳 UI
+QDR.P06.settings.voice.entry,n/a(design),none,设计型工作面（原产品仅入口观察）；不注入壳 UI
+QDR.P06.settings.models.entry,n/a(design),none,设计型工作面（原产品仅入口观察）；不注入壳 UI
+QDR.P06.settings.pet.entry,n/a(design),none,设计型工作面（原产品仅入口观察）；不注入壳 UI
+QDR.P06.settings.memory.entry,n/a(design),none,设计型工作面（原产品仅入口观察）；不注入壳 UI
+QDR.P06.settings.import.entry,n/a(design),none,设计型工作面（原产品仅入口观察）；不注入壳 UI
+QDR.P06.settings.extensions.entry,n/a(design),none,设计型工作面（原产品仅入口观察）；不注入壳 UI
+QDR.P06.settings.hooks.entry,n/a(design),none,设计型工作面（原产品仅入口观察）；不注入壳 UI
+QDR.P06.settings.computer-control.entry,n/a(design),none,设计型工作面（原产品仅入口观察）；不注入壳 UI
+QDR.P06.settings.mobile.entry,n/a(design),none,设计型工作面（原产品仅入口观察）；不注入壳 UI
+QDR.P06.settings.git.entry,n/a(design),none,设计型工作面（原产品仅入口观察）；不注入壳 UI
+QDR.P06.settings.worktrees.entry,n/a(design),none,设计型工作面（原产品仅入口观察）；不注入壳 UI
+QDR.P06.settings.workspace-index.entry,n/a(design),none,设计型工作面（原产品仅入口观察）；不注入壳 UI
+QDR.P06.settings.connections.entry,n/a(design),none,设计型工作面（原产品仅入口观察）；不注入壳 UI
+QDR.P06.settings.security.entry,n/a(design),none,设计型工作面（原产品仅入口观察）；不注入壳 UI
+QDR.P06.settings.archived-tasks.entry,n/a(design),none,设计型工作面（原产品仅入口观察）；不注入壳 UI
+QDR.P06.settings.experiments.entry,n/a(design),none,设计型工作面（原产品仅入口观察）；不注入壳 UI
+QDR.P06.settings.network.entry,n/a(design),none,设计型工作面（原产品仅入口观察）；不注入壳 UI
+QDR.P06.settings.playground.entry,n/a(design),none,设计型工作面（原产品仅入口观察）；不注入壳 UI
+QDR.P01.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.P02.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.P03.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.P04.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.P05.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.P06.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.P07.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.P08.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.P09.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.P10.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.P11.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.P12.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.P13.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.P14.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.P15.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.P16.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.P17.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.O01.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.O02.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.O03.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.O04.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.O05.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.O06.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.O07.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.O08.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.O09.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.O10.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.O11.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.O12.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.O13.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.O14.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.S01.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.S02.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.S03.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.S04.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.S05.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.S06.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.S07.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.S08.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.S09.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.S10.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.S11.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.S12.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.S13.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.M01.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.M02.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.M03.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.M04.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.M05.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.A01.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.A02.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.A03.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.A04.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.A05.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.A06.scope.unexpanded,n/a(design),none,设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.OBS02.knowledge.entry,n/a(design),none,设计型工作面（原产品仅入口观察）；不注入壳 UI
+QDR.OBS03.sites.entry,n/a(design),none,设计型工作面（原产品仅入口观察）；不注入壳 UI
+QDR.O01.context.menu.open,n/a(design),none,组级/研究态（有观察证据）；产品面向后续波次
+QDR.O02.skills.menu.open,n/a(design),none,组级/研究态（有观察证据）；产品面向后续波次
+QDR.P06.settings.mobile.partial,n/a(design),none,组级/研究态（有观察证据）；产品面向后续波次
+QDR.P14.terminal.entry,n/a(design),none,设计型工作面（原产品仅入口观察）；不注入壳 UI
+QDR.P14.sidepanel.entry,n/a(design),none,设计型工作面（原产品仅入口观察）；不注入壳 UI
+QDR.OBS04.user.menu.open,n/a(design),none,组级/研究态（有观察证据）；产品面向后续波次
+QDR.OBS04.appearance.menu.open,n/a(design),none,组级/研究态（有观察证据）；产品面向后续波次
+QDR.OBS04.appearance.language.open,n/a(design),none,组级/研究态（有观察证据）；产品面向后续波次
+QDR.OBS04.appearance.color-mode.open,n/a(design),none,组级/研究态（有观察证据）；产品面向后续波次
+QDR.OBS04.appearance.theme.open,n/a(design),none,组级/研究态（有观察证据）；产品面向后续波次
+QDR.OBS04.appearance.font-style.open,n/a(design),none,组级/研究态（有观察证据）；产品面向后续波次
+QDR.OBS04.appearance.text-size.open,n/a(design),none,组级/研究态（有观察证据）；产品面向后续波次
+QDR.OBS04.appearance.ui-scale.open,n/a(design),none,组级/研究态（有观察证据）；产品面向后续波次
+QDR.OBS04.appearance.content-width.open,n/a(design),none,组级/研究态（有观察证据）；产品面向后续波次
