@@ -62,10 +62,13 @@ export interface SanbaoHostPort {
   searchSessions?(query: string): Promise<{ readonly state: 'read'; readonly results: readonly HostSessionHit[] } | HostUnavailable>;
   /** P03 自动化（第六片起）：壳侧自动化名册读取；缺省＝名册未接线，如实说明。 */
   readAutomations?(): Promise<{ readonly state: 'read'; readonly items: readonly HostAutomation[] } | HostUnavailable>;
+  /** OBS01 用量（第七片起）：壳侧额度读数；缺省＝用量未接线，如实说明。 */
+  readUsage?(): Promise<{ readonly state: 'read'; readonly plan: HostQuota; readonly resources: HostQuota } | HostUnavailable>;
 }
 
 export type HostSessionHit = { readonly sessionRef: string; readonly title: string; readonly subtitle?: string };
 export type HostAutomation = { readonly title: string; readonly schedule: string; readonly enabled: boolean };
+export type HostQuota = { readonly remaining: number; readonly total: number };
 
 declare global {
   interface Window {

@@ -4,7 +4,7 @@ import { Composer, Icon, IconButton, Modal, Toggle, type ComposerContextState } 
 import { getPresentationContentProfile, type PresentationContentProfile } from '../content/presentation-profile';
 
 import { UserAppearanceMenu, type UserAppearancePanel } from '../components/UserAppearanceMenu';
-import { getHostPort, type HostAutomation, type HostSessionHit, type HostWorkspaceRead } from '../runtime/host';
+import { getHostPort, type HostAutomation, type HostQuota, type HostSessionHit, type HostWorkspaceRead } from '../runtime/host';
 
 type Routes = { go: (observation: number) => void; pending: (group: string) => void };
 export type WorkspaceConfig = { name: string; color: string };
@@ -239,6 +239,33 @@ export function AutomationDialog({ close, create, template }: { close: () => voi
 export function UsageDialog({ close, pending, initialRefreshed = false, onRefreshedChange }: { close: () => void; pending: (group: string) => void; initialRefreshed?: boolean; onRefreshedChange?: (refreshed: boolean) => void }) {
   const [refreshed, setRefreshed] = useState(initialRefreshed);
   useEffect(() => { setRefreshed(initialRefreshed); }, [initialRefreshed]);
-  const refresh = () => { setRefreshed(true); onRefreshedChange?.(true); };
-  return <Modal title="用量" className="usage-dialog" onClose={close}><div className="dialog-body"><div className="usage-title"><h3>套餐额度</h3><button className="text-button" aria-pressed={refreshed} onClick={refresh}>{refreshed ? '示例已刷新' : '刷新'}</button></div><strong className="usage-number">292 <small>/ 300 剩余</small></strong><div className="usage-track"><span /></div><p className="field-hint">已使用 8 Credits · 3%（虚构展示值）</p>{refreshed && <p className="field-hint" role="status">刷新结果仅为 SanBao 本地原型状态；原产品的刷新结果尚未采集。</p>}<div className="sidebar-divider" /><h3>资源包</h3><strong className="usage-number">100 <small>/ 100 剩余</small></strong><div className="usage-links"><button onClick={() => pending('OBS01')}>用量详情 · 待采集</button><button onClick={() => pending('OBS01')}>Rewards · 待采集</button></div></div></Modal>;
+  // 接线（OBS01 用量第七片）：有壳时读壳侧额度事实；无壳 canned 原样；未接线如实。
+  const hostMode = getHostPort() !== null;
+  const [hostUsage, setHostUsage] = useState<{ plan: HostQuota; resources: HostQuota } | null>(null);
+  const [hostNotice, setHostNotice] = useState('');
+  useEffect(() => {
+    const port = getHostPort();
+    if (port === null) return;
+    if (typeof port.readUsage !== 'function') { setHostNotice('壳已连接但用量读取未接线：壳未提供该能力。'); return; }
+    let cancelled = false;
+    void port.readUsage().then(result => {
+      if (cancelled) return;
+      if (result.state === 'read') { setHostUsage({ plan: result.plan, resources: result.resources }); return; }
+      setHostNotice(`壳已连接但用量读取未接线（${result.reason}）。`);
+    });
+    return () => { cancelled = true; };
+  }, []);
+  const refresh = () => {
+    const port = getHostPort();
+    if (port !== null && typeof port.readUsage === 'function') {
+      void port.readUsage().then(result => {
+        if (result.state === 'read') { setHostUsage({ plan: result.plan, resources: result.resources }); setHostNotice(''); return; }
+        setHostNotice(`壳已连接但用量读取未接线（${result.reason}）。`);
+      });
+    }
+    setRefreshed(true);
+    onRefreshedChange?.(true);
+  };
+  const wiring = !hostMode ? 'fixture' : hostNotice ? 'unavailable' : hostUsage !== null ? 'read' : 'loading';
+  return <Modal title="用量" className="usage-dialog" onClose={close}><div className="dialog-body" data-usage-wiring={wiring}>{!hostMode ? <><div className="usage-title"><h3>套餐额度</h3><button className="text-button" aria-pressed={refreshed} onClick={refresh}>{refreshed ? '示例已刷新' : '刷新'}</button></div><strong className="usage-number">292 <small>/ 300 剩余</small></strong><div className="usage-track"><span /></div><p className="field-hint">已使用 8 Credits · 3%（虚构展示值）</p>{refreshed && <p className="field-hint" role="status">刷新结果仅为 SanBao 本地原型状态；原产品的刷新结果尚未采集。</p>}<div className="sidebar-divider" /><h3>资源包</h3><strong className="usage-number">100 <small>/ 100 剩余</small></strong><div className="usage-links"><button onClick={() => pending('OBS01')}>用量详情 · 待采集</button><button onClick={() => pending('OBS01')}>Rewards · 待采集</button></div></> : hostNotice ? <div className="usage-title"><h3>用量未接线</h3></div> : null}{hostMode && hostNotice && <p className="field-hint" role="status">{hostNotice}</p>}{hostMode && !hostNotice && (hostUsage === null ? <p className="field-hint" role="status">正在读取壳侧用量…</p> : <><div className="usage-title"><h3>套餐额度</h3><button className="text-button" aria-pressed={refreshed} onClick={refresh}>{refreshed ? '已刷新' : '刷新'}</button></div><strong className="usage-number">{hostUsage.plan.remaining} <small>/ {hostUsage.plan.total} 剩余</small></strong><div className="usage-track"><span /></div><p className="field-hint">壳侧额度读数；不代表余额承诺。</p>{refreshed && <p className="field-hint" role="status">已重新读取壳侧用量。</p>}<div className="sidebar-divider" /><h3>资源包</h3><strong className="usage-number">{hostUsage.resources.remaining} <small>/ {hostUsage.resources.total} 剩余</small></strong></>)}</div></Modal>;
 }
