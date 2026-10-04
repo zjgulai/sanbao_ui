@@ -1,0 +1,52 @@
+state_id,status,wire_depth_target,evidence
+QDR.P06.settings.appearance.default,honest,read/honest,本批无对应壳方法（显示偏好为本地渲染事实）；保持本地演示；动作已有诚实未采集提示
+QDR.P06.settings.appearance.color-mode.open,honest,read/honest,本批无对应壳方法（显示偏好为本地渲染事实）；保持本地演示；动作已有诚实未采集提示
+QDR.P06.settings.appearance.terminal-theme.open,honest,read/honest,本批无对应壳方法（显示偏好为本地渲染事实）；保持本地演示；动作已有诚实未采集提示
+QDR.P06.settings.appearance.language.open,honest,read/honest,本批无对应壳方法（显示偏好为本地渲染事实）；保持本地演示；动作已有诚实未采集提示
+QDR.P06.settings.appearance.font-style.open,honest,read/honest,本批无对应壳方法（显示偏好为本地渲染事实）；保持本地演示；动作已有诚实未采集提示
+QDR.P06.settings.appearance.content-width.open,honest,read/honest,本批无对应壳方法（显示偏好为本地渲染事实）；保持本地演示；动作已有诚实未采集提示
+QDR.P06.settings.appearance.file-icons.open,honest,read/honest,本批无对应壳方法（显示偏好为本地渲染事实）；保持本地演示；动作已有诚实未采集提示
+QDR.P06.settings.appearance.icon-appearance.open,honest,read/honest,本批无对应壳方法（显示偏好为本地渲染事实）；保持本地演示；动作已有诚实未采集提示
+QDR.P06.settings.profile.default,honest,read/honest,身份/资料读取不在本批接缝（红线）；页面已自标注虚构资料
+QDR.P04.installed.plugins.empty,honest,read/honest,本批无扩展清单壳方法；空态保持并如实提示
+QDR.P04.installed.skills.empty,honest,read/honest,本批无扩展清单壳方法；空态保持并如实提示
+QDR.P04.installed.connectors.empty,honest,read/honest,本批无扩展清单壳方法；空态保持并如实提示
+QDR.P04.installed.agents.empty,honest,read/honest,本批无扩展清单壳方法；空态保持并如实提示
+QDR.P04.installed.plugins.add.open,honest,read/honest,本批无扩展清单壳方法；菜单保持本地并如实提示
+QDR.P04.installed.skills.add.open,honest,read/honest,本批无扩展清单壳方法；菜单保持本地并如实提示
+QDR.O08.mcp.form.empty,honest,read/honest,本批无 MCP 配置壳方法；表单提交已有诚实未采集提示
+QDR.O08.mcp.json.default,honest,read/honest,本批无 MCP 配置壳方法；表单提交已有诚实未采集提示
+QDR.O08.mcp.transport.open,honest,read/honest,本批无 MCP 配置壳方法；表单提交已有诚实未采集提示
+QDR.O08.mcp.form.stdio,honest,read/honest,本批无 MCP 配置壳方法；表单提交已有诚实未采集提示
+QDR.O08.mcp.form.http,honest,read/honest,本批无 MCP 配置壳方法；表单提交已有诚实未采集提示
+QDR.O08.mcp.http.header-row,honest,read/honest,本批无 MCP 配置壳方法；表单提交已有诚实未采集提示
+QDR.O08.mcp.form.sse,honest,read/honest,本批无 MCP 配置壳方法；表单提交已有诚实未采集提示
+QDR.O08.mcp.name.preview,honest,read/honest,本批无 MCP 配置壳方法；表单提交已有诚实未采集提示
+QDR.O08.mcp.discard.open,honest,read/honest,本批无 MCP 配置壳方法；放弃确认保持本地并如实提示
+QDR.O08.mcp.stdio.argument-row,honest,read/honest,本批无 MCP 配置壳方法；表单提交已有诚实未采集提示
+QDR.O08.mcp.stdio.environment-row,honest,read/honest,本批无 MCP 配置壳方法；表单提交已有诚实未采集提示
+QDR.P06.settings.general.default,honest,read/honest,本批无显示偏好壳方法；切换动作已有诚实未采集提示
+QDR.P06.settings.mode.default,honest,read/honest,本批无显示偏好壳方法；切换动作已有诚实未采集提示
+QDR.P06.settings.task-monitor.default,honest,read/honest,本批无显示偏好壳方法；切换动作已有诚实未采集提示
+QDR.P06.settings.shortcuts.default,honest,read/honest,本批无快捷键壳方法；保持本地演示与诚实提示
+QDR.P06.settings.shortcuts.search.voice,honest,read/honest,本批无快捷键壳方法；保持本地演示与诚实提示
+QDR.P06.settings.shortcuts.search.empty,honest,read/honest,本批无快捷键壳方法；保持本地演示与诚实提示
+QDR.P06.settings.shortcuts.send-menu.open,honest,read/honest,本批无快捷键壳方法；保持本地演示与诚实提示
+QDR.P06.settings.shortcuts.edit.settings,honest,read/honest,本批无快捷键壳方法；保持本地演示与诚实提示
+QDR.P06.settings.voice.default,honest,read/honest,本批无语音偏好壳方法；选值结果已有诚实未采集提示
+QDR.P06.settings.voice.tone.open,honest,read/honest,本批无语音偏好壳方法；选值结果已有诚实未采集提示
+QDR.P06.settings.voice.speed.open,honest,read/honest,本批无语音偏好壳方法；选值结果已有诚实未采集提示
+QDR.P06.settings.voice.duration.open,honest,read/honest,本批无语音偏好壳方法；选值结果已有诚实未采集提示
+QDR.P06.settings.voice.input-device.open,honest,read/honest,本批无语音偏好壳方法；选值结果已有诚实未采集提示
+QDR.P06.settings.voice.shortcut.edit,honest,read/honest,本批无语音偏好壳方法；编辑保持本地并如实提示
+QDR.P06.settings.voice.word.draft,honest,read/honest,本批无语音偏好壳方法；草稿保持本地并如实提示
+QDR.P06.settings.models.default,wired(read),read,evidence/wiring/settings/ READY（18 checks 含 canary/密钥样/路径样缺席）；控制组 evidence/wiring/settings-fixture/ READY；负控 evidence/wiring/settings-no-method/ READY
+QDR.P06.settings.models.add.default,honest,read/honest,容器 read 背景已接线（evidence/wiring/settings/ @models.add.deepseek READY）；本行对话框本体保持本地并如实提示
+QDR.P06.settings.models.provider.open,honest,read/honest,容器 read 背景已接线（evidence/wiring/settings/ @models.add.deepseek READY）；本行对话框本体保持本地并如实提示
+QDR.P06.settings.models.add.deepseek,honest,read/honest,容器 read 背景已接线（evidence/wiring/settings/ @models.add.deepseek READY）；本行对话框本体保持本地并如实提示
+QDR.P06.settings.models.deepseek.models.open,honest,read/honest,容器 read 背景已接线（evidence/wiring/settings/ @models.add.deepseek READY）；本行对话框本体保持本地并如实提示
+QDR.P06.settings.models.deepseek.type.open,honest,read/honest,容器 read 背景已接线（evidence/wiring/settings/ @models.add.deepseek READY）；本行对话框本体保持本地并如实提示
+QDR.P06.settings.models.discard.open,honest,read/honest,容器 read 背景已接线（evidence/wiring/settings/ @models.add.deepseek READY）；本行放弃确认保持本地并如实提示
+QDR.P06.settings.models.add.openai-compatible,honest,read/honest,容器 read 背景已接线（evidence/wiring/settings/ @models.add.deepseek READY）；本行对话框本体保持本地并如实提示
+QDR.P06.settings.models.openai-compatible.api-type.open,honest,read/honest,容器 read 背景已接线（evidence/wiring/settings/ @models.add.deepseek READY）；本行对话框本体保持本地并如实提示
+QDR.P06.settings.models.add.anthropic-compatible,honest,read/honest,容器 read 背景已接线（evidence/wiring/settings/ @models.add.deepseek READY）；本行对话框本体保持本地并如实提示

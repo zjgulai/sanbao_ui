@@ -1,10 +1,52 @@
 import React, { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Icon, Modal } from '../components/Controls';
+import { getHostPort, type HostSettingsNamespace } from '../runtime/host';
 
 export type ModelsVariant = 'models' | 'models.add.default' | 'models.provider.open' | 'models.add.deepseek' | 'models.deepseek.models.open' | 'models.deepseek.type.open' | 'models.discard.open' | 'models.add.openai-compatible' | 'models.openai-compatible.api-type.open' | 'models.add.anthropic-compatible';
 type Props = { variant?: string; onNavigate: (variant: ModelsVariant) => void; onNotice: (message: string) => void };
 type Provider = 'aliyun' | 'deepseek' | 'openai-compatible' | 'anthropic-compatible';
 type Panel = 'provider' | 'type' | 'models' | 'api-type';
+
+/**
+ * 设置族的壳绑定态（T-S 片，容器页直连接缝）。
+ * 只渲染壳侧结构事实（命名空间名/层/生效语义/revision/密钥计数），绝不渲染或序列化任何值、密钥、路径。
+ */
+type SettingsHostState =
+  | { readonly kind: 'fixture' }
+  | { readonly kind: 'loading' }
+  | { readonly kind: 'read'; readonly namespaces: readonly HostSettingsNamespace[] }
+  | { readonly kind: 'unavailable'; readonly reason: string };
+
+function appliesLabel(applies: string) {
+  return applies === 'live' ? '即时生效' : applies === 'restart' ? '重启后生效' : `生效：${applies}`;
+}
+
+function SettingsHostBlock({ state }: { state: SettingsHostState }) {
+  if (state.kind === 'read') {
+    return <div className="settings-models-empty settings-models-namespaces" data-settings-namespaces="">
+      <span><Icon name="settings" size={25} /></span>
+      <p>壳侧设置命名空间（结构事实；不含配置值、密钥或路径）</p>
+      <ul className="settings-models-namespace-list">
+        {state.namespaces.map(item => <li key={item.ns} data-settings-ns={item.ns}>
+          <code>{item.ns}</code>
+          <em>层 {item.saved}</em>
+          <em>{appliesLabel(item.applies)}</em>
+          <em>revision {item.revision}</em>
+          <em>密钥 {item.secrets.set}/{item.secrets.total}</em>
+        </li>)}
+      </ul>
+      {state.namespaces.length === 0 && <p data-settings-ns-empty="">壳侧当前没有可读的设置命名空间。</p>}
+    </div>;
+  }
+  if (state.kind === 'loading') {
+    return <div className="settings-models-empty"><span><Icon name="settings" size={25} /></span><p>正在从壳读取设置命名空间…</p></div>;
+  }
+  if (state.kind === 'unavailable') {
+    return <div className="settings-models-empty"><span><Icon name="settings" size={25} /></span><p>{`壳已连接但设置读取未接线（${state.reason}）：不显示本地演示内容代替。`}</p></div>;
+  }
+  return <div className="settings-models-empty"><span><Icon name="settings" size={25} /></span><p>暂无自定义模型，点击添加模型开始使用</p></div>;
+}
+
 const PROVIDER_NAMES: Record<Provider, string> = { aliyun: '阿里云百炼 - 中国', deepseek: 'DeepSeek', 'openai-compatible': 'OpenAI Compatible', 'anthropic-compatible': 'Anthropic Compatible' };
 const PROVIDERS = [
   { group: '推荐', names: ['阿里云百炼 - 中国', '阿里云百炼 - 新加坡', '阿里云百炼 - 美国', '千问AI平台 - 中国', '千问AI平台 - 新加坡'] },
@@ -61,6 +103,20 @@ function ModelSelect({ panel, label, value, leadingIcon, open, onOpen, onClose, 
 }
 
 export function SettingsModelsPage({ variant = 'models', onNavigate, onNotice }: Props) {
+  // 接线（T-S 设置族）：挂载时直连壳；无壳＝fixture 原样；有壳按读取结果如实呈现（cancelled 清理）。
+  const [hostSettings, setHostSettings] = useState<SettingsHostState>(() => (getHostPort() === null ? { kind: 'fixture' } : { kind: 'loading' }));
+  useEffect(() => {
+    const port = getHostPort();
+    if (port === null) { setHostSettings({ kind: 'fixture' }); return; }
+    if (typeof port.readSettings !== 'function') { setHostSettings({ kind: 'unavailable', reason: '壳未提供 readSettings' }); return; }
+    let cancelled = false;
+    setHostSettings({ kind: 'loading' });
+    void port.readSettings().then(result => {
+      if (cancelled) return;
+      setHostSettings(result.state === 'read' ? { kind: 'read', namespaces: result.namespaces } : { kind: 'unavailable', reason: result.reason });
+    }).catch(() => { if (!cancelled) setHostSettings({ kind: 'unavailable', reason: '壳侧设置读取失败' }); });
+    return () => { cancelled = true; };
+  }, []);
   const [provider, setProvider] = useState<Provider>(() => providerFor(variant));
   const [compatibleDiscard, setCompatibleDiscard] = useState(false);
   const localRoute = useRef<ModelsVariant | null>(null), previous = useRef(variant), addTrigger = useRef<HTMLButtonElement>(null);
@@ -112,9 +168,9 @@ export function SettingsModelsPage({ variant = 'models', onNavigate, onNotice }:
     if (provider !== 'deepseek') { pending(next === 'type' ? 'Token plan 类型' : '阿里云模型列表'); return; }
     navigate(next === 'type' ? 'models.deepseek.type.open' : 'models.deepseek.models.open');
   };
-  return <section className="settings-basic settings-models" aria-label="模型设置">
+  return <section className="settings-basic settings-models" data-settings-wiring={hostSettings.kind} aria-label="模型设置">
     <div className="settings-basic-content"><header className="settings-models-heading"><div><h1 id="settings-models-heading" tabIndex={-1}>模型</h1><p>使用自有 API Key 管理自定义模型。</p></div><button ref={addTrigger} id="models-add-trigger" type="button" aria-label="添加模型" onClick={() => navigate('models.add.default')}><Icon name="plus" size={14} />添加模型</button></header>
-      <div className="settings-models-empty"><span><Icon name="settings" size={25} /></span><p>暂无自定义模型，点击添加模型开始使用</p></div>
+      <SettingsHostBlock state={hostSettings} />
     </div>
     {open && <Modal title="添加模型" className="settings-models-dialog" onClose={closeForm}>
       <button type="button" className="settings-models-feedback" onClick={() => pending('反馈')}><span>反馈</span><Icon name="feedback" size={21} /></button>
