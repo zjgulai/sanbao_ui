@@ -20,6 +20,8 @@ const root = dirname(dirname(fileURLToPath(import.meta.url)))
 const dist = join(root, 'dist')
 const states = JSON.parse(readFileSync(join(root, 'src/catalog-data.json'), 'utf8')).states.map(state => state.id)
 const withHost = process.argv.includes('--host')
+const onlyArg = process.argv.indexOf('--only')
+const onlyFilter = onlyArg === -1 ? null : process.argv[onlyArg + 1]
 const hostScript = `<script src="./__crawl-host.js"></script>`
 if (withHost) {
   writeFileSync(join(dist, '__crawl-host.js'), `// 爬检用全能力 host stub（只读事实 + 动作回执；无真实调用）。
@@ -71,7 +73,8 @@ function load(stateId) {
 }
 
 const results = []
-for (const stateId of states) {
+const runList = onlyFilter ? states.filter(state => state.includes(onlyFilter)) : states
+for (const stateId of runList) {
   const { dom, killed } = await load(stateId)
   const mounted = dom.includes('data-sanbao-wiring')
   const crashed = /Application error|Minified React error/.test(dom)
