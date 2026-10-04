@@ -141,3 +141,12 @@
 @media(max-width:1050px){.repo-wiki-directory{width:275px;max-width:34%;padding:14px 12px}.repo-wiki-configuration{padding:14px 15px 25px}.repo-wiki-configuration-content{margin-top:33px}.repo-wiki-project.list{gap:15px;padding:16px}.repo-wiki-project-stats{gap:12px}}
 @media(max-width:650px){.repo-wiki-setup-header{padding:8px 14px;flex-wrap:wrap;gap:4px}.repo-wiki-setup .collection-header-actions{width:auto}.repo-wiki-setup-body{overflow:auto;flex-direction:column}.repo-wiki-directory{width:100%;max-width:none;border-right:0;border-bottom:1px solid #e9eae5}.repo-wiki-directory-empty{padding:16px 0 9px}.repo-wiki-configuration{overflow:visible}.repo-wiki-project.list{gap:10px;flex-wrap:wrap}.repo-wiki-project.list .repo-wiki-project-title{min-width:60%}.repo-wiki-configuration-content{margin-top:25px}}
 @media(max-width:650px){.sites-skeleton-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 13px}.sites-skeleton-card>div{height:115px}}
+/* 接线（OBS02/OBS03）：只用于有壳分支——壳侧名册与如实句面板；fixture 分支不引用。 */
+.knowledge-host-roster,.sites-host-roster{border:1px solid #e5e8df;border-radius:8px;background:#fdfdfb;padding:16px 18px}
+.knowledge-host-roster h2,.sites-host-roster h2{font-size:13px;font-weight:500;color:#686868}
+.knowledge-host-roster>p,.sites-host-roster>p{font-size:10px;line-height:1.7;color:#a0a09d;margin-top:6px}
+.knowledge-host-roster ul,.sites-host-roster ul{list-style:none;margin-top:12px;display:flex;flex-direction:column;gap:7px}
+.knowledge-host-roster li,.sites-host-roster li{display:flex;align-items:center;gap:8px;font-size:11px;color:#4f5347;border:1px solid #e6e9e0;border-radius:6px;padding:8px 10px;background:#fff}
+.knowledge-host-roster li em,.sites-host-roster li em{font-style:normal;font-size:9px;color:#8a9078;border:1px solid #dde3d2;border-radius:4px;padding:1px 5px;margin-left:auto}
+.knowledge-host-notice,.sites-host-notice{min-height:170px;border:1px dashed #dededb;border-radius:8px;display:flex;align-items:center;justify-content:center;text-align:center;padding:22px 18px;background:#fdfdfb;font-size:11px;line-height:1.7;color:#8d9085}
+@media(max-width:650px){.knowledge-host-roster,.sites-host-roster{padding:13px 12px}.knowledge-host-notice,.sites-host-notice{min-height:130px;padding:18px 12px}}
