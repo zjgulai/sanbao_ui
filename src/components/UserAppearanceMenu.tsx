@@ -5,7 +5,7 @@ import { Icon } from './Controls';
 const CHOICES = {
   language: { label: '语言', options: ['简体中文', 'English'], initial: '简体中文' },
   'color-mode': { label: '明暗模式', options: ['系统', '浅色', '深色'], initial: '浅色' },
-  theme: { label: '主题', options: ['森林', '薄荷', '蜜蜂', '羊皮纸'], initial: '森林' },
+  theme: { label: '主题', options: ['星港', '浅雾', '夜航', '白帆'], initial: '星港' },
   'font-style': { label: '字体风格', options: ['无衬线', '衬线'], initial: '无衬线' },
   'text-size': { label: '文字大小', options: ['小', '中', '大'], initial: '小' },
   'ui-scale': { label: '界面缩放', options: ['中', '大'], initial: '中' },
@@ -29,7 +29,7 @@ const ROOT_ITEMS = [
   { key: 'appearance', label: '外观', icon: 'grid' },
   { key: 'changelog', label: '更新日志', icon: 'book' },
   { key: 'mobile', label: '获取移动端', icon: 'monitor' },
-  { key: 'about', label: '关于 Qoder', icon: 'chat' },
+  { key: 'about', label: '关于 SanBao', icon: 'chat' },
   { key: 'logout', label: '退出登录', icon: 'arrow', separator: true },
 ];
 const isChoice = (panel: UserAppearancePanel): panel is ChoicePanel => panel !== 'user' && panel !== 'appearance';
@@ -130,7 +130,7 @@ export function UserAppearanceMenu({ open, initialPanel = 'user', onClose, onSet
   };
   const choose = (choice: ChoicePanel, value: string) => {
     setValues(current => ({ ...current, [choice]: value }));
-    inform(`本地菜单已选择${CHOICES[choice].label}：${value}。未更改 Qoder，原产品选择后的效果尚未验证。`);
+    inform(`本地菜单已选择${CHOICES[choice].label}：${value}。未更改 SanBao 原型或系统设置，原产品选择后的效果尚未验证。`);
   };
   const rootAction = (key: string) => {
     if (key === 'settings') callbacks.current.onSettings();
@@ -142,7 +142,7 @@ export function UserAppearanceMenu({ open, initialPanel = 'user', onClose, onSet
       if (callbacks.current.onNotice) { inform('获取移动端的打开行为尚未实现；这里只展示相关的移动端设置研究记录。'); callbacks.current.onPending('QDR.P06.settings.mobile.entry'); }
       else inform('获取移动端的打开行为尚未实现；原型没有下载或打开外部页面。');
     }
-    else inform(key === 'logout' ? '退出登录入口尚未实现；原型没有退出任何账号。' : key === 'about' ? '关于 Qoder 的内容尚待采集；当前仅展示已观察到的菜单入口。' : '更新日志内容尚待采集；原型没有打开外部页面。');
+    else inform(key === 'logout' ? '退出登录入口尚未实现；原型没有退出任何账号。' : key === 'about' ? '关于 SanBao 的内容仅为本地原型说明；当前未打开外部页面。' : '更新日志内容尚待采集；原型没有打开外部页面。');
   };
   const keyDown = (event: KeyboardEvent<HTMLDivElement>, level: MenuLevel) => {
     if (event.nativeEvent.isComposing) return;

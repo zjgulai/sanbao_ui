@@ -86,7 +86,7 @@ const ITEMS: Record<CollaborationWorkbenchSection, readonly CollectionItem[]> = 
     { id: 'project-release', title: '发布前页面核对', summary: '汇总需要确认的工作面与验收入口。', status: '待审阅', meta: '3 个本地工作项 · 今天', filter: 'review', detail: '此项目只展示本地评审用的事项关系，不读取工作区、代码仓库或外部项目管理服务。' },
     { id: 'project-mobile', title: '移动协作流程', summary: '整理桌面端与轻量协作端的连接点。', status: '进行中', meta: '5 个本地工作项 · 本周', filter: 'active', detail: '用于审阅发起、进度、审批和成果预览的层级；没有建立实际移动端任务。' },
     { id: 'project-archive', title: '资料整理计划', summary: '等候下一轮可确认的资料边界。', status: '待排期', meta: '1 个本地工作项 · 未排期', filter: 'backlog', detail: '本地占位项目用于展示空闲队列，不创建远端项目或修改现有计划。' },
-    { id: 'project-token', title: '视觉 Token 盘点', summary: '已完成静态候选的归类与来源标注。', status: '已完成', meta: '4 个本地工作项 · 已归档', filter: 'done', detail: '完成状态只表示本页的模拟数据，不代表 Qoder 视觉或 Figma 校准已经完成。' },
+    { id: 'project-token', title: '视觉 Token 盘点', summary: '已完成静态候选的归类与来源标注。', status: '已完成', meta: '4 个本地工作项 · 已归档', filter: 'done', detail: '完成状态只表示本页的模拟数据，不代表原产品视觉或 Figma 校准已经完成。' },
   ],
   issues: [
     { id: 'issue-navigation', title: '核对静态入口的导航关系', summary: '确认项目、Issue、讨论与我的工作之间的本地跳转。', status: '待审阅', meta: 'P07 · 本地运行记录可见', filter: 'review', detail: '执行记录是静态候选 O12 的 Sanbao 设计回放，不对应真实工具调用、模型响应或任务日志。' },
@@ -97,11 +97,11 @@ const ITEMS: Record<CollaborationWorkbenchSection, readonly CollectionItem[]> = 
   discussions: [
     { id: 'discussion-release', title: '发布流程需要确认', summary: '将预览入口和验收说明整理为一个待答复话题。', status: '开放', meta: '3 位本地参与者 · 2 条消息', filter: 'open', detail: '讨论内容与参与者名单都是演示数据；此页不发送消息、不邀请成员、也不读取账号。' },
     { id: 'discussion-scope', title: '范围边界补充', summary: '等待确认下一批可执行的本地工作面。', status: '等待', meta: '2 位本地参与者 · 等待输入', filter: 'waiting', detail: '等待状态仅展示用户输入前的视觉层级，不会向任何人发送通知或请求授权。' },
-    { id: 'discussion-mobile', title: '移动端五流程映射', summary: '本地设计说明已经归类，等待桌面依赖收口。', status: '已解决', meta: '4 位本地参与者 · 已归档', filter: 'resolved', detail: '已解决只是本地回放结果，原生 Qoder 讨论页和 iOS 流程仍要独立验收。' },
+    { id: 'discussion-mobile', title: '移动端五流程映射', summary: '本地设计说明已经归类，等待桌面依赖收口。', status: '已解决', meta: '4 位本地参与者 · 已归档', filter: 'resolved', detail: '已解决只是本地回放结果，原生讨论页和 iOS 流程仍要独立验收。' },
   ],
   'my-work': [
     { id: 'work-review', title: '审阅：多窗格侧聊工作面', summary: '检查创建、关闭确认与恢复动作的状态连续性。', status: '待处理', meta: '今天 · 设计评审', filter: 'needs', detail: '此处的处置动作仅产生日志式反馈，不会变更任务、审批或真实会话。' },
-    { id: 'work-clarification', title: '澄清：原生视觉参考条件', summary: '等待稳定中性页面后再补两个参考状态。', status: '需要澄清', meta: '本周 · 取证边界', filter: 'clarification', detail: '澄清卡不请求模型、不提交新消息，也不操作 Qoder 中正在进行的用户会话。' },
+    { id: 'work-clarification', title: '澄清：原生视觉参考条件', summary: '等待稳定中性页面后再补两个参考状态。', status: '需要澄清', meta: '本周 · 取证边界', filter: 'clarification', detail: '澄清卡不请求模型、不提交新消息，也不操作正在进行的用户会话。' },
     { id: 'work-update', title: '动态：目录回归已通过', summary: '记录本地目录路由的最近一次检查结果。', status: '动态', meta: '刚刚 · 本地回放', filter: 'updates', detail: '动态说明来自原型内存数据，不能替代原生截图、Figma 或 DSH Host 的验收记录。' },
   ],
 };

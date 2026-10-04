@@ -94,7 +94,7 @@ export function EntrySystemWorkbench({ view = 'onboarding-intro', onNavigateView
       <div>
         <span>SANBAO DESIGN WORKBENCH</span>
         <h1>进入、组织与系统边界</h1>
-        <p>以 Qoder 的静态组级线索组织新手引导、登录前提示、组织域名、反馈、关于和退出更新提醒。所有状态仅在当前原型内切换。</p>
+        <p>以已归档的静态组级线索组织新手引导、登录前提示、组织域名、反馈、关于和退出更新提醒。所有状态仅在当前原型内切换。</p>
       </div>
       <div className="entry-system-source"><strong>{activeEntry.id}</strong><small>{activeEntry.source} · 待原生校准</small></div>
     </header>
@@ -132,7 +132,7 @@ function Frame({ eyebrow, title, detail, status, children }: { eyebrow: string; 
 function ActionBar({ children }: { children: ReactNode }) { return <footer className="entry-system-actions">{children}</footer>; }
 
 function OnboardingIntro({ onPreview, onLoginPrompt }: { onPreview: () => void; onLoginPrompt: () => void }) {
-  return <Frame eyebrow="SANBAO.P17.F01 · 本地引导起点" title="先浏览工作面的基础结构" detail="P17 仅有 #/playground、OnboardingLoginFlowDialog 与预览场景的静态线索。步骤和文案为 Sanbao 设计，不是 Qoder 的已观察引导。" status="仅本地">
+  return <Frame eyebrow="SANBAO.P17.F01 · 本地引导起点" title="先浏览工作面的基础结构" detail="P17 仅有 #/playground、OnboardingLoginFlowDialog 与预览场景的静态线索。步骤和文案为 SanBao 设计，不代表原产品已观察到的引导。" status="仅本地">
     <div className="entry-system-steps"><div className="done"><i>1</i><span><strong>浏览工作面</strong><small>查看任务、审核和成果入口的本地说明。</small></span><Icon name="check" size={15} /></div><div><i>2</i><span><strong>登录前确认</strong><small>定义何时需要组织或网络设置。</small></span></div><div><i>3</i><span><strong>开始本地演示</strong><small>不会创建真实任务或调用模型。</small></span></div></div>
     <div className="entry-system-preview-strip"><Icon name="grid" size={18} /><div><strong>本地预览场景</strong><p>用固定演示数据说明任务、计划和成果如何在桌面端串联。</p></div><button type="button" className="secondary-button" onClick={onPreview}>查看预览</button></div>
     <ActionBar><span>引导内容不保存到账户或设备。</span><button type="button" className="primary-button" onClick={onLoginPrompt}>进入登录前提示 <Icon name="chevron" size={14} /></button></ActionBar>
@@ -204,20 +204,20 @@ function FeedbackReady({ draft, onEdit, onAbout }: { draft: string; onEdit: () =
 
 function AboutPanel({ onFeedback, onSystem }: { onFeedback: () => void; onSystem: () => void }) {
   return <Frame eyebrow="SANBAO.O13.F08 · 关于工作面" title="原型版本与运行边界" detail="AboutDialog 为静态候选。这里显示交接时需要的本地版本说明，不读取应用版本、系统信息、安装位置或账户数据。" status="离线说明">
-    <dl className="entry-system-about"><div><dt>原型入口</dt><dd>Sanbao 本地可运行 UI/UX fixture</dd></div><div><dt>数据范围</dt><dd>固定演示数据与当前内存草稿</dd></div><div><dt>连接状态</dt><dd>未接入 DSH Host、登录、模型或网络</dd></div><div><dt>验收状态</dt><dd>静态候选，待 Qoder 原生与视觉核验</dd></div></dl>
+    <dl className="entry-system-about"><div><dt>原型入口</dt><dd>SanBao 本地可运行 UI/UX fixture</dd></div><div><dt>数据范围</dt><dd>固定演示数据与当前内存草稿</dd></div><div><dt>连接状态</dt><dd>未接入 DSH Host、登录、模型或网络</dd></div><div><dt>验收状态</dt><dd>静态候选，待原产品原生与视觉核验</dd></div></dl>
     <ActionBar><button type="button" className="secondary-button" onClick={onFeedback}>返回本地反馈</button><button type="button" className="primary-button" onClick={onSystem}>查看系统提示</button></ActionBar>
   </Frame>;
 }
 
 function SystemTaskExit({ onCancel, onUnsaved, onUpdate }: { onCancel: () => void; onUnsaved: () => void; onUpdate: () => void }) {
-  return <Frame eyebrow="SANBAO.O14.F01 · 运行中退出提示" title="本地演示中仍有待完成的步骤" detail="“停止任务并退出 Qoder？”是静态候选。此处不会停止工作、关闭窗口、丢弃会话或请求系统退出。" status="系统候选">
+  return <Frame eyebrow="SANBAO.O14.F01 · 运行中退出提示" title="本地演示中仍有待完成的步骤" detail="“停止任务并退出应用？”是静态候选。此处不会停止工作、关闭窗口、丢弃会话或请求系统退出。" status="系统候选">
     <div className="entry-system-system-prompt"><Icon name="clock" size={20} /><div><strong>页面核对仍在本地进行</strong><p>离开前应如何解释未完成步骤与恢复入口，需要原生条件和交互证据单独确认。</p></div></div>
     <ActionBar><button type="button" className="secondary-button" onClick={onUnsaved}>查看未保存提示</button><button type="button" className="secondary-button" onClick={onUpdate}>查看更新提示</button><button type="button" className="primary-button" onClick={onCancel}>继续本地演示</button></ActionBar>
   </Frame>;
 }
 
 function SystemUnsavedExit({ onCancel, onTask }: { onCancel: () => void; onTask: () => void }) {
-  return <Frame eyebrow="SANBAO.O14.F02 · 未保存内容提示" title="当前仅模拟待保存的页面状态" detail="“保存文件并退出 Qoder？”是静态候选。原型不会打开、保存、修改或关闭真实文件，也不会退出应用。" status="系统候选">
+  return <Frame eyebrow="SANBAO.O14.F02 · 未保存内容提示" title="当前仅模拟待保存的页面状态" detail="“保存文件并退出应用？”是静态候选。原型不会打开、保存、修改或关闭真实文件，也不会退出应用。" status="系统候选">
     <div className="entry-system-system-prompt warning"><Icon name="file" size={20} /><div><strong>本地演示草稿尚未保存</strong><p>按钮只回放取消或返回路径；不提供保存操作，避免把原型误认为文件编辑器。</p></div></div>
     <ActionBar><button type="button" className="secondary-button" onClick={onTask}>返回运行中提示</button><button type="button" className="primary-button" onClick={onCancel}>取消退出</button></ActionBar>
   </Frame>;

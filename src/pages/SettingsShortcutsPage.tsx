@@ -4,7 +4,7 @@ import { Icon, Modal } from '../components/Controls';
 type Shortcut = { label: string; description: string; keys: string[] };
 const SHORTCUT_GROUPS: { title: string; shortcuts: Shortcut[] }[] = [
   { title: '导航', shortcuts: [
-    { label: '设置', description: '打开 Qoder 设置。', keys: ['⌘', ','] },
+    { label: '设置', description: '打开 SanBao 设置（本地演示）。', keys: ['⌘', ','] },
     { label: '返回', description: '在工作台导航历史中返回上一页。', keys: ['⌘', '['] },
     { label: '前进', description: '在工作台导航历史中前进到下一页。', keys: ['⌘', ']'] },
     { label: '切换工作模式', description: '在编程模式和通用模式之间切换。', keys: ['⌃', 'Tab'] },
@@ -23,7 +23,7 @@ const SHORTCUT_GROUPS: { title: string; shortcuts: Shortcut[] }[] = [
     { label: '启用或禁用实时语音麦克风', description: '不切换当前焦点，启用或禁用正在进行的实时语音麦克风。', keys: ['⌘', '⇧', 'M'] },
   ] },
   { title: '系统', shortcuts: [
-    { label: '新建窗口', description: '在桌面端打开一个新的 Qoder 窗口。', keys: ['⌘', '⇧', 'N'] },
+    { label: '新建窗口', description: '在桌面端打开一个新的 SanBao 工作窗口（本地演示）。', keys: ['⌘', '⇧', 'N'] },
     { label: '问题反馈', description: '打开问题反馈窗口并自动附带当前截图。', keys: ['⌘', '⌥', 'F'] },
   ] },
 ];
@@ -101,7 +101,7 @@ export function SettingsShortcutsPage({ variant = 'shortcuts', onNavigate, onNot
   return <section className="settings-basic settings-shortcuts" aria-label="快捷键设置">
     <div className="settings-basic-content">
       <h1 id="settings-shortcuts-heading" tabIndex={-1}>快捷键</h1>
-      <p className="settings-basic-subtitle">搜索、查看并修改 Qoder 内置命令的快捷键。修改后会立即保存在当前设备。</p>
+      <p className="settings-basic-subtitle">搜索、查看 SanBao 原型中的命令快捷键。修改结果仅在当前本地原型中预览，不会写入设备。</p>
       <section className="settings-basic-section" aria-label="应用快捷键"><h2>应用快捷键</h2><div className="settings-basic-card">
         <div className="settings-basic-row settings-shortcuts-search-row">
           <div className="settings-basic-row-copy"><h3><label htmlFor="settings-shortcuts-query">搜索快捷键</label></h3><p>共 16 个快捷键，0 个已自定义。</p></div>

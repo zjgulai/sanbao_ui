@@ -114,10 +114,10 @@ export function SettingsVoicePage({ variant = 'voice', onNavigate, onNotice }: P
         <VoiceRow label="输入设备" description="选择用于语音输入的麦克风；自动会跟随系统当前设备。">{select('input-device')}</VoiceRow>
       </div></section>
       <section className="settings-basic-section" aria-label="语音输入"><h2>语音输入</h2><div className="settings-basic-card">
-        <VoiceRow label="语音输入" description="开启后可在当前 Chat 输入框中使用麦克风、快捷键和 DJI Mic 进行语音输入。">{toggle('语音输入', true)}</VoiceRow>
+        <VoiceRow label="语音输入" description="开启后可在当前 Chat 输入框中使用麦克风和快捷键进行语音输入。">{toggle('语音输入', true)}</VoiceRow>
         <VoiceRow label="语音识别润色" description="自动修正口语停顿、重复和标点，让转写结果更适合直接发送。">{toggle('语音识别润色', true)}</VoiceRow>
         <VoiceRow label="声纹识别" description="根据本次录音开头的声音特征降低周围人声干扰；下一次录音时生效。">{toggle('语音输入：声纹识别', true)}</VoiceRow>
-        <VoiceRow label="自动发送" description="使用 DJI Mic Mini 2 Qoder 合作套装时，单击开始录音，再次单击结束录音并自动发送。">{toggle('自动发送', true)}</VoiceRow>
+        <VoiceRow label="自动发送" description="使用兼容麦克风设备时，单击开始录音，再次单击结束录音并自动发送。">{toggle('自动发送', true)}</VoiceRow>
         <div className="settings-basic-row settings-voice-vocabulary"><div className="settings-basic-row-copy"><h3><label htmlFor="voice-word-draft">常用词纠正</label></h3><p>添加专有名词或术语，提升识别准确率。</p></div>
           <form onSubmit={event => { event.preventDefault(); addWord(); }}><input id="voice-word-draft" aria-label="添加词汇" placeholder="添加词汇" value={word} onChange={event => updateWord(event.target.value)} onKeyDown={event => { if (event.key === 'Enter') { event.preventDefault(); if (!event.nativeEvent.isComposing) addWord(); } }} /><button type="submit" disabled={!word.trim()}>添加</button></form>
         </div>

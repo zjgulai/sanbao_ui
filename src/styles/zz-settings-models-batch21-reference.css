@@ -37,6 +37,14 @@
   color: #c9d0ca;
 }
 
+[data-reference-theme="dark"] .settings-models-feedback > span {
+  display: none;
+}
+
+[data-reference-theme="dark"] .settings-models-feedback > svg {
+  display: block;
+}
+
 [data-reference-theme="dark"] .settings-models-feedback {
   top: 27px;
   right: 58px;
@@ -101,6 +109,10 @@
 [data-reference-theme="dark"] .settings-models-key > button,
 [data-reference-theme="dark"] .settings-models-id-row > button {
   color: #b6beb8;
+}
+
+[data-reference-theme="dark"] .settings-models-select-value > svg {
+  color: #c7cec8;
 }
 
 [data-reference-theme="dark"] .settings-models-id-row > button {
@@ -217,4 +229,13 @@
   border-color: #ff4548;
   background: #ff4548;
   color: #160808;
+}
+
+/* Screenshot-only research condition; it must not alter product mode. */
+.prototype.reference-capture-mode .modal-backdrop {
+  inset: 0;
+}
+
+.prototype.reference-capture-mode [data-reference-theme="dark"] .settings-models-select > button:focus-visible {
+  outline: none;
 }

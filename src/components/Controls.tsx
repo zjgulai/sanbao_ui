@@ -6,6 +6,8 @@ const paths: Record<string, ReactNode> = {
   search: <><circle cx="10.8" cy="10.8" r="6.8" /><path d="m16 16 4.6 4.6" /></>,
   plus: <path d="M12 5v14M5 12h14" />,
   close: <path d="M6 6 18 18M6 18 18 6" />,
+  edit: <><path d="m4 20 4.2-1 10-10-3.2-3.2-10 10Z" /><path d="m13.8 5.8 3.2 3.2" /></>,
+  feedback: <><path d="M4 4h16v13H9l-5 3Z" /><path d="M12 8.1a2 2 0 0 1 1.7 3.1c-.8.9-1.7 1.1-1.7 2.3" /><path d="M12 15.2h.01" /></>,
   arrow: <path d="M12 20V4m-6 6 6-6 6 6" />,
   down: <path d="m7 10 5 5 5-5" />,
   chevron: <path d="m9 5 7 7-7 7" />,
@@ -99,10 +101,10 @@ const CONTEXT_ITEMS = [
 ] as const;
 const WORKSPACE_FILES = ['AGENTS.md', 'demo.html', 'README.md'];
 const PLUGINS = [
-  { name: 'qoder-canvas', help: 'CanvasTSX authoring guidance for Qoder Canvas previews' },
-  { name: 'qoder-desktop-pet-skill', help: 'Qoder built-in Skill for installing compatible desktop pets through Petdex' },
-  { name: 'qoder-find-extensions', help: 'Qoder built-in capability discovery and installation skill' },
-  { name: 'qoder-qmind', help: 'QMind Service tools for the Qoder Agent' },
+  { name: 'qoder-canvas', label: '画布创作', help: 'CanvasTSX 预览与创作指引（本地演示）' },
+  { name: 'qoder-desktop-pet-skill', label: '桌面宠物', help: '兼容桌面宠物的本地演示入口' },
+  { name: 'qoder-find-extensions', label: '扩展发现', help: '扩展发现与安装流程的本地演示入口' },
+  { name: 'qoder-qmind', label: '智能服务', help: 'Agent 工具能力的本地演示入口' },
 ];
 
 type ComposerProps = { running?: boolean; onSend: (text: string) => void; onStop?: () => void; onRoute: (group: string) => void; initialValue?: string; onDraftChange?: (value: string) => void; initialSkill?: string; onSkillChange?: (value: string) => void; compact?: boolean; workspaceName?: string; initialContextMenu?: ComposerContextState; onInputFocus?: () => void; contentProfile?: PresentationContentProfile };
@@ -173,7 +175,7 @@ function QoderResearchComposer({ running = false, onSend, onStop, onRoute, initi
   };
   const skills = ['界面研究', '文档整理', '任务拆解'].filter(item => item.includes(skillSearch.trim()));
   const filteredFiles = WORKSPACE_FILES.filter(file => file.toLowerCase().includes(fileSearch.trim().toLowerCase()));
-  const filteredPlugins = PLUGINS.filter(plugin => plugin.name.toLowerCase().includes(pluginSearch.trim().toLowerCase()));
+  const filteredPlugins = PLUGINS.filter(plugin => `${plugin.name} ${plugin.label}`.toLowerCase().includes(pluginSearch.trim().toLowerCase()));
   const pluginNotice = (action: string) => setNotice(`“${action}”操作尚未采集；当前仅为本地菜单演示，未选择、安装插件或打开外部页面。`);
   const navigateExtension = (id: string) => { setMenu(null); onRoute(id); };
   const activateContext = (key: string) => {
@@ -215,7 +217,7 @@ function QoderResearchComposer({ running = false, onSend, onStop, onRoute, initi
       </> : menu === 'plugins' ? <>
         <button role="menuitem" className="context-back" onClick={() => setMenu('context')}>‹ 返回上下文</button>
         <label className="context-search"><Icon name="search" size={13} /><input aria-label="搜索插件" value={pluginSearch} onChange={event => setPluginSearch(event.target.value)} placeholder="搜索插件" /></label>
-        {filteredPlugins.length ? filteredPlugins.map(plugin => <button type="button" role="menuitem" aria-label={plugin.name} title={plugin.help} className="plugin-choice" key={plugin.name} onClick={() => pluginNotice(plugin.name)}><Icon name="grid" size={14} /><span className="plugin-copy"><strong>{plugin.name}</strong><small>{plugin.help}</small></span></button>) : <button type="button" role="menuitem" className="plugin-empty" disabled>未找到匹配的插件</button>}
+        {filteredPlugins.length ? filteredPlugins.map(plugin => <button type="button" role="menuitem" aria-label={plugin.label} title={plugin.help} className="plugin-choice" key={plugin.name} onClick={() => pluginNotice(plugin.label)}><Icon name="grid" size={14} /><span className="plugin-copy"><strong>{plugin.label}</strong><small>{plugin.help}</small></span></button>) : <button type="button" role="menuitem" className="plugin-empty" disabled>未找到匹配的插件</button>}
         <button type="button" role="menuitem" className="plugin-management" onClick={() => navigateExtension('QDR.P04.installed.plugins.empty')}>管理插件<Icon name="settings" size={13} /></button>
         <button type="button" role="menuitem" onClick={() => navigateExtension('QDR.P04.market.plugins.default')}>探索更多插件<Icon name="chevron" size={12} /></button>
       </> : <>

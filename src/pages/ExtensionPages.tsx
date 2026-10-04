@@ -90,7 +90,7 @@ export function InstalledExtensionsPage({ initialVariant = 'extensions-plugins',
           {kind !== 'agents' && <div className="extensions-add-root" ref={addRoot} onBlur={event => { if (event.relatedTarget instanceof Element && (!event.relatedTarget.closest('.product-window') || event.relatedTarget.closest('[data-extension-navigation]'))) return; if (menuOpen && !addRoot.current?.contains(event.relatedTarget) && !document.querySelector('.modal[role="dialog"]')) closeMenu(); }}>
             <button id={ADD_TRIGGER} ref={trigger} type="button" className="extensions-secondary" aria-label={`添加${TYPES.find(type => type.kind === kind)?.label}`} aria-haspopup={kind === 'connectors' ? undefined : 'menu'} aria-expanded={kind === 'connectors' ? undefined : menuOpen} aria-controls={menuOpen ? menuId : undefined} onClick={() => kind === 'connectors' ? onNavigate('QDR.O08.mcp.form.empty') : menuOpen ? closeMenu(true) : openMenu()} onKeyDown={event => { if (!event.nativeEvent.isComposing && kind !== 'connectors' && ['ArrowDown', 'ArrowUp'].includes(event.key)) { event.preventDefault(); openMenu(event.key === 'ArrowUp' ? 1 : 0); } }}><Icon name="plus" size={13} />添加</button>
             {menuOpen && <div id={menuId} ref={menu} className="extensions-add-menu" role="menu" aria-label={`添加${noun}`} data-focus-return={ADD_TRIGGER} onKeyDown={menuKeys}>
-              <button type="button" role="menuitem" aria-label="通过 Qoder 创建" onClick={() => pending(`通过 Qoder 创建 ${noun}`)}><Icon name="bolt" size={17} /><span><strong>通过 Qoder 创建</strong><small>在新任务中创建个性化 {noun}，并保存在本地使用。</small></span></button>
+              <button type="button" role="menuitem" aria-label="在 SanBao 演示中创建" onClick={() => pending(`在 SanBao 演示中创建 ${noun}`)}><Icon name="bolt" size={17} /><span><strong>在 SanBao 演示中创建</strong><small>在本地演示任务中构思个性化 {noun}；不会创建或安装真实扩展。</small></span></button>
               <button type="button" role="menuitem" aria-label={`上传 ${noun}`} onClick={() => pending(`上传 ${noun}`)}><Icon name="folder" size={17} /><span><strong>上传 {noun}</strong><small>{kind === 'skills' ? '导入 ZIP 或 SKILL.md，仅安装到本机。' : '导入 Plugin ZIP，仅安装到本机。'}</small></span></button>
             </div>}
           </div>}
@@ -112,7 +112,7 @@ const SKILLS = [
   ['图像 OCR', '图像文字处理相关指引。'], ['综合的全栈开发', '组织全栈开发工作。'], ['UI 设计师技能', '界面设计与细节整理。'], ['钉钉 dws 技能', '钉钉工作内容相关指引。'],
 ];
 const PLUGINS = [
-  ['PPT', '演示文稿与汇报内容。'], ['Superpowers', '开发工作流相关辅助。'], ['Context7', '技术文档与上下文相关指引。'], ['Qoder Cloud Agents', '云端智能体工作相关入口。'],
+  ['PPT', '演示文稿与汇报内容。'], ['Superpowers', '开发工作流相关辅助。'], ['Context7', '技术文档与上下文相关指引。'], ['云端 Agent（演示）', '云端智能体工作入口的本地演示。'],
   ['Chrome DevTools', '浏览器开发工具相关指引。'], ['Design Review', '设计评审与界面检查。'], ['架构可视化', '以图形整理系统架构。'], ['产品设计', '梳理产品需求与体验。'],
   ['UI/UX Pro Max Skill', '界面与用户体验设计指引。'], ['redis-development', 'Redis 开发相关工作。'], ['Postman', '接口工作与协作指引。'], ['产品管理', '产品规划与需求组织。'],
   ['Frontend Design', '前端页面与交互设计。'], ['Code Simplifier', '代码阅读与简化指引。'], ['钉钉', '钉钉协作相关入口。'], ['Playwright', '浏览器自动化相关指引。'],
@@ -124,14 +124,14 @@ const TAIL_CATEGORIES = ['代码开发', '代码评审', '安全与测试', '数
 const ICONS = ['book', 'grid', 'globe', 'code', 'file', 'monitor'];
 
 function MarketArtwork() {
-  return <svg viewBox="0 0 196 100" role="img" aria-label="原创市场装饰示意"><ellipse cx="113" cy="85" rx="65" ry="7" fill="#dce4d1" opacity=".4" /><g transform="translate(46 10) rotate(-8 56 34)"><rect x="17" y="13" width="111" height="68" rx="8" fill="#ecf1e4" stroke="#d5dec9" /><rect width="111" height="68" rx="8" fill="#fbfcf8" stroke="#d8e1cd" /><rect x="12" y="12" width="27" height="27" rx="7" fill="#d9e5c9" /><path d="M20 26h11m-5-5v10M49 18h43M49 28h31M13 51h76" stroke="#c3d3b0" strokeWidth="3" strokeLinecap="round" /></g><path d="m23 32 3 8 8 3-8 3-3 8-3-8-8-3 8-3Zm148-19 2 5 5 2-5 2-2 5-2-5-5-2 5-2Z" fill="#cadbb9" /></svg>;
+  return <svg viewBox="0 0 196 100" role="img" aria-label="原创市场装饰示意"><ellipse cx="113" cy="85" rx="65" ry="7" fill="#dce8ef" opacity=".4" /><g transform="translate(46 10) rotate(-8 56 34)"><rect x="17" y="13" width="111" height="68" rx="8" fill="#eaf2f6" stroke="#d2e0e7" /><rect width="111" height="68" rx="8" fill="#fbfdfe" stroke="#d8e4ea" /><rect x="12" y="12" width="27" height="27" rx="7" fill="#c9dfe9" /><path d="M20 26h11m-5-5v10M49 18h43M49 28h31M13 51h76" stroke="#91b5c9" strokeWidth="3" strokeLinecap="round" /></g><path d="m23 32 3 8 8 3-8 3-3 8-3-8-8-3 8-3Zm148-19 2 5 5 2-5 2-2 5-2-5-5-2 5-2Z" fill="#b8d3e1" /></svg>;
 }
 
-const FEATURED_SKILLS = ['创建计划', '代码分析', '前端开发专家', '调试助手', '项目开发', '任务代码审查', '测试用例生成器', '后端开发', 'Qoder Cloud Agents', '夸克网盘官方 Skill'].map(name => [name, `围绕${name}整理任务与工作内容。`]);
+const FEATURED_SKILLS = ['创建计划', '代码分析', '前端开发专家', '调试助手', '项目开发', '任务代码审查', '测试用例生成器', '后端开发', '云端 Agent（演示）', '夸克网盘官方 Skill'].map(name => [name, `围绕${name}整理任务与工作内容。`]);
 const LATEST_SKILLS = ['夸克｜图片转 Excel', '夸克｜图文解析识别', 'DB操作', 'SKILL 审查', 'Git 合并', 'AGENTS.MD 生成器', 'Redis操作', 'MQ操作', 'SKILL创建', 'GitLab操作', '灵魂拷问', 'BUG诊断', 'BUG修复', '技能派', '数据库迁移', '夸克扫描王-OCR文字识别/文件扫描/转Office', '夸克｜证件照生成', 'A股情报调查员', '千问工单支持', '网站拨测', '网站挂马分析', 'Web日志安全分析', 'TLS/SSL证书诊断', 'Wireshark 抓包深度分析'].map(name => [name, `围绕${name}组织资料与操作指引。`]);
 const CONNECTORS = [
   ['今日投资金融数据', '金融市场、上市公司与投资研究数据。'], ['GitHub', '通过 MCP 获取仓库、Issue、Pull Request 与研发上下文。'], ['PolarDB', '数据库查询、事务与结构检查。'], ['云效 DevOps', '仓库、工作项、流水线与交付管理。'],
-  ['Qoder Cloud Agents', '云端智能体、会话与运行环境。'], ['微软 Excel', '云端工作簿查看与编辑。'], ['Context7', '检索匹配版本的技术文档与示例。'], ['Notion', '文档、知识库与协作空间。'],
+  ['云端 Agent（演示）', '云端智能体、会话与运行环境的本地演示。'], ['微软 Excel', '云端工作簿查看与编辑。'], ['Context7', '检索匹配版本的技术文档与示例。'], ['Notion', '文档、知识库与协作空间。'],
   ['Postman', 'API 集合、环境与规范管理。'], ['Hugging Face', '模型、数据集、Spaces 与论文检索。'], ['GitLab', '项目、Issue 与合并请求上下文。'], ['Supabase', '项目、数据库和应用开发资源。'],
   ['Todoist', '任务与项目管理。'], ['Linear', '研发工作项、项目与交付跟踪。'], ['HeyGen', '数字人、配音与视频创作。'], ['Cloudflare', '官方文档与已授权的资源操作。'],
   ['Grafana', '指标、日志与仪表盘分析。'], ['北大法宝·法律智能检索', '法律法规、案例与专业资料检索。'], ['Neon', '数据库、开发分支与项目管理。'], ['微软Outlook邮箱', '邮件、日历与联系人管理。'],
@@ -205,7 +205,7 @@ export function ExtensionDetailPage({ onNavigate, onNotice }: PageActions) {
     <div className="extension-detail-content">
       <header className="extension-detail-header">
         <span className="extension-detail-icon" role="img" aria-label="原创 PPT 插件图标占位"><Icon name="monitor" size={23} /></span>
-        <div className="extension-detail-identity"><div className="extension-detail-title"><h1>PPT</h1><span>v0.1.1</span></div><div className="extension-detail-meta"><span>@Qoder</span><span title="本次采集快照，非实时指标">31665 次安装</span><span>Content Creation</span></div></div>
+        <div className="extension-detail-identity"><div className="extension-detail-title"><h1>PPT</h1><span>v0.1.1</span></div><div className="extension-detail-meta"><span>@SanBao 示例</span><span title="本次采集快照，非实时指标">31665 次安装</span><span>Content Creation</span></div></div>
         <button type="button" className="extensions-primary extension-detail-install" aria-label="安装 PPT" onClick={() => pending('安装 PPT')}>安装</button>
       </header>
       <p className="extension-detail-intro">演示文稿的创建与编辑，涵盖内容组织、幻灯片排版与文件产出。</p>

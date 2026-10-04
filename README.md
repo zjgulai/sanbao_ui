@@ -34,6 +34,13 @@ pnpm preview
 
 该模式保留 Qoder 研究标识、状态目录、来源与五维验收信息，供取证和原型审计使用。`QDR`／`QB` 仍是稳定的研究编号，不是产品可见文案。带有 `data-reference-theme` 的局部深色参考页也保持独立校准，不外推为 SanBao 的全局主题规格。
 
+在已经具备同条件原生参考图的研究状态中，可额外使用 `capture=reference` 进入无审计壳的参考截图条件：
+
+```text
+/?state=QDR.P06.settings.models.add.openai-compatible&mode=research&capture=reference
+```
+
+该条件仅隐藏研究状态栏与目录，并让弹层遮罩覆盖完整截图视口，便于固定窗口尺寸的局部视觉比较；它不改变产品模式、不生成新产品功能，也不代表 Qoder 全屏或任何未取得同条件原图的页面已经像素通过。
 
 ## 页面目录与直达路由
 

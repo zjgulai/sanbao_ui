@@ -189,7 +189,7 @@ export function CustomMcpDialog({ initialVariant, onNavigate, onNotice, onClose 
     </div>;
   });
   return <><Modal title="添加自定义 MCP" className={`custom-mcp-dialog ${jsonMode ? 'custom-mcp-json' : transport === 'stdio' ? 'custom-mcp-stdio' : transport ? 'custom-mcp-network' : 'custom-mcp-form'} ${headers.length && transport === 'http' ? 'custom-mcp-with-header' : ''} ${args.length || environment.length ? 'custom-mcp-with-rows' : ''}`} onClose={requestClose}>
-    <p className="custom-mcp-intro">添加用户级 MCP Server。配置将保存到 <code>~/.qoder/settings.json</code> 的 <code>mcpServers</code> 字段。</p>
+    <p className="custom-mcp-intro">添加用户级 MCP Server。此原型仅展示 <code>mcpServers</code> 配置结构，不会写入本地配置或任何文件。</p>
     <div className="custom-mcp-tabs" role="tablist" aria-label="MCP 配置方式" onKeyDown={tabKeys}>
       <button ref={formTab} type="button" role="tab" id={`${id}-form-tab`} aria-controls={`${id}-form`} aria-selected={!jsonMode} tabIndex={!jsonMode ? 0 : -1} data-autofocus={!jsonMode ? true : undefined} data-mcp-navigation onClick={() => switchTab(false)}>表单</button>
       <button ref={jsonTab} type="button" role="tab" id={`${id}-json-tab`} aria-controls={`${id}-json`} aria-selected={jsonMode} tabIndex={jsonMode ? 0 : -1} data-autofocus={jsonMode ? true : undefined} data-mcp-navigation onClick={() => switchTab(true)}>JSON</button>

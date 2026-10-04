@@ -19,7 +19,7 @@ const GENERAL_TASK_SETTINGS: Setting[] = [
   { label: '耗时显示格式', description: '控制会话流和回复结果里的执行耗时精度。', icon: 'clock', kind: 'value', value: '整数秒' },
   { label: '思考状态 Loader', description: '选择思考状态文案左侧的加载动效。', icon: 'grid', kind: 'value', value: 'Matrix（默认）' },
   { label: '思考状态文案', description: '同时自定义思考期间轮换显示的中文和英文文案。', icon: 'chat', kind: 'action', value: '编辑文案' },
-  { label: '目标驱动执行', description: '设定最大轮次上限。设置目标后，Qoder 会自动持续推进目标，直到达成或用完轮次。', icon: 'bolt', kind: 'value', value: '20' },
+  { label: '目标驱动执行', description: '设定最大轮次上限。设置目标后，SanBao 会自动持续推进目标，直到达成或用完轮次。', icon: 'bolt', kind: 'value', value: '20' },
   { label: '首页小游戏', description: '选择首页游戏，两种工作模式共用。更改从下次入口展示起生效，不影响当前游玩。', icon: 'grid', kind: 'value', value: '随机' },
 ];
 
@@ -27,7 +27,7 @@ const GENERAL_NOTIFICATION_SETTINGS: Setting[] = [
   { label: '轮次完成通知', description: '设置 Agent 完成一轮后何时通过系统通知提醒你。', icon: 'chat', kind: 'value', value: '仅在未聚焦时' },
   { label: '权限请求通知', description: 'Agent 需要授权才能继续时显示系统通知。', icon: 'settings', kind: 'switch', checked: true },
   { label: '等待回答通知', description: 'Agent 等待你回答问题时显示系统通知。', icon: 'chat', kind: 'switch', checked: true },
-  { label: '系统通知设置', description: '系统已关闭 Qoder 通知。打开系统设置后即可恢复提醒。', icon: 'monitor', kind: 'action', value: '打开系统设置' },
+  { label: '系统通知设置', description: '系统已关闭 SanBao 通知。打开系统设置后即可恢复提醒。', icon: 'monitor', kind: 'action', value: '打开系统设置' },
 ];
 
 const MODE_SETTINGS = [
@@ -67,14 +67,14 @@ const TASK_MONITOR_GROUPS: { title: string; settings: Setting[] }[] = [
 
 function modeSettings(mode: '编程' | '通用'): Setting[] {
   return [
-    { label: '绑定主题', accessibleLabel: `${mode}：绑定主题`, description: '切换到这个模式时使用的主题配色，亮暗模式沿用外观设置。', icon: 'grid', kind: 'value', value: mode === '编程' ? '森林' : '蜜蜂' },
+    { label: '绑定主题', accessibleLabel: `${mode}：绑定主题`, description: '切换到这个模式时使用的示例主题，亮暗模式沿用外观设置。', icon: 'grid', kind: 'value', value: mode === '编程' ? '星港' : '浅雾' },
     ...MODE_SETTINGS.map(setting => ({ ...setting, accessibleLabel: `${mode}：${setting.label}`, kind: 'switch' as const, checked: mode === '编程' })),
   ];
 }
 
 function SettingRow({ setting, onNotice }: { setting: Setting; onNotice: Notice }) {
   const label = setting.accessibleLabel || setting.label;
-  const unavailable = () => onNotice(`“${label}”的操作尚未采集；仅展示已观察默认值，未修改 Qoder 或系统设置。`);
+  const unavailable = () => onNotice(`“${label}”的操作尚未采集；仅展示已观察默认值，未修改 SanBao 原型或系统设置。`);
   return <div className={`settings-basic-row${setting.actionLabel ? ' settings-basic-row-with-action' : ''}`}>
     {setting.icon && <span className="settings-basic-row-icon" aria-hidden="true"><Icon name={setting.icon} size={16} /></span>}
     <div className="settings-basic-row-copy"><h3>{setting.label}</h3><p>{setting.description}</p></div>
@@ -113,7 +113,7 @@ export function SettingsBasicPage({ section, onNotice }: { section: SettingsBasi
           <div className="settings-basic-row-control"><button type="button" role="combobox" aria-expanded="false" aria-haspopup="listbox" className="settings-basic-select" aria-label="数据共享模式" disabled><span>共享改进模式</span><Icon name="down" size={12} /></button></div>
         </div>
       </div><p className="settings-basic-upgrade-note">升级套餐后可自定义数据共享偏好。</p></section>
-      <SettingsGroup title="托盘与菜单栏" settings={[{ label: '显示菜单栏图标', description: '在 macOS 菜单栏显示 Qoder，可快速打开任务或退出应用。', icon: 'monitor', kind: 'switch', checked: true }]} onNotice={onNotice} />
+      <SettingsGroup title="托盘与菜单栏" settings={[{ label: '显示菜单栏图标', description: '在 macOS 菜单栏显示 SanBao，可快速打开任务或退出应用。', icon: 'monitor', kind: 'switch', checked: true }]} onNotice={onNotice} />
       </>}
     </div>
   </section>;

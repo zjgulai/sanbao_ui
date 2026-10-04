@@ -27,7 +27,7 @@ export function SettingsProfilePage({ onNotice }: { onNotice: (message: string) 
       </header>
 
       <section className="settings-profile-activity" aria-label="活动统计">
-        <button type="button" className="settings-profile-stat-scope" aria-label="统计范围：Qoder" onClick={() => unavailable('统计范围', '未切换统计范围或请求账户数据')}>Qoder<Icon name="down" size={12} /></button>
+        <button type="button" className="settings-profile-stat-scope" aria-label="统计范围：SanBao" onClick={() => unavailable('统计范围', '未切换统计范围或请求账户数据')}>SanBao<Icon name="down" size={12} /></button>
         <dl className="settings-profile-stats">{STATISTICS.map(label => <div key={label}><dt>{label}</dt><dd>0</dd></div>)}</dl>
       </section>
 

@@ -27,5 +27,5 @@
 .settings-appearance .settings-appearance-app-previews .icon-dark{background:var(--sb-ink);color:var(--sb-brand-on-dark)}
 .settings-appearance .settings-appearance-app-previews small{color:var(--sb-muted)}
 .settings-appearance .settings-appearance-app-previews .icon-dark small{color:var(--sb-brand-on-dark)}
-.settings-appearance .settings-appearance-brand-icon{display:block;width:66px;height:66px;filter:drop-shadow(0 3px 3px #28351f17)}
+.settings-appearance .settings-appearance-brand-icon{display:block}
 @media(max-width:700px){.home-brand-lockup{max-width:34%}.product-sidebar-brand .sanbao-brand-mark-text{display:none}}

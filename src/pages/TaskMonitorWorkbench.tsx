@@ -118,7 +118,7 @@ export function TaskMonitorWorkbench({ view = DEFAULT_VIEW, onNavigateView, onEx
 function MonitorShell({ layout, open, onToggleOpen, onSelect, onReset, onExit }: { layout: 'fixed' | 'floating'; open: boolean; onToggleOpen: () => void; onSelect: (item: MonitorItem) => void; onReset: () => void; onExit?: () => void }) {
   return <div className={`task-monitor-shell ${layout}`}>
     <section className="task-monitor-canvas" aria-label={layout === 'fixed' ? '固定任务工作区示例' : '浮动任务工作区示例'}>
-      <header><div><span>任务 · 本地示例</span><strong>完成 Qoder 界面覆盖检查</strong></div><span className="task-monitor-canvas-state"><Icon name="clock" size={12} /> 本地进行中</span></header>
+      <header><div><span>任务 · 本地示例</span><strong>完成产品界面覆盖检查</strong></div><span className="task-monitor-canvas-state"><Icon name="clock" size={12} /> 本地进行中</span></header>
       <div className="task-monitor-canvas-lines"><span /><span /><span /><span /></div>
       <p>此处只保留固定与浮动布局的空间关系。没有真实任务、文件、消息、模型或系统进程被读取或修改。</p>
     </section>

@@ -14,7 +14,7 @@ const PROVIDERS = [
 const providerFor = (variant: string): Provider => variant.includes('openai-compatible') ? 'openai-compatible' : variant.includes('anthropic-compatible') ? 'anthropic-compatible' : variant.includes('.deepseek') || variant === 'models.discard.open' ? 'deepseek' : 'aliyun';
 const panelFor = (variant: string): Panel | null => variant === 'models.provider.open' ? 'provider' : variant === 'models.deepseek.type.open' ? 'type' : variant === 'models.deepseek.models.open' ? 'models' : variant === 'models.openai-compatible.api-type.open' ? 'api-type' : null;
 
-function ModelSelect({ panel, label, value, open, onOpen, onClose, children }: { panel: Panel; label: string; value: string; open: boolean; onOpen: () => void; onClose: () => void; children?: ReactNode }) {
+function ModelSelect({ panel, label, value, leadingIcon, open, onOpen, onClose, children }: { panel: Panel; label: string; value: string; leadingIcon?: string; open: boolean; onOpen: () => void; onClose: () => void; children?: ReactNode }) {
   const root = useRef<HTMLDivElement>(null), trigger = useRef<HTMLButtonElement>(null), menu = useRef<HTMLDivElement>(null);
   const closeRef = useRef(onClose), first = useRef<'first' | 'last' | null>(null);
   closeRef.current = onClose;
@@ -55,7 +55,7 @@ function ModelSelect({ panel, label, value, open, onOpen, onClose, children }: {
       event.preventDefault();
       if (open) { (event.key === 'End' ? items().at(-1) : items()[0])?.focus(); return; }
       first.current = event.key === 'End' ? 'last' : event.key === 'Home' ? 'first' : null; onOpen();
-    }}><span>{value}</span><Icon name="down" size={12} /></button>
+    }}><span className="settings-models-select-value">{leadingIcon && <Icon name={leadingIcon} size={18} />}{value}</span><Icon name="down" size={12} /></button>
     {open && <div ref={menu} id={menuId} className={`settings-models-options settings-models-options-${panel}`} role={panel === 'models' ? 'menu' : 'listbox'} aria-label={label} data-focus-return={triggerId} onKeyDown={keys}>{children}</div>}
   </div>;
 }
@@ -117,10 +117,10 @@ export function SettingsModelsPage({ variant = 'models', onNavigate, onNotice }:
       <div className="settings-models-empty"><span><Icon name="settings" size={25} /></span><p>暂无自定义模型，点击添加模型开始使用</p></div>
     </div>
     {open && <Modal title="添加模型" className="settings-models-dialog" onClose={closeForm}>
-      <button type="button" className="settings-models-feedback" onClick={() => pending('反馈')}>反馈</button>
+      <button type="button" className="settings-models-feedback" onClick={() => pending('反馈')}><span>反馈</span><Icon name="feedback" size={21} /></button>
       <form noValidate onSubmit={event => { event.preventDefault(); pending(compatible ? '下一步' : '校验并添加模型'); }}>
         <div className="settings-models-fields">
-          <div className="settings-models-field"><label>供应商</label><ModelSelect panel="provider" label="供应商" value={providerName} open={panel === 'provider'} onOpen={() => openPanel('provider')} onClose={() => navigate(formVariant)}>
+          <div className="settings-models-field"><label>供应商</label><ModelSelect panel="provider" label="供应商" value={providerName} leadingIcon="edit" open={panel === 'provider'} onOpen={() => openPanel('provider')} onClose={() => navigate(formVariant)}>
             {PROVIDERS.map(group => <div role="group" aria-label={group.group} key={group.group}><h3>{group.group}</h3>{group.names.map(name => <button type="button" role="option" aria-selected={name === providerName} tabIndex={name === providerName ? 0 : -1} key={name} onClick={() => selectProvider(name)}><span>{name}</span>{name === providerName && <Icon name="check" size={13} />}</button>)}</div>)}
           </ModelSelect></div>
           {compatible ? <>

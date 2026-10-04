@@ -173,7 +173,7 @@ function CloseConfirmation({ chat, confirm, cancel }: { chat: SideChat | null; c
 function ClosedPanel({ chat, restore, create }: { chat: SideChat | null; restore: () => void; create: () => void }) {
   return <section className="workspace-multipane-closed">
     <span className="workspace-multipane-closed-icon"><Icon name="check" size={21} /></span>
-    <div><span className="workspace-multipane-eyebrow">SANBAO.P15.F04 · 已关闭与恢复</span><h2>{chat ? '侧聊已从本地列表关闭' : '当前没有可恢复的本地侧聊'}</h2><p>{chat ? `“${chat.title}”现在只保留为本次演示的恢复项。不会删除真实会话、同步远端状态或影响 Qoder 原生任务。` : '可以返回主任务，或新建一条本地侧聊继续评审。'}</p></div>
+    <div><span className="workspace-multipane-eyebrow">SANBAO.P15.F04 · 已关闭与恢复</span><h2>{chat ? '侧聊已从本地列表关闭' : '当前没有可恢复的本地侧聊'}</h2><p>{chat ? `“${chat.title}”现在只保留为本次演示的恢复项。不会删除真实会话、同步远端状态或影响原产品任务。` : '可以返回主任务，或新建一条本地侧聊继续评审。'}</p></div>
     <footer>{chat && <button type="button" className="secondary-button" onClick={restore}>恢复本地侧聊</button>}<button type="button" className="primary-button" onClick={create}>创建另一条侧聊</button></footer>
   </section>;
 }
