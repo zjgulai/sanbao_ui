@@ -1,5 +1,6 @@
 import React, { useEffect, useId, useRef, useState, type KeyboardEvent } from 'react';
 import { Icon } from '../components/Controls';
+import { getHostPort, type HostCapability } from '../runtime/host';
 import { CustomMcpDialog } from './CustomMcpDialog';
 
 type ExtensionKind = 'plugins' | 'skills' | 'connectors' | 'agents';
@@ -12,12 +13,87 @@ const ADD_TRIGGER = 'installed-extension-add-trigger';
 const isAddVariant = (variant: string) => variant === 'extensions-plugin-add' || variant === 'extensions-skill-add';
 const kindFromVariant = (variant: string): ExtensionKind => variant.includes('skill') ? 'skills' : variant.includes('connector') ? 'connectors' : variant.includes('agent') ? 'agents' : 'plugins';
 
+// —— P04 扩展族接线（batch T-X）：壳侧能力名册只读接入 ——
+// 纪律：已配置 ≠ 已启用 ≠ 可用。壳缺 readCapabilities 或读取失败时如实说明未接线，
+// 绝不用本地 fixture 冒充；无壳（fixture）分支的 DOM 与文案保持接线前原样。
+export type ExtensionsWiring = 'fixture' | 'reading' | 'read' | 'unavailable';
+
+type CapabilitiesReadState =
+  | { readonly wiring: 'fixture' }
+  | { readonly wiring: 'reading' }
+  | { readonly wiring: 'read'; readonly entries: readonly HostCapability[] }
+  | { readonly wiring: 'unavailable'; readonly reason: string };
+
+export function useCapabilitiesRead(): CapabilitiesReadState {
+  const [state, setState] = useState<CapabilitiesReadState>(() => getHostPort() === null ? { wiring: 'fixture' } : { wiring: 'reading' });
+  useEffect(() => {
+    const port = getHostPort();
+    if (port === null) return; // 无壳：保持 fixture 分支，不发起读取
+    if (typeof port.readCapabilities !== 'function') {
+      setState({ wiring: 'unavailable', reason: '壳未提供 readCapabilities' });
+      return;
+    }
+    let cancelled = false;
+    void port.readCapabilities().then(
+      result => {
+        if (cancelled) return;
+        if (result.state === 'read') setState({ wiring: 'read', entries: result.entries });
+        else setState({ wiring: 'unavailable', reason: result.reason });
+      },
+      error => { if (!cancelled) setState({ wiring: 'unavailable', reason: `读取失败：${error instanceof Error ? error.message : String(error)}` }); },
+    );
+    return () => { cancelled = true; };
+  }, []);
+  return state;
+}
+
+export function CapabilityRosterBlock({ entries }: { entries: readonly HostCapability[] }) {
+  return <section className="extensions-live-roster" data-capability-roster aria-label="壳侧能力名册">
+    <h2>壳侧能力名册 <span>{entries.length}</span></h2>
+    {entries.length === 0
+      ? <p className="extensions-live-empty" role="status">壳侧名册为空：壳报告没有已配置或已启用的能力。</p>
+      : <ul className="extensions-live-list">{entries.map(entry => <li key={entry.id} className="extensions-live-entry" data-capability-entry data-capability-id={entry.id}>
+        <strong>{entry.label}</strong>
+        <span className="extensions-live-badge" data-configured={entry.configured ? 'yes' : 'no'}>{entry.configured ? '已配置' : '未配置'}</span>
+        <span className="extensions-live-badge" data-enabled={entry.enabled ? 'yes' : 'no'}>{entry.enabled ? '已启用' : '未启用'}</span>
+      </li>)}</ul>}
+    <p className="extensions-live-note">读自壳侧能力名册：已配置与已启用分开表示（已配置 ≠ 已启用），可用性需另行核验、本页不声明；名册为整表读取，未按类型页签拆分。</p>
+  </section>;
+}
+
+export function CapabilityLiveStrip({ entries }: { entries: readonly HostCapability[] }) {
+  const enabledCount = entries.filter(entry => entry.enabled).length;
+  return <p className="extensions-live-strip" role="status" data-capability-strip>壳侧能力名册已读：共 {entries.length} 项，其中 {enabledCount} 项已启用（已配置与已启用分开；可用性未核验；名册与本页本地条目的对应关系未核验）。</p>;
+}
+
+export function CapabilityUnavailableNotice({ reason, scope }: { reason: string; scope: 'installed' | 'market' | 'detail' }) {
+  const tail = scope === 'installed'
+    ? '不显示本地空态冒充壳侧结果。'
+    : scope === 'market'
+      ? '下方名称快照仅为本地设计快照，不代表壳侧名册。'
+      : '本页本地详情不冒充壳侧名册结果。';
+  return <p className="extensions-live-note extensions-live-unavailable" role="status" data-capability-unavailable>壳已连接但能力名册读取未接线（{reason}）：{tail}</p>;
+}
+
+export function CapabilityReadingNotice() {
+  return <p className="extensions-live-note extensions-live-reading" role="status" data-capability-reading>正在读取壳侧能力名册…</p>;
+}
+
+/** 按读数态渲染 live 区块；fixture 态返回 null（调用方各自保留原 fixture 内容）。 */
+export function CapabilitiesLiveStatus({ cap, scope }: { cap: CapabilitiesReadState; scope: 'installed' | 'market' | 'detail' }) {
+  if (cap.wiring === 'read') return scope === 'detail' ? <CapabilityLiveStrip entries={cap.entries} /> : <CapabilityRosterBlock entries={cap.entries} />;
+  if (cap.wiring === 'unavailable') return <CapabilityUnavailableNotice reason={cap.reason} scope={scope} />;
+  if (cap.wiring === 'reading') return <CapabilityReadingNotice />;
+  return null;
+}
+
 function RefreshIcon() {
   return <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5" /><path d="M6 7a7 7 0 0 1 12-1l2 6M4 12l2 6a7 7 0 0 0 12-1" /></svg>;
 }
 
 export function InstalledExtensionsPage({ initialVariant = 'extensions-plugins', onNavigate, onNotice }: PageActions & { initialVariant?: string }) {
   const kind = kindFromVariant(initialVariant), noun = kind === 'skills' ? 'Skill' : 'Plugin';
+  const cap = useCapabilitiesRead();
   const [query, setQuery] = useState('');
   const [menuOpen, setMenuOpen] = useState(isAddVariant(initialVariant));
   const addRoot = useRef<HTMLDivElement>(null), menu = useRef<HTMLDivElement>(null), trigger = useRef<HTMLButtonElement>(null);
@@ -80,7 +156,7 @@ export function InstalledExtensionsPage({ initialVariant = 'extensions-plugins',
     items[event.key === 'Home' ? 0 : event.key === 'End' ? items.length - 1 : event.key === 'ArrowDown' ? (index + 1) % items.length : (index - 1 + items.length) % items.length]?.focus();
   };
   const openMarket = () => kind === 'plugins' || kind === 'skills' ? onNavigate(marketId(kind)) : pending(`${TYPES.find(type => type.kind === kind)?.label}市场`);
-  return <section className="installed-extensions" aria-label="扩展管理">
+  return <section className="installed-extensions" aria-label="扩展管理" data-extensions-wiring={cap.wiring}>
     <button type="button" className="extensions-refresh" aria-label="刷新已安装扩展" title="刷新" onClick={() => pending('刷新已安装扩展')}><RefreshIcon /></button>
     <div className="installed-extensions-content">
       <header className="installed-extensions-heading"><div><h1 id="settings-extensions-heading" tabIndex={-1}>扩展管理</h1><p>管理本机已安装的插件、技能、连接器和智能体。</p></div><button type="button" className="extensions-secondary" data-extension-navigation onClick={openMarket}><Icon name="grid" size={13} />市场</button></header>
@@ -96,7 +172,9 @@ export function InstalledExtensionsPage({ initialVariant = 'extensions-plugins',
           </div>}
         </div>
       </div>
-      <section className="installed-extensions-section" aria-labelledby="installed-extension-list-heading"><h2 id="installed-extension-list-heading">{kind === 'agents' ? '已安装的智能体' : '已安装项'}</h2><div className="installed-extensions-empty"><span className="installed-extensions-empty-icon"><Icon name={kind === 'agents' ? 'chat' : 'grid'} size={27} /></span><h3>{kind === 'agents' ? '暂无已安装的智能体' : '暂无已安装扩展'}</h3><p>{kind === 'agents' ? '用户级配置和已启用插件提供的智能体会显示在这里。' : '从市场安装或本地上传的扩展会显示在这里。'}</p></div></section>
+      <section className="installed-extensions-section" aria-labelledby="installed-extension-list-heading"><h2 id="installed-extension-list-heading">{kind === 'agents' ? '已安装的智能体' : '已安装项'}</h2>{cap.wiring === 'fixture'
+        ? <div className="installed-extensions-empty"><span className="installed-extensions-empty-icon"><Icon name={kind === 'agents' ? 'chat' : 'grid'} size={27} /></span><h3>{kind === 'agents' ? '暂无已安装的智能体' : '暂无已安装扩展'}</h3><p>{kind === 'agents' ? '用户级配置和已启用插件提供的智能体会显示在这里。' : '从市场安装或本地上传的扩展会显示在这里。'}</p></div>
+        : <CapabilitiesLiveStatus cap={cap} scope="installed" />}</section>
       {query && <p className="extensions-local-note" role="status">搜索结果尚未采集；仅保留本地草稿，不改变已观察的空态。</p>}
     </div>
     {mcpOpen && <CustomMcpDialog initialVariant={initialVariant} onNavigate={onNavigate} onNotice={onNotice} onClose={() => { mcpReturnFocus.current = true; onNavigate(installedId('connectors')); }} />}
@@ -142,6 +220,7 @@ const queryForVariant = (variant: string) => variant === 'skills-search-match' ?
 
 export function ExtensionMarketPage({ initialVariant, onNavigate, onNotice }: PageActions & { initialVariant: string }) {
   const kind = initialVariant.startsWith('skills') ? 'skills' : initialVariant === 'connectors' ? 'connectors' : 'plugins';
+  const cap = useCapabilitiesRead();
   const isSkill = kind === 'skills', isConnector = kind === 'connectors', noun = isSkill ? '技能' : isConnector ? '连接器' : '插件';
   const [search, setSearch] = useState(() => ({ variant: initialVariant, query: queryForVariant(initialVariant) }));
   // Reset together with the route render so a new list never displays the previous list's draft.
@@ -174,7 +253,7 @@ export function ExtensionMarketPage({ initialVariant, onNavigate, onNotice }: Pa
     } else pending(`${sort === 'latest' ? '最新' : '热门'}排序`);
   };
   const detailId = (name: string) => isSkill && name === '深入研究' ? 'QDR.P04.market.skills.deep-research.detail' : isConnector && name === 'GitHub' ? 'QDR.P04.market.connectors.github.detail' : !isSkill && !isConnector ? ({ PPT: PPT_DETAIL, Superpowers: 'QDR.P04.market.plugins.superpowers.detail', Context7: 'QDR.P04.market.plugins.context7.detail' } as Record<string, string>)[name] : undefined;
-  return <section className={`extension-market${isConnector ? ' extension-market-connectors' : ''}`} aria-label="扩展市场">
+  return <section className={`extension-market${isConnector ? ' extension-market-connectors' : ''}`} aria-label="扩展市场" data-extensions-wiring={cap.wiring}>
     <header className="extension-market-toolbar"><nav className="extensions-type-tabs" aria-label="市场扩展类型">{TYPES.slice(0, 3).map(type => <button type="button" key={type.kind} aria-current={kind === type.kind ? 'page' : undefined} className={kind === type.kind ? 'selected' : ''} onClick={() => kind !== type.kind && onNavigate(marketId(type.kind as 'plugins' | 'skills' | 'connectors'))}>{type.label}</button>)}</nav><div className="extension-market-tools">
       <button type="button" className="extension-market-refresh" aria-label="刷新市场" onClick={() => pending('刷新市场')}><RefreshIcon /></button>
       <form className="extensions-search" role="search" onSubmit={event => { event.preventDefault(); if (unknownQuery) onNotice('市场搜索结果尚未采集；仅保留本地搜索草稿，当前名称快照不变。'); }}><Icon name="search" size={13} /><input ref={input} aria-label="搜索名称、说明、标签" placeholder="搜索名称、说明或标签" value={query} onChange={event => updateQuery(event.target.value)} />{query && <button type="button" className="extension-market-clear" aria-label="清空搜索" onClick={clearQuery}><Icon name="close" size={12} /></button>}</form>
@@ -184,6 +263,7 @@ export function ExtensionMarketPage({ initialVariant, onNavigate, onNotice }: Pa
     <div className="extension-market-content">
       <div className="extension-market-hero"><div><h1>发现 <span>{isSkill ? 'Skills' : isConnector ? 'Connectors' : 'Plugins'}</span></h1><p>聚焦 {isSkill ? '效率提升、内容创作、官方精选。' : isConnector ? '内容创作、知识研究。' : '编码、数据分析、设计。'}</p></div><button type="button" className="extension-market-recommendation" aria-label="查看市场推荐" onClick={() => pending('市场推荐')}><MarketArtwork /><small>原创推荐示意</small></button></div>
       <div className="extension-market-categories"><nav className="extension-market-category-scroll" aria-label="市场类别">{categories.map(category => <button type="button" key={category} className={category === (featured ? '精选' : '全部') ? 'selected' : ''} aria-pressed={category === (featured ? '精选' : '全部')} onClick={() => chooseCategory(category)}>{category}</button>)}</nav><button type="button" className="extension-market-more" aria-label="更多类别" onClick={() => pending('更多类别')}><Icon name="more" size={16} /></button><div className="extension-market-sort" role="group" aria-label="市场排序"><button type="button" className={!latest ? 'selected' : ''} aria-pressed={!latest} onClick={() => chooseSort('popular')}>热门</button><button type="button" className={latest ? 'selected' : ''} aria-pressed={latest} onClick={() => chooseSort('latest')}>最新</button></div></div>
+      {cap.wiring === 'fixture' ? null : <CapabilitiesLiveStatus cap={cap} scope="market" />}
       {unknownQuery && <p className="extensions-local-note" role="status">搜索结果尚未采集；保留本地草稿与下方 {items.length} 项名称快照。</p>}
       {initialVariant === 'skills-search-empty' ? <div className="extension-market-empty"><span><Icon name="search" size={25} /></span><h2>没有匹配的扩展</h2><p>换个关键词，或切换 Skill、Plugin 与 Connector 查看。</p></div> : <div className="extension-market-list" aria-label={`${noun}名称快照`}>{items.map(([name, summary], index) => <article className="extension-market-item" key={name}>
         <button type="button" className="extension-market-details" aria-label={detailId(name) ? `查看 ${name} 详情` : `查看 ${name}`} onClick={() => { const id = detailId(name); if (id) onNavigate(id); else pending(`${name}详情`); }}><span className={`extension-market-item-icon palette-${index % 6}`}><Icon name={ICONS[index % ICONS.length]} size={23} /></span><span className="extension-market-item-copy"><strong>{name}</strong><span title={`本地摘要：${summary}`}>{summary}</span></span></button>
@@ -196,11 +276,12 @@ export function ExtensionMarketPage({ initialVariant, onNavigate, onNotice }: Pa
 
 export function ExtensionDetailPage({ onNavigate, onNotice }: PageActions) {
   const pending = (action: string) => onNotice(`“${action}”的结果尚未采集；未安装插件、连接或授权 office，也未制作演示文稿。`);
+  const cap = useCapabilitiesRead();
   const back = () => {
     onNotice('返回插件市场是本地导航；原产品面包屑返回路径尚未可靠验证。');
     onNavigate(marketId('plugins'));
   };
-  return <section className="extension-detail" aria-label="PPT 插件详情" tabIndex={0}>
+  return <section className="extension-detail" aria-label="PPT 插件详情" tabIndex={0} data-extensions-wiring={cap.wiring}>
     <nav className="extension-detail-breadcrumb" aria-label="插件详情导航"><button type="button" onClick={back}>插件</button><Icon name="chevron" size={11} /><span aria-current="page">PPT</span></nav>
     <div className="extension-detail-content">
       <header className="extension-detail-header">
@@ -208,6 +289,7 @@ export function ExtensionDetailPage({ onNavigate, onNotice }: PageActions) {
         <div className="extension-detail-identity"><div className="extension-detail-title"><h1>PPT</h1><span>v0.1.1</span></div><div className="extension-detail-meta"><span>@SanBao 示例</span><span title="本次采集快照，非实时指标">31665 次安装</span><span>Content Creation</span></div></div>
         <button type="button" className="extensions-primary extension-detail-install" aria-label="安装 PPT" onClick={() => pending('安装 PPT')}>安装</button>
       </header>
+      <CapabilitiesLiveStatus cap={cap} scope="detail" />
       <p className="extension-detail-intro">演示文稿的创建与编辑，涵盖内容组织、幻灯片排版与文件产出。</p>
 
       <section className="extension-detail-section" aria-labelledby="extension-detail-skills-heading"><h2 id="extension-detail-skills-heading">技能 <span>1</span></h2><div className="extension-detail-skill-row"><span className="extension-detail-small-icon" aria-hidden="true"><Icon name="file" size={18} /></span><div><h3>office</h3><p title="本地摘要：围绕 PPT/PPTX 的创建、读取、检查与编辑，整理演示文稿的内容和版式。">围绕 PPT/PPTX 的创建、读取、检查与编辑，整理演示文稿的内容和版式。</p></div></div></section>

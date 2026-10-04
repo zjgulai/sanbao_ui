@@ -14,6 +14,8 @@
  *   跟随轮询与停止键；`stopSession` 为可选停止能力，缺省时停止动作如实未接线；
  * - S2 澄清（QDR.S02.clarification.*）：`pendingClarification` 驱动澄清卡；
  *   `answerClarification` 为可选回答能力，缺省时提交如实未接线。
+ * - P04 扩展族（T-X）：`readCapabilities` 只读壳侧能力/插件名册（结构事实）；已装/市场/
+ *   详情页按读数渲染 live 区块，缺方法或读失败时如实显示“壳已连接但能力名册读取未接线”。
  * 后续页面批次按同一模式增量扩展本接口，不在页面内各自发明通道。
  */
 
@@ -58,7 +60,16 @@ export interface SanbaoHostPort {
   stopSession?(sessionRef: string): Promise<{ readonly state: 'stopped' } | HostUnavailable>;
   /** S2 澄清回答（第四片起）；缺省＝回答未接线，提交后如实说明。 */
   answerClarification?(sessionRef: string, answer: string): Promise<{ readonly state: 'submitted' } | HostUnavailable>;
+  /**
+   * P04 扩展族（T-X 片）：壳侧能力/插件名册读取（只读结构事实）。
+   * 纪律：已配置 ≠ 已启用 ≠ 可用——本读只报 id/label 与配置、启用两态，
+   * 可用性核验不到就不声称；缺省＝名册读取未接线，页面如实说明。
+   */
+  readCapabilities?(): Promise<{ readonly state: 'read'; readonly entries: readonly HostCapability[] } | HostUnavailable>;
 }
+
+/** 名册条目：仅壳侧结构事实（名称 + 配置/启用两态），不含可用性、权限或健康推断。 */
+export type HostCapability = { readonly id: string; readonly label: string; readonly configured: boolean; readonly enabled: boolean };
 
 declare global {
   interface Window {

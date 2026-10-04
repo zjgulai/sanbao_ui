@@ -1,0 +1,15 @@
+state_id,status,wire_depth_target,evidence
+QDR.P04.market.skills.default,wired(read),read,evidence/wiring/extensions-states (host stub→READY read；名册块 3 条) ; evidence/wiring/extensions-fixture (控制组 READY fixture) ; evidence/wiring/extensions-nocap (负控 READY unavailable)
+QDR.P04.market.plugins.default,wired(read),read,evidence/wiring/extensions (主场景 READY：市场名册块→Superpowers 详情条→返回→已装页名册；capReadCalls=4) ; evidence/wiring/extensions-states (逐状态探针) ; evidence/wiring/extensions-fixture (控制组)
+QDR.P04.market.plugins.ppt.detail,wired(read),read,evidence/wiring/extensions-states READY read+strip (ExtensionDetailPage 同一组件) ; evidence/wiring/extensions-fixture
+QDR.P04.market.skills.deep-research.detail,wired(read),read,evidence/wiring/extensions-states READY read+strip (MarketDetailPage 同一组件) ; evidence/wiring/extensions-fixture
+QDR.P04.market.skills.search.match,wired(read),read,evidence/wiring/extensions-states READY read+名册块 (ExtensionMarketPage 同一组件) ; evidence/wiring/extensions-fixture
+QDR.P04.market.skills.search.empty,wired(read),read,evidence/wiring/extensions-states READY read+名册块 (ExtensionMarketPage 同一组件) ; evidence/wiring/extensions-fixture
+QDR.P04.market.skills.featured,wired(read),read,evidence/wiring/extensions-states READY read+名册块 (ExtensionMarketPage 同一组件) ; evidence/wiring/extensions-fixture
+QDR.P04.market.skills.latest,wired(read),read,evidence/wiring/extensions-states READY read+名册块 (ExtensionMarketPage 同一组件) ; evidence/wiring/extensions-fixture
+QDR.P04.market.connectors.default,wired(read),read,evidence/wiring/extensions-states READY read+名册块 (ExtensionMarketPage 同一组件) ; evidence/wiring/extensions-fixture
+QDR.P04.market.connectors.github.detail,wired(read),read,evidence/wiring/extensions-states READY read+strip (MarketDetailPage 同一组件) ; evidence/wiring/extensions-fixture
+QDR.P04.market.plugins.superpowers.detail,wired(read),read,evidence/wiring/extensions (主场景直接驱动：详情条断言 READY) ; evidence/wiring/extensions-states
+QDR.P04.market.plugins.superpowers.expanded,wired(read),read,evidence/wiring/extensions-states READY read+strip (PluginMarketDetailPage 同一组件) ; evidence/wiring/extensions-fixture
+QDR.P04.market.plugins.context7.detail,wired(read),read,evidence/wiring/extensions-states READY read+strip (PluginMarketDetailPage 同一组件) ; evidence/wiring/extensions-fixture
+QDR.P04.market.connectors.context7.error,wired(read),read,evidence/wiring/extensions-states READY read+strip (PluginMarketDetailPage failed 变体；本地失败内容保持本地演示) ; evidence/wiring/extensions-fixture
