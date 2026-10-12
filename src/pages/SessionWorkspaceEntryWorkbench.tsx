@@ -5,6 +5,7 @@ export type SessionWorkspaceEntryView = 'terminal' | 'sidepanel';
 
 type Props = {
   initialView: SessionWorkspaceEntryView;
+  onNavigate?: (view: SessionWorkspaceEntryView) => void;
   onExit: () => void;
 };
 
@@ -15,9 +16,22 @@ const lines = [
   { prefix: '›', value: '等待可验证的终端入口证据', tone: 'muted' },
 ] as const;
 
-export function SessionWorkspaceEntryWorkbench({ initialView, onExit }: Props) {
+export function SessionWorkspaceEntryWorkbench({ initialView, onNavigate, onExit }: Props) {
   const [view, setView] = useState<SessionWorkspaceEntryView>(initialView);
   const [panel, setPanel] = useState<'活动' | '文件' | '预览'>('活动');
+
+  const navigate = (next: SessionWorkspaceEntryView) => {
+    setView(next);
+    if (onNavigate) {
+      onNavigate(next);
+      return;
+    }
+    const stateId = next === 'terminal' ? 'QDR.P14.terminal.entry' : 'QDR.P14.sidepanel.entry';
+    const url = new URL(window.location.href);
+    url.searchParams.set('state', stateId);
+    window.history.pushState({}, '', url);
+    window.dispatchEvent(new PopStateEvent('popstate'));
+  };
 
   useEffect(() => {
     setView(initialView);
@@ -31,8 +45,8 @@ export function SessionWorkspaceEntryWorkbench({ initialView, onExit }: Props) {
     </header>
 
     <nav className="session-workspace-entry-nav" aria-label="会话工作面视图">
-      <button type="button" className={view === 'terminal' ? 'active' : ''} aria-current={view === 'terminal' ? 'page' : undefined} onClick={() => setView('terminal')}><Icon name="code" size={15} />终端</button>
-      <button type="button" className={view === 'sidepanel' ? 'active' : ''} aria-current={view === 'sidepanel' ? 'page' : undefined} onClick={() => setView('sidepanel')}><Icon name="panel" size={15} />侧面板</button>
+      <button type="button" className={view === 'terminal' ? 'active' : ''} aria-current={view === 'terminal' ? 'page' : undefined} onClick={() => navigate('terminal')}><Icon name="code" size={15} />终端</button>
+      <button type="button" className={view === 'sidepanel' ? 'active' : ''} aria-current={view === 'sidepanel' ? 'page' : undefined} onClick={() => navigate('sidepanel')}><Icon name="panel" size={15} />侧面板</button>
     </nav>
 
     {view === 'terminal' ? <main className="session-workspace-entry-terminal">

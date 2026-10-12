@@ -18,7 +18,7 @@ import { ARTIFACT_WORKBENCH_ENTRIES, ArtifactWorkspaceWorkbench, type ArtifactWo
 import { EXECUTION_LIFECYCLE_ENTRIES, ExecutionLifecycleWorkbench, type ExecutionLifecycleSource, type ExecutionLifecycleView } from './pages/ExecutionLifecycleWorkbench';
 import { SETTINGS_LEAF_KEYS, SettingsLeafWorkbench, type SettingsLeafKey, type SettingsLeafView } from './pages/SettingsLeafWorkbench';
 import { WORKSPACE_MULTIPANE_ENTRY, WorkspaceMultipaneWorkbench, type WorkspaceMultipaneView } from './pages/WorkspaceMultipaneWorkbench';
-import { TASK_SEARCH_WORKSPACE_ENTRIES, TaskSearchWorkspaceWorkbench, type TaskSearchWorkspaceView } from './pages/TaskSearchWorkspaceWorkbench';
+import { TASK_SEARCH_TASK_IDS, TASK_SEARCH_WORKSPACE_ENTRIES, TaskSearchWorkspaceWorkbench, type TaskSearchTaskId, type TaskSearchWorkspaceSelection, type TaskSearchWorkspaceView } from './pages/TaskSearchWorkspaceWorkbench';
 import { COLLABORATION_WORKBENCH_ENTRIES, CollaborationCollectionWorkbench, type CollaborationWorkbenchSection, type CollaborationWorkbenchView } from './pages/CollaborationCollectionWorkbench';
 import { AGENT_RUNTIME_WORKBENCH_ENTRIES, AgentRuntimeWorkbench, type AgentRuntimeView } from './pages/AgentRuntimeWorkbench';
 import { COMPOSER_WORKBENCH_ENTRIES, COMPOSER_WORKBENCH_STATE_BY_VIEW, ComposerDesignWorkbench, type ComposerWorkbenchView } from './pages/ComposerDesignWorkbench';
@@ -129,6 +129,13 @@ const getTaskSearchWorkspaceView = (): TaskSearchWorkspaceView | null => {
   const view = new URLSearchParams(window.location.search).get('taskWorkspaceView');
   return taskSearchWorkspaceViews.includes(view as TaskSearchWorkspaceView) ? view as TaskSearchWorkspaceView : entry.view;
 };
+const isTaskSearchTaskId = (value: string | null): value is TaskSearchTaskId => !!value && TASK_SEARCH_TASK_IDS.some(item => item === value);
+const getTaskSearchWorkspaceSelection = (): TaskSearchWorkspaceSelection => {
+  const params = new URLSearchParams(window.location.search);
+  const activeTaskId = isTaskSearchTaskId(params.get('taskWorkspaceTask')) ? params.get('taskWorkspaceTask') as TaskSearchTaskId : 'prototype';
+  const bulkTaskIds = Array.from(new Set((params.get('taskWorkspaceBulk') ?? '').split(',').filter(isTaskSearchTaskId)));
+  return { activeTaskId, bulkTaskIds };
+};
 const collaborationSections = ['projects', 'issues', 'discussions', 'my-work'] as const;
 const collaborationViewsBySection: Record<CollaborationWorkbenchSection, readonly CollaborationWorkbenchView[]> = {
   projects: ['list', 'detail', 'project-draft', 'feedback'],
@@ -219,7 +226,7 @@ const getRemainingScopeView = (): RemainingScopeView | null => {
   return REMAINING_SCOPE_VIEWS.includes(view as RemainingScopeView) && REMAINING_SCOPE_STATE_BY_VIEW[view as RemainingScopeView] === getStateId() ? view as RemainingScopeView : entry.view;
 };
 const clearDesignParams = (url: URL) => {
-  for (const key of ['mobileFlow', 'approvalView', 'planView', 'workspaceView', 'executionView', 'settingsLeaf', 'settingsLeafView', 'taskWorkspaceView', 'collaborationSection', 'collaborationView', 'configView', 'composerWorkbenchView', 'taskMonitorView', 'entrySystemView', 'sessionRecoveryView', 'pluginEntryView', 'toolResultView', 'automationLifecycleView', 'sessionInteractionView', 'remainingScopeView']) url.searchParams.delete(key);
+  for (const key of ['mobileFlow', 'approvalView', 'planView', 'workspaceView', 'executionView', 'settingsLeaf', 'settingsLeafView', 'taskWorkspaceView', 'taskWorkspaceTask', 'taskWorkspaceBulk', 'collaborationSection', 'collaborationView', 'configView', 'composerWorkbenchView', 'taskMonitorView', 'entrySystemView', 'sessionRecoveryView', 'pluginEntryView', 'toolResultView', 'automationLifecycleView', 'sessionInteractionView', 'remainingScopeView']) url.searchParams.delete(key);
 };
 const permissionDesignViews = ['request', 'waiting', 'resolved'] as const;
 const planDesignViews = ['preview', 'expanded', 'confirmation', 'approved', 'exit'] as const;
@@ -489,13 +496,17 @@ export function App() {
     setSettingsLeafView(view);
     applyRoute('QDR.P06.settings.appearance.default');
   }, [applyRoute]);
-  const navigateTaskSearchWorkspace = useCallback((view: TaskSearchWorkspaceView) => {
+  const navigateTaskSearchWorkspace = useCallback((view: TaskSearchWorkspaceView, selection: TaskSearchWorkspaceSelection = getTaskSearchWorkspaceSelection()) => {
     const entry = TASK_SEARCH_WORKSPACE_ENTRIES.find(item => item.view === view);
     if (!entry) return;
     const url = new URL(window.location.href);
     url.searchParams.set('state', entry.stateId);
     clearDesignParams(url);
     url.searchParams.set('taskWorkspaceView', view);
+    const activeTaskId = isTaskSearchTaskId(selection.activeTaskId) ? selection.activeTaskId : 'prototype';
+    const bulkTaskIds = Array.from(new Set(selection.bulkTaskIds.filter(isTaskSearchTaskId)));
+    url.searchParams.set('taskWorkspaceTask', activeTaskId);
+    if (bulkTaskIds.length) url.searchParams.set('taskWorkspaceBulk', bulkTaskIds.join(','));
     window.history.pushState({}, '', url);
     setTaskSearchWorkspaceView(view);
     applyRoute(entry.stateId);
