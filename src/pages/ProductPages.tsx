@@ -116,13 +116,30 @@ export function SearchDialog({ close, go, onOpenSession }: { close: () => void; 
   const [query, setQuery] = useState('');
   const [hostHits, setHostHits] = useState<readonly HostSessionHit[] | null>(null);
   const [hostNotice, setHostNotice] = useState('');
+  const [activeIndex, setActiveIndex] = useState(0);
   const hostMode = getHostPort() !== null;
   const tasks = [{ title: 'UI 原型规划', subtitle: 'paper-plane · 今天', observation: 12 }, { title: '纸飞机清单', subtitle: 'paper-plane · HTML 产物', observation: 18 }, { title: '今日纸飞机 · 修改记录', subtitle: 'paper-plane · 文件审阅', observation: 23 }];
   const results = query.trim() ? tasks.filter(task => task.title.toLowerCase().includes(query.trim().toLowerCase())) : [];
+  const resultCount = hostMode ? hostHits?.length ?? 0 : results.length;
+  const openResult = (index: number) => {
+    if (hostMode) {
+      const hit = hostHits?.[index];
+      if (!hit) return;
+      close();
+      onOpenSession?.(hit.sessionRef);
+      return;
+    }
+    const result = results[index];
+    if (result) go(result.observation);
+  };
+  const moveSelection = (key: string) => {
+    if (!resultCount) return;
+    setActiveIndex(current => key === 'Home' ? 0 : key === 'End' ? resultCount - 1 : key === 'ArrowDown' ? (current + 1) % resultCount : (current - 1 + resultCount) % resultCount);
+  };
   // 接线（P02 搜索第五片）：有壳时检索走壳；无壳保持本地示例完全不变。
   const runHostSearch = () => {
     const text = query.trim();
-    if (!text) { setHostHits(null); setHostNotice(''); return; }
+    if (!text) { setHostHits(null); setHostNotice(''); setActiveIndex(0); return; }
     const hostPort = getHostPort();
     if (hostPort === null) return;
     if (typeof hostPort.searchSessions !== 'function') {
@@ -131,21 +148,22 @@ export function SearchDialog({ close, go, onOpenSession }: { close: () => void; 
       return;
     }
     void hostPort.searchSessions(text).then(result => {
-      if (result.state === 'read') { setHostHits(result.results); setHostNotice(''); return; }
+      if (result.state === 'read') { setHostHits(result.results); setActiveIndex(0); setHostNotice(''); return; }
       setHostHits([]);
+      setActiveIndex(0);
       setHostNotice(`壳已连接但会话检索未接线（${result.reason}）。`);
     });
   };
   const searchWiring = !hostMode ? 'fixture' : hostNotice ? 'unavailable' : hostHits !== null ? 'read' : 'live';
-  return <Modal title="搜索任务" className="search-dialog" onClose={close}><label className="search-field"><Icon name="search" size={20} /><input aria-label="搜索任务名称" value={query} onChange={event => { setQuery(event.target.value); if (hostMode) { setHostHits(null); setHostNotice(''); } }} onKeyDown={event => { if (event.key === "Enter" && !event.nativeEvent.isComposing) { if (hostMode) { event.preventDefault(); runHostSearch(); } else if (results[0]) { event.preventDefault(); go(results[0].observation); } } }} placeholder="搜索任务…" /><kbd>ESC</kbd></label><div className="search-results" data-search-wiring={searchWiring}>{hostMode
+  return <Modal title="搜索任务" className="search-dialog" onClose={close}><label className="search-field"><Icon name="search" size={20} /><input aria-label="搜索任务名称" value={query} onChange={event => { setQuery(event.target.value); setActiveIndex(0); if (hostMode) { setHostHits(null); setHostNotice(''); } }} onKeyDown={event => { if (event.nativeEvent.isComposing) return; if (['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) { if (!resultCount) return; event.preventDefault(); moveSelection(event.key); return; } if (event.key === 'Enter') { event.preventDefault(); if (hostMode && hostHits === null) { runHostSearch(); return; } openResult(activeIndex); } }} placeholder="搜索任务…" /><kbd>ESC</kbd></label><div className="search-results" data-search-wiring={searchWiring}>{hostMode
     ? hostNotice
       ? <div className="empty-search"><Icon name="search" size={26} /><p role="status">{hostNotice}</p></div>
       : hostHits !== null
         ? hostHits.length
-          ? hostHits.map(hit => <button key={hit.sessionRef} onClick={() => { close(); onOpenSession?.(hit.sessionRef); }}><Icon name="chat" /><span><strong>{hit.title}</strong><small>{hit.subtitle ?? hit.sessionRef}</small></span><Icon name="chevron" /></button>)
+          ? hostHits.map((hit, index) => <button key={hit.sessionRef} className={index === activeIndex ? 'search-result-active' : undefined} aria-selected={index === activeIndex} onMouseEnter={() => setActiveIndex(index)} onClick={() => openResult(index)}><Icon name="chat" /><span><strong>{hit.title}</strong><small>{hit.subtitle ?? hit.sessionRef}</small></span><Icon name="chevron" /></button>)
           : <div className="empty-search"><Icon name="search" size={26} /><p>没有找到相关会话</p><small>检索范围：壳侧会话</small></div>
         : <div className="empty-search"><Icon name="search" size={26} /><p>输入关键词检索壳侧会话</p><small>回车发起检索</small></div>
-    : results.length ? results.map(result => <button key={result.title} onClick={() => go(result.observation)}><Icon name="chat" /><span><strong>{result.title}</strong><small>{result.subtitle}</small></span><Icon name="chevron" /></button>) : <div className="empty-search"><Icon name="search" size={26} /><p>{query ? '没有找到相关任务' : '输入关键词搜索任务'}</p><small>本地示例：搜索「原型」或「纸飞机」</small></div>}</div><footer className="search-footer">搜索范围：{hostMode ? '壳侧会话' : '当前工作区'} <span>↵ 打开任务</span></footer></Modal>;
+    : results.length ? results.map((result, index) => <button key={result.title} className={index === activeIndex ? 'search-result-active' : undefined} aria-selected={index === activeIndex} onMouseEnter={() => setActiveIndex(index)} onClick={() => openResult(index)}><Icon name="chat" /><span><strong>{result.title}</strong><small>{result.subtitle}</small></span><Icon name="chevron" /></button>) : <div className="empty-search"><Icon name="search" size={26} /><p>{query ? '没有找到相关任务' : '输入关键词搜索任务'}</p><small>本地示例：搜索「原型」或「纸飞机」</small></div>}</div><footer className="search-footer">搜索范围：{hostMode ? '壳侧会话' : '当前工作区'} <span>↑↓ 选择 · ↵ 打开 · ESC 关闭</span></footer></Modal>;
 }
 
 export function WorkspaceDialog({ ready, close, markReady, created }: { ready: boolean; close: () => void; markReady: () => void; created: (workspace: WorkspaceConfig) => void }) {
