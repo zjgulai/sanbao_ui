@@ -1375,6 +1375,54 @@
       "notes": "本条是候选组范围占位，不是已确认的叶状态，也不是叶状态穷举。原始覆盖登记：未实测。具体分组见下表；路由支持搜索、已安装种类／详情、导入来源、模型编辑器参数；依据 docs/qoder-static-candidates.md；静态线索不等于运行验证。待适配不表示已纳入 iOS 范围。混合候选组中的复杂配置部分留在桌面。 P06 的 24 个已见导航入口另有 leaf 候选；保留原始组级基线状态以便与历史 CSV 对照。"
     },
     {
+      "id": "QDR.P07.projects.list",
+      "title": "项目列表（含状态筛选与空态）",
+      "groupIds": [
+        "P07"
+      ],
+      "observationIds": [],
+      "page": "discovery",
+      "variant": "projects-list",
+      "sourceKind": "observed",
+      "evidence": "Sanbao CollaborationCollectionWorkbench.tsx:16-20,123-228（section=projects, view=list）；Sage 实现 apps/sage-shell/src/product/app/desktop/collaboration-page.tsx；真实 store apps/sage-shell/src/persistence/collaboration-store.ts；运行读数 assets/sage-reference/screenshots/2026-10-26-collaboration-va/03-list-real-data-1440-light.png",
+      "trigger": "侧栏「协作」进入后默认渲染项目列表；状态页签（全部/进行中/待排期/待审阅/已完成）与搜索同时作用于列表。",
+      "exit": "点击行进入详情；点击「返回列表」回到本视图；切到其它一级页离开。",
+      "implemented": false,
+      "notes": "叶状态由真实 store 读取驱动：read + 0 行显示空态文案，unavailable 显示具名原因，二者不得混同。owner 于 2026-10-26 签字通过视觉验收。"
+    },
+    {
+      "id": "QDR.P07.projects.detail",
+      "title": "项目详情（含该项目下的 Issue）",
+      "groupIds": [
+        "P07"
+      ],
+      "observationIds": [],
+      "page": "discovery",
+      "variant": "projects-detail",
+      "sourceKind": "observed",
+      "evidence": "Sanbao CollaborationCollectionWorkbench.tsx（view=detail）；Sage collaboration-page.tsx projectDetail；运行读数 assets/sage-reference/screenshots/2026-10-26-collaboration-va/04-detail-1440-light.png",
+      "trigger": "在项目列表点击任一行进入详情；详情展示摘要、状态、更新时间与该项目的本地 Issue 列表。",
+      "exit": "点击「返回列表」回到列表；选中项若已不在读取结果中，显示「选中的条目已不在当前协作数据中」而非空详情。",
+      "implemented": false,
+      "notes": "叶状态只渲染当前读取结果，不缓存上一次的详情。owner 于 2026-10-26 签字通过视觉验收。"
+    },
+    {
+      "id": "QDR.P07.projects.draft",
+      "title": "新建项目草稿表单",
+      "groupIds": [
+        "P07"
+      ],
+      "observationIds": [],
+      "page": "discovery",
+      "variant": "projects-draft",
+      "sourceKind": "observed",
+      "evidence": "Sanbao CollaborationCollectionWorkbench.tsx（view=project-draft）；Sage collaboration-page.tsx submitDraft + POST /.sage/collaboration；运行读数 assets/sage-reference/screenshots/2026-10-26-collaboration-va/02-draft-form-1440-light.png",
+      "trigger": "点击「新建项目」进入表单；标题必填、摘要可留空；提交走 POST /.sage/collaboration 的 project-create。",
+      "exit": "提交成功后回到列表并重读 /.sage/state（receipt 不作为列表）；提交被拒时留在表单、保留输入并显示具名拒绝码。",
+      "implemented": false,
+      "notes": "叶状态不把 receipt 当投影：成功后必须重读。owner 于 2026-10-26 签字通过视觉验收。"
+    },
+    {
       "id": "QDR.P07.scope.unexpanded",
       "title": "项目、项目详情及 Issue（组内状态待展开）",
       "groupIds": [
@@ -3943,8 +3991,12 @@
     {
       "id": "QDR.P06.settings.models.add.openai-compatible",
       "title": "模型设置：OpenAI Compatible 表单",
-      "groupIds": ["P06"],
-      "observationIds": ["QB21-01"],
+      "groupIds": [
+        "P06"
+      ],
+      "observationIds": [
+        "QB21-01"
+      ],
       "page": "settings",
       "variant": "models.add.openai-compatible",
       "sourceKind": "observed",
@@ -3957,8 +4009,12 @@
     {
       "id": "QDR.P06.settings.models.openai-compatible.api-type.open",
       "title": "模型设置：OpenAI 兼容 API 类型菜单",
-      "groupIds": ["P06"],
-      "observationIds": ["QB21-02"],
+      "groupIds": [
+        "P06"
+      ],
+      "observationIds": [
+        "QB21-02"
+      ],
       "page": "settings",
       "variant": "models.openai-compatible.api-type.open",
       "sourceKind": "observed",
@@ -3971,8 +4027,12 @@
     {
       "id": "QDR.P06.settings.models.add.anthropic-compatible",
       "title": "模型设置：Anthropic Compatible 表单",
-      "groupIds": ["P06"],
-      "observationIds": ["QB21-03"],
+      "groupIds": [
+        "P06"
+      ],
+      "observationIds": [
+        "QB21-03"
+      ],
       "page": "settings",
       "variant": "models.add.anthropic-compatible",
       "sourceKind": "observed",
