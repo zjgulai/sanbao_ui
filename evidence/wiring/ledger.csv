@@ -59,6 +59,8 @@ QDR.P07.projects.list,P07,discovery,projects-list,observed,runtime,read,wired(re
 QDR.P07.projects.detail,P07,discovery,projects-detail,observed,runtime,read,wired(read),apps/sage-shell/src/product/app/desktop/collaboration-page.tsx projectDetail（真机读数 2026-10-26）
 QDR.P07.projects.draft,P07,discovery,projects-draft,observed,runtime,write,wired(write),apps/sage-shell/src/product/app/desktop/collaboration-page.tsx submitDraft + POST /.sage/collaboration（真机读数 2026-10-26）
 QDR.P07.scope.unexpanded,P07,discovery,group-p07,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.P08.discussions.list,P08,discovery,discussions-list,observed,runtime,read,wired(read),apps/sage-shell/src/product/app/desktop/collaboration-page.tsx discussionBody + persistence/collaboration-store.ts（真机读数 2026-10-26）
+QDR.P08.discussions.detail,P08,discovery,discussions-detail,observed,runtime,read,wired(read),apps/sage-shell/src/product/app/desktop/collaboration-page.tsx discussionDetail（真机读数 2026-10-26）
 QDR.P08.scope.unexpanded,P08,discovery,group-p08,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
 QDR.P09.scope.unexpanded,P09,discovery,group-p09,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
 QDR.P10.scope.unexpanded,P10,discovery,group-p10,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
