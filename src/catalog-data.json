@@ -1439,6 +1439,38 @@
       "notes": "本条是候选组范围占位，不是已确认的叶状态，也不是叶状态穷举。原始覆盖登记：未实测。可能受账号／产品模式控制；项目视图包含 active、backlog、review、done 的解析线索；依据 docs/qoder-static-candidates.md；静态线索不等于运行验证。待适配不表示已纳入 iOS 范围。"
     },
     {
+      "id": "QDR.P08.discussions.list",
+      "title": "讨论列表（含状态筛选与空态）",
+      "groupIds": [
+        "P08"
+      ],
+      "observationIds": [],
+      "page": "discovery",
+      "variant": "discussions-list",
+      "sourceKind": "observed",
+      "evidence": "Sanbao CollaborationCollectionWorkbench.tsx:16-20,123-228（section=discussions, view=list）；Sage 实现 apps/sage-shell/src/product/app/desktop/collaboration-page.tsx discussionBody；真实 store apps/sage-shell/src/persistence/collaboration-store.ts；真机读数 2026-10-26",
+      "trigger": "协作页切到「讨论」后默认渲染讨论列表；状态页签（全部/开放/等待/已解决）与搜索同时作用于列表。",
+      "exit": "点击行进入详情；点击「返回列表」回到本视图；切到「项目与 Issue」离开本区。",
+      "implemented": false,
+      "notes": "叶状态由真实 store 读取驱动：read + 0 行显示「当前筛选下没有本地讨论」，unavailable 显示具名原因，二者不得混同。讨论用 open/waiting/resolved 三态，不借用项目族的四态。"
+    },
+    {
+      "id": "QDR.P08.discussions.detail",
+      "title": "讨论详情（含参与者与消息计数）",
+      "groupIds": [
+        "P08"
+      ],
+      "observationIds": [],
+      "page": "discovery",
+      "variant": "discussions-detail",
+      "sourceKind": "observed",
+      "evidence": "Sanbao CollaborationCollectionWorkbench.tsx（view=detail, section=discussions）；Sage collaboration-page.tsx discussionDetail；真机读数 2026-10-26",
+      "trigger": "在讨论列表点击任一行进入详情；详情展示摘要、状态、更新时间与本地参与者/消息计数。",
+      "exit": "点击「返回列表」回到列表；选中项若已不在读取结果中，显示「选中的条目已不在当前协作数据中」而非空详情。",
+      "implemented": false,
+      "notes": "参与者与消息数是计数，不是成员名单或消息正文——源工作台的 meta 就是「N 位本地参与者 · N 条消息」。"
+    },
+    {
       "id": "QDR.P08.scope.unexpanded",
       "title": "讨论及参与者、状态（组内状态待展开）",
       "groupIds": [
