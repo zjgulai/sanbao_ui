@@ -1487,6 +1487,38 @@
       "notes": "本条是候选组范围占位，不是已确认的叶状态，也不是叶状态穷举。原始覆盖登记：未实测。列表、讨论详情、参与者与状态弹层；尚未观察入口；依据 docs/qoder-static-candidates.md；静态线索不等于运行验证。待适配不表示已纳入 iOS 范围。"
     },
     {
+      "id": "QDR.P09.mywork.list",
+      "title": "我的工作列表（种类筛选与空态）",
+      "groupIds": [
+        "P09"
+      ],
+      "observationIds": [],
+      "page": "discovery",
+      "variant": "mywork-list",
+      "sourceKind": "observed",
+      "evidence": "Sanbao CollaborationCollectionWorkbench.tsx:16-20,77-81,102-108,123-228（section=my-work, view=list）；Sage 实现 apps/sage-shell/src/product/app/desktop/collaboration-page.tsx workItemBody；真实 store apps/sage-shell/src/persistence/collaboration-store.ts；真机读数 2026-10-26",
+      "trigger": "协作页切到「我的工作」后默认渲染工作项列表；种类页签（全部/待处理/澄清/动态）与搜索同时作用于列表，搜索覆盖上下文行。",
+      "exit": "点击行进入详情；点击「返回列表」回到本视图；切到「项目与 Issue」或「讨论」离开本区。",
+      "implemented": false,
+      "notes": "筛选键是种类（needs/clarification/updates），不是状态——源工作台 FILTERS[my-work] 即此三键。store 可读且筛选后 0 行显示「当前筛选下没有本地工作项」，unavailable 显示具名原因，二者不得混同。计数行写作「共 N 条」，与筛选后为空不矛盾。"
+    },
+    {
+      "id": "QDR.P09.mywork.detail",
+      "title": "我的工作详情（种类与上下文，无处置入口）",
+      "groupIds": [
+        "P09"
+      ],
+      "observationIds": [],
+      "page": "discovery",
+      "variant": "mywork-detail",
+      "sourceKind": "observed",
+      "evidence": "Sanbao CollaborationCollectionWorkbench.tsx（view=detail, section=my-work）；Sage collaboration-page.tsx workItemDetail；真机读数 2026-10-26",
+      "trigger": "在列表点击任一行进入详情；详情展示摘要、种类、更新时间与上下文行。",
+      "exit": "点击「返回列表」回到列表；选中项若已不在读取结果中，显示「选中的条目已不在当前协作数据中」。",
+      "implemented": false,
+      "notes": "详情明确写「本地工作项没有处置入口」：源工作台的处置动作只产生日志式反馈、不改变状态，故不给按钮。工作项无 status 字段，也没有迁移图。"
+    },
+    {
       "id": "QDR.P09.scope.unexpanded",
       "title": "我的工作、待处理、澄清、动态（组内状态待展开）",
       "groupIds": [
