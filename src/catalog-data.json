@@ -2095,6 +2095,86 @@
       "notes": "本条是候选组范围占位，不是已确认的叶状态，也不是叶状态穷举。原始覆盖登记：未实测。静态错误候选；不移动真实目录或删除历史来制造；依据 docs/qoder-static-candidates.md；静态线索不等于运行验证。待适配不表示已纳入 iOS 范围。"
     },
     {
+      "id": "QDR.S12.failure.network",
+      "title": "网络不可用（失败说明与恢复路径）",
+      "groupIds": [
+        "S12"
+      ],
+      "observationIds": [],
+      "page": "discovery",
+      "variant": "failure-network",
+      "sourceKind": "observed",
+      "evidence": "Sanbao SessionResilienceWorkbench.tsx:33（view=network-offline，SANBAO.S12.F04）；Sage 实现 apps/sage-shell/src/product/app/turn-failure.ts（TRANSPORT/EPIPE/ETIMEDOUT/ENOTFOUND/ECONNREFUSED/ECONNRESET → network）+ desktop/session-view.tsx 失败说明；真机读数 2026-10-27（runSeq 47 / MISSING_CREDENTIAL 验证同一呈现机制）",
+      "trigger": "一个回合以 error 结束且日志带有可归类的失败码时，会话消息区显示失败说明（类别 / 发生了什么 / 下一步 / 原始 code 与 message）。",
+      "exit": "重新发送成功，或切换到另一个事项；说明随该回合留在记录里。",
+      "implemented": false,
+      "notes": "失败说明在滚动区内、与正文同内边距。三层信息分开：红色标签、正文建议、灰色等宽原始行。原始 code 与 message 必须保留，分类只是给人看的层。"
+    },
+    {
+      "id": "QDR.S12.failure.credential",
+      "title": "凭证缺失（本地可恢复）",
+      "groupIds": [
+        "S12"
+      ],
+      "observationIds": [],
+      "page": "discovery",
+      "variant": "failure-credential",
+      "sourceKind": "observed",
+      "evidence": "Sage turn-failure.ts（MISSING_CREDENTIAL → credential）；真机读数 2026-10-27：env -u DEEPSEEK_API_KEY 后真实发送，reply.text=null、failed=true、code=MISSING_CREDENTIAL，界面显示「缺少凭证」与「到设置的模型配置里补上凭证后重新发送」",
+      "trigger": "模型路由解析所需的环境变量没有设置时，回合以 error 结束并给出可执行的恢复动作。",
+      "exit": "补上凭证后重新发送；本轮不重试，避免用同一缺失条件反复失败。",
+      "implemented": false,
+      "notes": "源工作台的四条里没有这一条：它是 Sage 自己的失败码。建叶是为了让「本地可恢复」这一类在矩阵里可见，而不是混进配额或许可证。"
+    },
+    {
+      "id": "QDR.S12.failure.quota",
+      "title": "配额耗尽（Sage 无数据源）",
+      "groupIds": [
+        "S12"
+      ],
+      "observationIds": [],
+      "page": "discovery",
+      "variant": "failure-quota",
+      "sourceKind": "observed",
+      "evidence": "Sanbao SessionResilienceWorkbench.tsx:30（view=quota-exhausted，SANBAO.S12.F01）；Sage 现状：HostQuota 与 readUsage 均未接路由，turn-failure.ts 刻意不映射 QUOTA_EXHAUSTED——没有数据源就不编类别",
+      "trigger": "源工作台在配额耗尽时展示中断说明；Sage 当前无法得知配额状态。",
+      "exit": "待配额读数接入后核验；当前不提供恢复动作。",
+      "implemented": false,
+      "notes": "本条是已建成但阻塞的叶：叶存在、UI 机制存在，缺的是配额事实来源。不编造 QUOTA_EXHAUSTED 分类，也不画「重试配额」这类做不到的按钮。"
+    },
+    {
+      "id": "QDR.S12.failure.throttled",
+      "title": "模型限流（Sage 无数据源）",
+      "groupIds": [
+        "S12"
+      ],
+      "observationIds": [],
+      "page": "discovery",
+      "variant": "failure-throttled",
+      "sourceKind": "observed",
+      "evidence": "Sanbao SessionResilienceWorkbench.tsx:31（view=model-throttled，SANBAO.S12.F02）；Sage 现状：无 429 / 限流信号的路由或字段，turn-failure.ts 不映射 RATE_LIMITED",
+      "trigger": "源工作台在模型限流时展示等待与恢复路径；Sage 当前收不到限流信号。",
+      "exit": "待限流信号接入后核验；当前不提供恢复动作。",
+      "implemented": false,
+      "notes": "与配额同理：有叶、有呈现机制，缺信号来源。等待时长没有任何数据可依，不写。"
+    },
+    {
+      "id": "QDR.S12.failure.license",
+      "title": "许可证不可用（Sage 无数据源）",
+      "groupIds": [
+        "S12"
+      ],
+      "observationIds": [],
+      "page": "discovery",
+      "variant": "failure-license",
+      "sourceKind": "observed",
+      "evidence": "Sanbao SessionResilienceWorkbench.tsx:35（view=license-unavailable，SANBAO.S12.F03）；Sage 现状：无许可证权威（license authority），turn-failure.ts 不映射 LICENSE_UNAVAILABLE",
+      "trigger": "源工作台在许可证不可用时阻止继续；Sage 当前没有许可证事实可读。",
+      "exit": "待许可证权威接入后核验；当前不提供恢复动作。",
+      "implemented": false,
+      "notes": "身份与授权边界见 Identity / Policy Resolver 记录：真实身份接入默认最小化并 fail closed。没有权威就不声称许可证状态。"
+    },
+    {
       "id": "QDR.S12.scope.unexpanded",
       "title": "额度、模型、许可证、网络错误（组内状态待展开）",
       "groupIds": [

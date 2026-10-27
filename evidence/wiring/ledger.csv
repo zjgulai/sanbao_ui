@@ -100,6 +100,11 @@ QDR.S08.scope.unexpanded,S08,discovery,group-s08,static-only,design,none,n/a(des
 QDR.S09.scope.unexpanded,S09,discovery,group-s09,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
 QDR.S10.scope.unexpanded,S10,discovery,group-s10,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
 QDR.S11.scope.unexpanded,S11,discovery,group-s11,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.S12.failure.network,S12,discovery,failure-network,observed,runtime,read,wired(read),apps/sage-shell/src/product/app/turn-failure.ts + desktop/session-view.tsx（真机读数 2026-10-27）
+QDR.S12.failure.credential,S12,discovery,failure-credential,observed,runtime,read,wired(read),apps/sage-shell/src/product/app/turn-failure.ts（真机读数 2026-10-27 MISSING_CREDENTIAL）
+QDR.S12.failure.quota,S12,discovery,failure-quota,observed,runtime,none,honest,无配额数据源；HostQuota/readUsage 未接路由
+QDR.S12.failure.throttled,S12,discovery,failure-throttled,observed,runtime,none,honest,无限流信号；无 429 字段或路由
+QDR.S12.failure.license,S12,discovery,failure-license,observed,runtime,none,honest,无许可证权威
 QDR.S12.scope.unexpanded,S12,discovery,group-s12,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
 QDR.S13.scope.unexpanded,S13,discovery,group-s13,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
 QDR.M01.scope.unexpanded,M01,discovery,group-m01,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
