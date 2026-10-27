@@ -76,6 +76,10 @@ QDR.P17.scope.unexpanded,P17,discovery,group-p17,static-only,design,none,n/a(des
 QDR.O01.scope.unexpanded,O01,discovery,group-o01,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
 QDR.O02.scope.unexpanded,O02,discovery,group-o02,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
 QDR.O03.scope.unexpanded,O03,discovery,group-o03,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.O04.groups.manage,O04,discovery,groups-manage,observed,runtime,read,wired(read),apps/sage-shell/src/product/app/desktop/matter-groups-actions.ts + page.tsx（真机读数 2026-10-27 全链 200）
+QDR.O04.admin.rename,O04,discovery,admin-rename,observed,runtime,none,honest,授权表已定义；试用策略模板未授予 → protected-effect-denied（真机 2026-10-27）
+QDR.O04.admin.archive,O04,discovery,admin-archive,observed,runtime,none,honest,授权表已定义；试用策略模板未授予 → protected-effect-denied（真机 2026-10-27）
+QDR.O04.admin.batch,O04,discovery,admin-batch,observed,runtime,none,honest,授权表已定义；试用策略模板未授予
 QDR.O04.scope.unexpanded,O04,discovery,group-o04,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
 QDR.O05.scope.unexpanded,O05,discovery,group-o05,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
 QDR.O06.scope.unexpanded,O06,discovery,group-o06,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI

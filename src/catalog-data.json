@@ -1711,6 +1711,70 @@
       "notes": "本条是候选组范围占位，不是已确认的叶状态，也不是叶状态穷举。原始覆盖登记：未实测。拖动、错误态与状态提示；需麦克风／会话条件的状态另列；依据 docs/qoder-static-candidates.md；静态线索不等于运行验证。待适配不表示已纳入 iOS 范围。"
     },
     {
+      "id": "QDR.O04.groups.manage",
+      "title": "分组管理（创建 / 改名 / 删除 / 成员变更）",
+      "groupIds": [
+        "O04"
+      ],
+      "observationIds": [],
+      "page": "discovery",
+      "variant": "groups-manage",
+      "sourceKind": "observed",
+      "evidence": "Sanbao data-sidebar-session-bulk-actions + ChatSessionSidebarGroupDialog（分组入口）；Sage 实现 apps/sage-shell/src/product/app/desktop/matter-groups-actions.ts + page.tsx matter-groups-drawer，路由 POST /.sage/matter-groups；真机读数 2026-10-27（create→rename→add-members→remove-members→remove 全部 200）",
+      "trigger": "在事项分组抽屉里创建分组、改名、删除，或对成员做批量增删；每条命令都要经 Application Service 准入。",
+      "exit": "命令返回具名回执（created / renamed / batch / removed）；读取侧重读 /.sage/state 的 matterGroups。",
+      "implemented": false,
+      "notes": "四条命令都是 local-write，只写本机分组存储。真机读数见 docs/notes/implemented/process/2026-10-27-owner-decisions-s06-o04-blocked-leaves.md。此前一律 protected-effect-denied——试用策略模板缺这四条授权，不是代码未实现。"
+    },
+    {
+      "id": "QDR.O04.admin.rename",
+      "title": "事项重命名（试用策略未授权）",
+      "groupIds": [
+        "O04"
+      ],
+      "observationIds": [],
+      "page": "discovery",
+      "variant": "admin-rename",
+      "sourceKind": "observed",
+      "evidence": "Sanbao RenameChatDialog；Sage 实现 POST /.sage/matter-admin {action:\"rename\"}，授权表已定义 matter.admin.rename；真机读数 2026-10-27：refused / protected-effect-denied",
+      "trigger": "重命名一个事项；命令经 matter.admin.rename 准入。",
+      "exit": "待试用策略授予该操作后核验；当前一律拒绝。",
+      "implemented": false,
+      "notes": "代码与授权表都已具备，缺的是试用策略模板里的授权。真机确认拒绝原因是 protected-effect-denied，不是未实现。"
+    },
+    {
+      "id": "QDR.O04.admin.archive",
+      "title": "事项归档与恢复（试用策略未授权）",
+      "groupIds": [
+        "O04"
+      ],
+      "observationIds": [],
+      "page": "discovery",
+      "variant": "admin-archive",
+      "sourceKind": "observed",
+      "evidence": "Sanbao ArchiveChatDialog；Sage 实现 POST /.sage/matter-admin {action:\"archive\"|\"restore\"}，授权表已定义 matter.admin.archive / matter.admin.restore；真机读数 2026-10-27：restore refused / protected-effect-denied",
+      "trigger": "归档一个已完成或已停止的事项，或把它恢复；命令经 matter.admin.archive / restore 准入。",
+      "exit": "待试用策略授予后核验；当前一律拒绝。",
+      "implemented": false,
+      "notes": "归档必须带 ground（completed|stopped），不带会被路由判 invalid-matter-admin-request——真机已确认这条前置。"
+    },
+    {
+      "id": "QDR.O04.admin.batch",
+      "title": "批量归档与恢复（试用策略未授权）",
+      "groupIds": [
+        "O04"
+      ],
+      "observationIds": [],
+      "page": "discovery",
+      "variant": "admin-batch",
+      "sourceKind": "observed",
+      "evidence": "Sanbao data-sidebar-session-bulk-actions；Sage 实现 POST /.sage/matter-admin {action:\"batch\"}，授权表已定义 matter.admin.batch",
+      "trigger": "对多个事项同时归档或恢复；命令经 matter.admin.batch 准入。",
+      "exit": "待试用策略授予后核验；当前一律拒绝。",
+      "implemented": false,
+      "notes": "批量与单条共用同一授权族，但独立成一条 operation，因此单独成叶：授权一条不等于授权另一条。"
+    },
+    {
       "id": "QDR.O04.scope.unexpanded",
       "title": "任务操作、批量操作、分组、归档、重命名（组内状态待展开）",
       "groupIds": [
