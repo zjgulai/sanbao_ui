@@ -1839,6 +1839,38 @@
       "notes": "本条是候选组范围占位，不是已确认的叶状态，也不是叶状态穷举。原始覆盖登记：未实测。图表工具栏／全屏；链接加载／失败属于独立异步状态；依据 docs/qoder-static-candidates.md；静态线索不等于运行验证。待适配不表示已纳入 iOS 范围。"
     },
     {
+      "id": "QDR.O12.runs.list",
+      "title": "执行记录列表（按运行列出真实回合）",
+      "groupIds": [
+        "O12"
+      ],
+      "observationIds": [],
+      "page": "discovery",
+      "variant": "runs-list",
+      "sourceKind": "observed",
+      "evidence": "Sanbao CollaborationCollectionWorkbench.tsx:220,273-279（IssueRunTranscriptDialog，源自注「不是真实执行日志」）；Sage 实现 apps/sage-shell/src/product/app/desktop/run-history-panel.ts + collaboration-page.tsx runsBody；真实数据源 /.sage/session/history；真机读数 2026-10-27（runSeq 4 / deepseek-official / completed / 4 条消息）",
+      "trigger": "协作页切到「执行记录」后，需显式点击「读取执行记录」才发请求；读到后按运行列出每一次回合。",
+      "exit": "点击任一行进入运行详情；切到其它 section 离开本区。",
+      "implemented": false,
+      "notes": "四条状态各说各话：没读过／没有会话／读不出／真的空。没读过不自动读——没被问过的问题不该看起来有答案。运行是当前激活事项的会话，不假装属于某条 Issue（Issue 与 run 之间没有关联事实）。"
+    },
+    {
+      "id": "QDR.O12.runs.detail",
+      "title": "执行记录详情（结局与输出原文）",
+      "groupIds": [
+        "O12"
+      ],
+      "observationIds": [],
+      "page": "discovery",
+      "variant": "runs-detail",
+      "sourceKind": "observed",
+      "evidence": "Sanbao CollaborationCollectionWorkbench.tsx（IssueRunTranscript 的步骤回放）；Sage collaboration-page.tsx runDetailBody + session-family.ts readDesktopRunDetail；真机读数 2026-10-27",
+      "trigger": "在记录列表点击任一行进入详情；详情展示运行序号、模型、结局与输出原文。",
+      "exit": "点击「返回执行记录」回到列表。",
+      "implemented": false,
+      "notes": "结局措辞只有一个家 runOutcomeLabel，列表与详情共用——真机曾出现列表说「已完成」而详情说「结局：completed」的分裂。输出用 pre 原样展示，不渲染 markdown。"
+    },
+    {
       "id": "QDR.O12.scope.unexpanded",
       "title": "编辑重发、Issue 执行记录（组内状态待展开）",
       "groupIds": [
