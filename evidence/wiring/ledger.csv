@@ -84,6 +84,8 @@ QDR.O08.scope.unexpanded,O08,discovery,group-o08,static-only,design,none,n/a(des
 QDR.O09.scope.unexpanded,O09,discovery,group-o09,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
 QDR.O10.scope.unexpanded,O10,discovery,group-o10,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
 QDR.O11.scope.unexpanded,O11,discovery,group-o11,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.O12.runs.list,O12,discovery,runs-list,observed,runtime,read,wired(read),apps/sage-shell/src/product/app/desktop/run-history-panel.ts + collaboration-page.tsx runsBody（真机读数 2026-10-27）
+QDR.O12.runs.detail,O12,discovery,runs-detail,observed,runtime,read,wired(read),apps/sage-shell/src/product/app/desktop/collaboration-page.tsx runDetailBody + session-family.ts readDesktopRunDetail（真机读数 2026-10-27）
 QDR.O12.scope.unexpanded,O12,discovery,group-o12,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
 QDR.O13.scope.unexpanded,O13,discovery,group-o13,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
 QDR.O14.scope.unexpanded,O14,discovery,group-o14,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
