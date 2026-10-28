@@ -2415,6 +2415,54 @@
       "notes": "本条是候选组范围占位，不是已确认的叶状态，也不是叶状态穷举。原始覆盖登记：部分已实测。这些是分类集合线索；不要为覆盖逐个执行，尤其不制造删除；依据 docs/qoder-static-candidates.md；静态线索不等于运行验证。待适配不表示已纳入 iOS 范围。；本批新增观察见 docs/qoder-observed-states.md QB1-17/22；写入与编辑工具过程，其他操作未测。"
     },
     {
+      "id": "QDR.M03.tool.web-search",
+      "title": "工具结果 · 网页检索",
+      "groupIds": [
+        "M03"
+      ],
+      "observationIds": [],
+      "page": "discovery",
+      "variant": "tool-web-search",
+      "sourceKind": "observed",
+      "evidence": "Sanbao ToolResultWorkbench.tsx:29（view=web-search，SANBAO.M03.F01）；Sage 实现 contracts.ts ToolResultView/toolResultFields（一个 typed tool result，按 tool 名分派渲染）",
+      "trigger": "会话回合里出现网页检索类工具结果时，工具结果区按类型渲染。",
+      "exit": "回合结束或切到别的会话；结果留在会话记录里。",
+      "implemented": false,
+      "notes": "工具结果只走 sanitized 投影：敏感字段到达时已脱敏，原始 payload 不跨这条边界。"
+    },
+    {
+      "id": "QDR.M03.tool.web-fetch",
+      "title": "工具结果 · 网页抓取",
+      "groupIds": [
+        "M03"
+      ],
+      "observationIds": [],
+      "page": "discovery",
+      "variant": "tool-web-fetch",
+      "sourceKind": "observed",
+      "evidence": "Sanbao ToolResultWorkbench.tsx:30（SANBAO.M03.F02）；Sage 实现 ToolResultField.link（label/host/url）+ refused（bad scheme）",
+      "trigger": "网页抓取类工具结果出现时，链接以 scheme+host 呈现，坏 scheme 单独拒绝。",
+      "exit": "回合结束；链接只能经受控 external-link 入口打开。",
+      "implemented": false,
+      "notes": "refused 字段保留行、不替换渲染——被拒的内容不approximate。"
+    },
+    {
+      "id": "QDR.M03.tool.bash-output",
+      "title": "工具结果 · 终端输出",
+      "groupIds": [
+        "M03"
+      ],
+      "observationIds": [],
+      "page": "discovery",
+      "variant": "tool-bash-output",
+      "sourceKind": "observed",
+      "evidence": "Sanbao ToolResultWorkbench.tsx:31（SANBAO.M03.F03）；Sage 实现 TerminalStatus（integrated terminal 只读）+ ToolResultField.text",
+      "trigger": "命令或日志类输出出现时，按文本字段渲染，长内容折叠。",
+      "exit": "回合结束；终端面板是独立的只读观察面。",
+      "implemented": false,
+      "notes": "终端只读观察：不启动进程、不重放命令。"
+    },
+    {
       "id": "QDR.M03.scope.unexpanded",
       "title": "网络与终端工具（组内状态待展开）",
       "groupIds": [
@@ -2445,6 +2493,38 @@
       "exit": "组级线索尚未展开，实际退出／恢复路径待核验。",
       "implemented": false,
       "notes": "本条是候选组范围占位，不是已确认的叶状态，也不是叶状态穷举。原始覆盖登记：未实测。能否调用与账户能力未验证；不据名称额外安装或生成付费素材；依据 docs/qoder-static-candidates.md；静态线索不等于运行验证。待适配不表示已纳入 iOS 范围。"
+    },
+    {
+      "id": "QDR.M05.result.details",
+      "title": "工具详情（输入输出展开）",
+      "groupIds": [
+        "M05"
+      ],
+      "observationIds": [],
+      "page": "discovery",
+      "variant": "result-details",
+      "sourceKind": "observed",
+      "evidence": "Sanbao ToolResultWorkbench.tsx:35（SANBAO.M05.F01）；Sage 实现 ToolResultField 六型：text / key-values / table / link / image / refused",
+      "trigger": "展开一条工具结果时，按其字段类型分别渲染。",
+      "exit": "收起详情回到结果列表。",
+      "implemented": false,
+      "notes": "六种字段类型共用一条投影边界。refused 是其中一型：被拒的字段保留行，不approximate。"
+    },
+    {
+      "id": "QDR.M05.result.unsupported",
+      "title": "工具结果 · 不支持的类型",
+      "groupIds": [
+        "M05"
+      ],
+      "observationIds": [],
+      "page": "discovery",
+      "variant": "result-unsupported",
+      "sourceKind": "observed",
+      "evidence": "Sanbao ToolResultWorkbench.tsx:36（SANBAO.M05.F02）；Sage 实现 ToolResultUnsupportedView（declaredType 具名拒绝）",
+      "trigger": "工具声明了 Sage 不支持的字段类型时，行保留并具名说明类型被拒。",
+      "exit": "回合结束；该行不会变成替代渲染。",
+      "implemented": false,
+      "notes": "按名拒绝，不做近似渲染——这是投影边界的一部分，不是渲染失败。"
     },
     {
       "id": "QDR.M05.scope.unexpanded",
@@ -2525,6 +2605,22 @@
       "exit": "组级线索尚未展开，实际退出／恢复路径待核验。",
       "implemented": false,
       "notes": "本条是候选组范围占位，不是已确认的叶状态，也不是叶状态穷举。原始覆盖登记：部分已实测。预览／源码、独立窗口与工作台内嵌；HTML 预览有 viewMode:\"source\" 线索；依据 docs/qoder-static-candidates.md；静态线索不等于运行验证。待适配不表示已纳入 iOS 范围。；本批新增观察见 docs/qoder-observed-states.md QB1-20；内置浏览器本地 HTML 预览，不证明独立 Artifact runtime。"
+    },
+    {
+      "id": "QDR.A05.artifact.version-failed",
+      "title": "产物版本与预览失败",
+      "groupIds": [
+        "A05"
+      ],
+      "observationIds": [],
+      "page": "discovery",
+      "variant": "version-failed",
+      "sourceKind": "observed",
+      "evidence": "Sanbao ArtifactWorkspaceWorkbench.tsx:13（view=version-failed，SANBAO.A05.F01）；Sage 实现 ArtifactCardState（ready|absent|unconfirmed）+ ArtifactPreviewState.failed（code + retryable）",
+      "trigger": "产物版本确认失败或预览装载失败时，卡片与预览各自给出自己的失败状态。",
+      "exit": "重试重读同一版本（retryable），绝不推进版本；或关闭预览。",
+      "implemented": false,
+      "notes": "卡片失败与预览失败是两个状态，不合并。retryable 只重读同一版本。"
     },
     {
       "id": "QDR.A05.scope.unexpanded",
