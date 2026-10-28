@@ -2047,6 +2047,54 @@
       "notes": "本条是候选组范围占位，不是已确认的叶状态，也不是叶状态穷举。原始覆盖登记：未实测。计划文本、计划工具卡与确认 UI 是不同证据对象；依据 docs/qoder-static-candidates.md；静态线索不等于运行验证。待适配不表示已纳入 iOS 范围。"
     },
     {
+      "id": "QDR.S05.queue.pending",
+      "title": "模型排队（等待中）",
+      "groupIds": [
+        "S05"
+      ],
+      "observationIds": [],
+      "page": "discovery",
+      "variant": "queue-pending",
+      "sourceKind": "observed",
+      "evidence": "Sanbao ExecutionLifecycleWorkbench.tsx:22,30,44（view=queue-pending，SANBAO.S05.F01）；Sage 实现 appservice/contracts.ts ModelQueueStatus（verdict: waiting）+ desktop 会话面 model-queue 卡",
+      "trigger": "有排队的模型请求等待派发时，会话面显示队列裁决与位置。",
+      "exit": "裁决转为 ready 或请求被取消；面板随状态轮询更新。",
+      "implemented": false,
+      "notes": "verdict 是服务给的裁决，不是本地计时器推断。等待时长没有数据就不写。"
+    },
+    {
+      "id": "QDR.S05.queue.retrying",
+      "title": "模型重试（含重试次数）",
+      "groupIds": [
+        "S05"
+      ],
+      "observationIds": [],
+      "page": "discovery",
+      "variant": "queue-retrying",
+      "sourceKind": "observed",
+      "evidence": "Sanbao ExecutionLifecycleWorkbench.tsx:32（SANBAO.S05.F01）；Sage 实现 ModelQueueStatus.retries（ModelQueueRetryView[]）+ verdict: retrying",
+      "trigger": "一次派发失败后自动重试时，显示重试记录与最后一次重试时间。",
+      "exit": "重试成功转 ready，或重试耗尽转 unknown（只给核对入口，不给重试）。",
+      "implemented": false,
+      "notes": "verifyOnly 为 true 时只提供重新读取，不画重试按钮——未解决的重试不该被诱导重试。"
+    },
+    {
+      "id": "QDR.S05.queue.ready",
+      "title": "模型就绪",
+      "groupIds": [
+        "S05"
+      ],
+      "observationIds": [],
+      "page": "discovery",
+      "variant": "queue-ready",
+      "sourceKind": "observed",
+      "evidence": "Sanbao ExecutionLifecycleWorkbench.tsx:22（view=queue-ready）；Sage 实现 ModelQueueStatus.verdict: ready",
+      "trigger": "队列清空且模型可用时，面板显示就绪。",
+      "exit": "下一次派发开始或会话结束。",
+      "implemented": false,
+      "notes": "就绪不等于已授权执行；面板不承诺任务会成功。"
+    },
+    {
       "id": "QDR.S05.scope.unexpanded",
       "title": "模型排队、重试与就绪（组内状态待展开）",
       "groupIds": [
@@ -2077,6 +2125,54 @@
       "exit": "组级线索尚未展开，实际退出／恢复路径待核验。",
       "implemented": false,
       "notes": "本条是候选组范围占位，不是已确认的叶状态，也不是叶状态穷举。原始覆盖登记：未实测。可见步骤有 hover 详情；pending 可映射成 blocked 展示；依据 docs/qoder-static-candidates.md；静态线索不等于运行验证。待适配不表示已纳入 iOS 范围。"
+    },
+    {
+      "id": "QDR.S07.followup.compose",
+      "title": "运行中追加输入（编辑区）",
+      "groupIds": [
+        "S07"
+      ],
+      "observationIds": [],
+      "page": "discovery",
+      "variant": "follow-up-composer",
+      "sourceKind": "observed",
+      "evidence": "Sanbao ExecutionLifecycleWorkbench.tsx:24,47（view=follow-up-composer，SANBAO.S07.F01）；Sage 实现 contracts.ts pending[]（state: pending, editable）+ 路由 POST /.sage/session/pending",
+      "trigger": "回合执行中用户追加输入时，输入进入待继续列表而不是立即派发。",
+      "exit": "输入被消费（consumed）或在停止时排出（drained-at-stop）。",
+      "implemented": false,
+      "notes": "editable 为 true 才可编辑；已消费的行不可改。"
+    },
+    {
+      "id": "QDR.S07.followup.queued",
+      "title": "追加输入排队（队列快照）",
+      "groupIds": [
+        "S07"
+      ],
+      "observationIds": [],
+      "page": "discovery",
+      "variant": "follow-up-queued",
+      "sourceKind": "observed",
+      "evidence": "Sanbao ExecutionLifecycleWorkbench.tsx:24（view=follow-up-queued）；Sage 实现 contracts.ts queue.occurrences（position: queued|steering|context）+ 路由 POST /.sage/session/queue",
+      "trigger": "追加输入进入权威队列快照后，面板按 position 显示其位置。",
+      "exit": "队列项被消费；或会话停止清空队列。",
+      "implemented": false,
+      "notes": "position 来自基座权威快照，不由本地回显推导。读取失败显示 unavailable，不冒充空队列。"
+    },
+    {
+      "id": "QDR.S07.followup.delivered",
+      "title": "追加输入已送达",
+      "groupIds": [
+        "S07"
+      ],
+      "observationIds": [],
+      "page": "discovery",
+      "variant": "follow-up-delivered",
+      "sourceKind": "observed",
+      "evidence": "Sanbao ExecutionLifecycleWorkbench.tsx:24（view=follow-up-delivered）；Sage 实现 pending[].state: submitted|consumed",
+      "trigger": "追加输入被基座消费后，行标记为已送达。",
+      "exit": "会话结束；历史读取可复核该输入。",
+      "implemented": false,
+      "notes": "delivered 由服务的消费回执给出，不看本地乐观状态。"
     },
     {
       "id": "QDR.S07.scope.unexpanded",
@@ -2253,6 +2349,22 @@
       "exit": "组级线索尚未展开，实际退出／恢复路径待核验。",
       "implemented": false,
       "notes": "本条是候选组范围占位，不是已确认的叶状态，也不是叶状态穷举。原始覆盖登记：未实测。错误文案存在，不证明当前发生；也不提供追加计费许可；依据 docs/qoder-static-candidates.md；静态线索不等于运行验证。待适配不表示已纳入 iOS 范围。"
+    },
+    {
+      "id": "QDR.S13.preview.unavailable",
+      "title": "产物预览未打开（局部失败）",
+      "groupIds": [
+        "S13"
+      ],
+      "observationIds": [],
+      "page": "discovery",
+      "variant": "preview-unavailable",
+      "sourceKind": "observed",
+      "evidence": "Sanbao SessionResilienceWorkbench.tsx:38（view=preview-unavailable，SANBAO.S13.F01）；Sage 实现 contracts.ts ArtifactPreviewState（state: failed，带 code 与 retryable）",
+      "trigger": "产物预览装载失败时，失败范围限定在该预览内，其他摘要与导航仍可用。",
+      "exit": "重试重读同一版本（retryable），或关闭预览。",
+      "implemented": false,
+      "notes": "失败是独立状态，不退回空预览。retryable 只重读同一版本，绝不推进版本。"
     },
     {
       "id": "QDR.S13.scope.unexpanded",
