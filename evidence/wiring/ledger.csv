@@ -120,13 +120,19 @@ QDR.S13.preview.unavailable,S13,discovery,preview-unavailable,observed,runtime,r
 QDR.S13.scope.unexpanded,S13,discovery,group-s13,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
 QDR.M01.scope.unexpanded,M01,discovery,group-m01,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
 QDR.M02.scope.unexpanded,M02,discovery,group-m02,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.M03.tool.web-search,M03,discovery,tool-web-search,observed,runtime,read,wired(read),contracts.ts ToolResultView + field kinds
+QDR.M03.tool.web-fetch,M03,discovery,tool-web-fetch,observed,runtime,read,wired(read),ToolResultField.link + refused
+QDR.M03.tool.bash-output,M03,discovery,tool-bash-output,observed,runtime,read,wired(read),TerminalStatus + ToolResultField.text
 QDR.M03.scope.unexpanded,M03,discovery,group-m03,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
 QDR.M04.scope.unexpanded,M04,discovery,group-m04,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.M05.result.details,M05,discovery,result-details,observed,runtime,read,wired(read),ToolResultField 六型
+QDR.M05.result.unsupported,M05,discovery,result-unsupported,observed,runtime,read,wired(read),ToolResultUnsupportedView declaredType
 QDR.M05.scope.unexpanded,M05,discovery,group-m05,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
 QDR.A01.scope.unexpanded,A01,discovery,group-a01,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
 QDR.A02.scope.unexpanded,A02,discovery,group-a02,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
 QDR.A03.scope.unexpanded,A03,discovery,group-a03,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
 QDR.A04.scope.unexpanded,A04,discovery,group-a04,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.A05.artifact.version-failed,A05,discovery,version-failed,observed,runtime,read,wired(read),ArtifactCardState + ArtifactPreviewState.failed
 QDR.A05.scope.unexpanded,A05,discovery,group-a05,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
 QDR.A06.scope.unexpanded,A06,discovery,group-a06,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
 QDR.OBS02.knowledge.entry,OBS02,discovery,knowledge-entry,entry-observed,design,entry,entry-verified,evidence/wiring/knowledge（入口直落已接线知识页：读数=read＋壳侧集合名册出现）
