@@ -97,8 +97,14 @@ QDR.S01.scope.unexpanded,S01,discovery,group-s01,static-only,design,none,n/a(des
 QDR.S02.scope.unexpanded,S02,discovery,group-s02,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
 QDR.S03.scope.unexpanded,S03,discovery,group-s03,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
 QDR.S04.scope.unexpanded,S04,discovery,group-s04,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.S05.queue.ready,S05,discovery,queue-ready,observed,runtime,read,wired(read),ModelQueueStatus.verdict ready
+QDR.S05.queue.retrying,S05,discovery,queue-retrying,observed,runtime,read,wired(read),ModelQueueStatus.retries + verdict retrying
+QDR.S05.queue.pending,S05,discovery,queue-pending,observed,runtime,read,wired(read),apps/sage-shell/src/appservice/contracts.ts ModelQueueStatus（verdict waiting）
 QDR.S05.scope.unexpanded,S05,discovery,group-s05,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
 QDR.S06.scope.unexpanded,S06,discovery,group-s06,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.S07.followup.delivered,S07,discovery,follow-up-delivered,observed,runtime,read,wired(read),pending[].state submitted|consumed
+QDR.S07.followup.queued,S07,discovery,follow-up-queued,observed,runtime,read,wired(read),contracts.ts queue.occurrences position
+QDR.S07.followup.compose,S07,discovery,follow-up-composer,observed,runtime,read,wired(read),contracts.ts pending[] editable
 QDR.S07.scope.unexpanded,S07,discovery,group-s07,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
 QDR.S08.scope.unexpanded,S08,discovery,group-s08,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
 QDR.S09.scope.unexpanded,S09,discovery,group-s09,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
@@ -110,6 +116,7 @@ QDR.S12.failure.quota,S12,discovery,failure-quota,observed,runtime,none,honest,�
 QDR.S12.failure.throttled,S12,discovery,failure-throttled,observed,runtime,none,honest,无限流信号；无 429 字段或路由
 QDR.S12.failure.license,S12,discovery,failure-license,observed,runtime,none,honest,无许可证权威
 QDR.S12.scope.unexpanded,S12,discovery,group-s12,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
+QDR.S13.preview.unavailable,S13,discovery,preview-unavailable,observed,runtime,read,wired(read),ArtifactPreviewState failed + retryable
 QDR.S13.scope.unexpanded,S13,discovery,group-s13,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
 QDR.M01.scope.unexpanded,M01,discovery,group-m01,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
 QDR.M02.scope.unexpanded,M02,discovery,group-m02,static-only,design,none,n/a(design),设计型工作面（静态候选）；无壳对应事实，不注入壳 UI
